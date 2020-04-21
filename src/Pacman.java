@@ -2,7 +2,7 @@ public class Pacman extends LivingEntity {
 
     private int lives = 3;
     private int score = 0;
-    private double powerupTimeLeft = 0;
+    private double powerUpTimeLeft = 0;
     private int killedGhostsStreak = 0;
 
     private final int POWERUP_TIME = 15;
@@ -53,7 +53,7 @@ public class Pacman extends LivingEntity {
 
     // nastąpiła kolizja z duchem
     public void collision(Ghost g) {
-        if (powerupTimeLeft > 0) {
+        if (powerUpTimeLeft > 0) {
             addScore(g.points);
             killedGhostsStreak++;
             g.die();
@@ -83,8 +83,8 @@ public class Pacman extends LivingEntity {
     public void tick() {
         move();
 
-        if (powerupTimeLeft > 0) {
-            powerupTimeLeft -= (double) 1 / 60;
+        if (powerUpTimeLeft > 0) {
+            powerUpTimeLeft -= (double) 1 / 60;
         }
 
         for (Ghost g : ghosts) {
@@ -93,9 +93,9 @@ public class Pacman extends LivingEntity {
             }
         }
 
-        if (dots[toCells(y)][toCells(x)] != null) {
-            dots[toCells(y)][toCells(x)].pickup(this);
-        }
+//        if (dots[toCells(y)][toCells(x)] != null) {
+//            dots[toCells(y)][toCells(x)].pickup(this);
+//        }
 
         for (Fruit f : fruits) {
             if (getBounds().intersects(f.getBounds())) {
