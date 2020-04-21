@@ -4,7 +4,9 @@ import java.awt.Graphics;
 public abstract class LivingEntity extends Entity {
     boolean alive;
     double speed; // wyrażona w pikselach na klatkę
+
     enum Direction {UP, DOWN, LEFT, RIGHT}
+
     Direction direction;
 
     boolean[][] board;
@@ -18,13 +20,13 @@ public abstract class LivingEntity extends Entity {
     public boolean canMove() {
         final boolean BOARD_WALL = false;
 
-        if(board == null)
+        if (board == null)
             throw new NullPointerException();
 
         Rectangle boundsNext = getBounds();
 
         // obliczamy położenie Entity w następnej klatce
-        switch(direction) {
+        switch (direction) {
             case UP:
                 boundsNext.y -= speed;
             case DOWN:
@@ -35,9 +37,7 @@ public abstract class LivingEntity extends Entity {
                 boundsNext.x += speed;
         }
 
-        // jeśli któryś z kątów Entity w następnej klatce
-        // znalazłby się w ścianie, to Entity nie może
-        // się poruszyć
+        // jeśli któryś z kątów Entity w następnej klatce znalazłby się w ścianie, to Entity nie może się poruszyć
         try {
             if (board[toCells(boundsNext.y - BOARD_START_Y)][toCells(boundsNext.x - BOARD_START_X)] == BOARD_WALL)
                 return false;
@@ -55,7 +55,7 @@ public abstract class LivingEntity extends Entity {
         }
     }
 
-    // teleportuje postać na wskazane x/y
+    // teleportuje postać na wskazane x, y
     public void teleport(int x, int y) {
         this.x = x;
         this.y = y;
