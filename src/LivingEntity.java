@@ -1,20 +1,20 @@
 import java.awt.Rectangle;
+import java.awt.Graphics;
 
-public abstract class LivingEntity implements Entity {
+public abstract class LivingEntity extends Entity {
+    boolean alive;
+    double speed; // wyrażona w pikselach na klatkę
+    enum Direction {UP, DOWN, LEFT, RIGHT}
+    Direction direction;
 
-    private boolean alive;
-    private double speed; // wyrażona w pikselach na klatkę
-    private enum Direction {UP, DOWN, LEFT, RIGHT}
-    private Direction direction;
-    private boolean[][] board;
+    boolean[][] board;
 
-
-    public abstract void tick();
-
+    // przekazanie położenie ścian do tej klasy
     public void pushBoard(boolean[][] board) {
         this.board = board;
     }
 
+    // zwraca, czy postać może się poruszyć
     public boolean canMove() {
         final boolean BOARD_WALL = true;
 
@@ -38,27 +38,32 @@ public abstract class LivingEntity implements Entity {
         // jeśli któryś z kątów Entity w następnej klatce
         // znalazłby się w ścianie, to Entity nie może
         // się poruszyć
-        if(board[boundsNext.y / 20][boundsNext.x / 20] == BOARD_WALL)
+        if(board[toCells(boundsNext.y)][toCells(boundsNext.x)] == BOARD_WALL)
             return false;
-        if(board[(boundsNext.y + boundsNext.height) / 20][boundsNext.x / 20] == BOARD_WALL)
+        if(board[toCells(boundsNext.y + boundsNext.height)][toCells(boundsNext.x)] == BOARD_WALL)
             return false;
-        if(board[boundsNext.y / 20][(boundsNext.x + boundsNext.width) / 20] == BOARD_WALL)
+        if(board[toCells(boundsNext.y)][toCells(boundsNext.x + boundsNext.width)] == BOARD_WALL)
             return false;
-        if(board[(boundsNext.y + boundsNext.height) / 20][(boundsNext.x + boundsNext.width) / 20] == BOARD_WALL)
+        if(board[toCells(boundsNext.y + boundsNext.height)][toCells(boundsNext.x + boundsNext.width)] == BOARD_WALL)
             return false;
 
         // wszystkie kąty zostały sprawdzone, kolizji nie będzie
         return true;
     }
 
+    // teleportuje postać na wskazane x/y
+    public void teleport(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    // zamienia długość z pikseli na komórki
+    int toCells(int value) {
+        return value / 20;
+    }
+
     @Override
-    public void render() {
+    public void render(Graphics g) {
         // TODO: zrobić
     }
-
-    @Override
-    public Rectangle getBounds() {
-        return new Rectangle(x, y, width, height);
-    }
-
 }
