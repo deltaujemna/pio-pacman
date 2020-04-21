@@ -9,7 +9,7 @@ public class Pacman extends LivingEntity {
 
     Ghost[] ghosts;
     CollectableEntity[][] dots;
-    Fruit[] fruits;
+   // Fruit[] fruits;
 
     // przekazanie położenie ścian do tej klasy
     public void pushGhosts(Ghost[] ghosts) {
@@ -22,9 +22,9 @@ public class Pacman extends LivingEntity {
     }
 
     // przekazanie położenie owoców do tej klasy
-    public void pushFruits(Fruit[] fruits) {
-        this.fruits = fruits;
-    }
+    //public void pushFruits(Fruit[] fruits) {
+        //this.fruits = fruits;
+    //}
 
     // dodaje punkty
     public void addScore(int value) {
@@ -96,12 +96,12 @@ public class Pacman extends LivingEntity {
         if(dots[toCells(y)][toCells(x)] != null) {
             dots[toCells(y)][toCells(x)].pickup(this);
         }
-
+        /*
         for(Fruit f : fruits) {
             if(getBounds().intersects(f.getBounds())) {
                 f.pickup(this);
             }
-        }
+        } */
     }
 
 }
