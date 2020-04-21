@@ -3,8 +3,14 @@ import java.awt.*;
 
 public class Maze extends JPanel {
     int cellSize = 20; //rozmiar pojedynczej komórki na planszy
-    boolean[][] grid = new boolean[20][20];
-    boolean[][] dots = new boolean[20][20];
+    boolean[][] grid = new boolean[19][19];
+    boolean[][] dots = new boolean[19][19];
+
+    public Maze() {
+        for (int i = 0; i < 19; i++)
+            for (int j = 0; j < 19; j++)
+                grid[i][j] = true; //przed ustawieniem ścian można się poruszać po wszystkich komórkach
+    }
 
     //TODO: Poprawić, żeby (jeśli się da) drawBoard było wywołane tylko raz, a nie w każdej klatce
     //Rysuje jedną całą klatkę gry
@@ -14,7 +20,6 @@ public class Maze extends JPanel {
         drawBoard(g);
     }
 
-    //TODO: updateMap nie działa (wszystkie elementy w grid[][] są false)
     /*Aktualizuje mapę - dla prostokąta przekazanego w argumencie (x, y - współrzędne
     górnego lewego wierzchołka, width, height - wymiary na prawo i do dołu) ustawia wartość
     elementu na false (ściana) - czyli po danej komórce nie można się poruszać ani ustawić w niej kropki*/

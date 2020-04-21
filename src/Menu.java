@@ -31,7 +31,6 @@ public class Menu extends JFrame {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO: Naciśnięcie start powinno powodować pojawienie się okna Maze
                 mazeFrame.setVisible(true);
                 setVisible(false);
             }
