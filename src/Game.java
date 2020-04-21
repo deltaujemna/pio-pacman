@@ -13,7 +13,7 @@ public class Game implements Runnable {
 
     public void render() {
         if(maze.visible == true) {
-            maze.render();
+            maze.repaint();
         }
     }
 
