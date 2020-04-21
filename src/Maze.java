@@ -1,33 +1,20 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Maze extends JFrame {
-    private JPanel mazePanel = new JPanel();
-    Graphics g = mazePanel.getGraphics(); //Obraz pojedynczej klatki gry
+public class Maze extends JPanel {
     int cellSize = 20; //rozmiar pojedynczej komórki na planszy
     boolean[][] grid = new boolean[20][20];
     boolean[][] dots = new boolean[20][20];
 
-    public boolean visible = false;
-
-    public Maze(String title) {
-        super(title);
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.setContentPane(mazePanel);
-        this.pack();
-        this.setBounds(0, 0, 420, 460);
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
-        this.setVisible(false);
-    }
-
-    //Rysuje planszę
+    //TODO: Poprawić, żeby (jeśli się da) drawBoard było wywołane tylko raz, a nie w każdej klatce
+    //Rysuje jedną całą klatkę gry
     @Override
-    public void paint(Graphics g) {
-        super.paint(g);
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
         drawBoard(g);
     }
 
+    //TODO: updateMap nie działa (wszystkie elementy w grid[][] są false)
     /*Aktualizuje mapę - dla prostokąta przekazanego w argumencie (x, y - współrzędne
     górnego lewego wierzchołka, width, height - wymiary na prawo i do dołu) ustawia wartość
     elementu na false (ściana) - czyli po danej komórce nie można się poruszać ani ustawić w niej kropki*/
@@ -40,20 +27,15 @@ public class Maze extends JFrame {
         }
     }
 
-    //Rysuje planszę w okienku i aktualizuje mapę - "ustawia ściany"
+    //Rysuje planszę na panelu i aktualizuje mapę - "ustawia ściany"
     public void drawBoard(Graphics g) {
         g.setColor(Color.BLACK);
-        g.fillRect(0, 0, 600, 600);
-        g.setColor(Color.BLACK);
-        g.fillRect(0, 0, 420, 420);
+        g.fillRect(0, 0, 440, 460);
 
-        g.setColor(Color.BLACK);
-        g.fillRect(0, 0, 20, 600);
-        g.fillRect(0, 0, 600, 20);
         g.setColor(Color.WHITE);
         g.drawRect(19, 19, 382, 382);
-        g.setColor(Color.BLUE);
 
+        g.setColor(Color.BLUE);
         g.fillRect(40, 40, 60, 20);
         updateMap(40, 40, 60, 20);
         g.fillRect(120, 40, 60, 20);

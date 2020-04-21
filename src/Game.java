@@ -1,35 +1,33 @@
 public class Game implements Runnable {
-    public Maze maze;
+    public MazeFrame mazeFrame;
     public Menu menu;
 
     public Game() {
-        maze = new Maze("Pacman");
-        menu = new Menu("Pacman Menu", maze);
+        mazeFrame = new MazeFrame("Pacman");
+        menu = new Menu("Pacman Menu", mazeFrame);
+    }
+
+    public void render() {
+        mazeFrame.repaint();
     }
 
     public void update() {
 
     }
 
-    public void render() {
-        if(maze.visible == true) {
-            maze.repaint();
-        }
-    }
-
     @Override
     public void run() {
         long lastTime = System.nanoTime();
-        double nanoSecondConversion = 1000000000.0 / 60;
+        double nanoSecondConversion = 1000000000.0;
         double changeInSeconds = 0;
 
         while (true) {
             long now = System.nanoTime();
             changeInSeconds += (now - lastTime) / nanoSecondConversion;
 
-            while (changeInSeconds >= 1) {
+            while (changeInSeconds >= 1.0 / 60.0) {
                 update();
-                changeInSeconds--;
+                changeInSeconds = 0;
             }
             render();
             lastTime = now;
