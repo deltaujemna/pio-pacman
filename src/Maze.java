@@ -7,9 +7,12 @@ public class Maze extends JPanel {
     boolean[][] dots = new boolean[19][19];
 
     public Maze() {
-        for (int i = 0; i < 19; i++)
-            for (int j = 0; j < 19; j++)
+        for (int i = 0; i < 19; i++) {
+            for (int j = 0; j < 19; j++) {
                 grid[i][j] = true; //przed ustawieniem ścian można się poruszać po wszystkich komórkach
+                dots[i][j] = true;
+            }
+        }
 
         updateEntireMap();
     }
@@ -28,8 +31,8 @@ public class Maze extends JPanel {
     public void updateMap(int x, int y, int width, int height) {
         for (int i = x / cellSize; i < x / cellSize + width / cellSize; i++) {
             for (int j = y / cellSize; j < y / cellSize + height / cellSize; j++) {
-                grid[i - 1][j - 1] = false;
-                dots[i - 1][j - 1] = false;
+                grid[j - 1][i - 1] = false;
+                dots[j - 1][i - 1] = false;
             }
         }
     }

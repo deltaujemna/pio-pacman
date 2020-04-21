@@ -4,13 +4,19 @@ public class Game implements Runnable {
 
     Ghost ghost = new Ghost(50, 50, 1);
 
+    Pacman pacman = new Pacman(0, 0, 20, 1);
+
     public Game() {
         mazeFrame = new MazeFrame("Pacman");
         menu = new Menu("Pacman Menu", mazeFrame);
+
+        ghost.pushBoard(mazeFrame.getBoard());
+        pacman.pushBoard(mazeFrame.getBoard());
     }
 
     public void render() {
         ghost.render(mazeFrame.getGraphics());
+        pacman.render(mazeFrame.getGraphics());
         mazeFrame.repaint();
     }
 
@@ -20,6 +26,7 @@ public class Game implements Runnable {
 
     public void update() {
         ghost.x++;
+        pacman.tick();
     }
 
     @Override
