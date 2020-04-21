@@ -6,12 +6,11 @@ public class Ghost extends LivingEntity {
     double fearTimeLeft;
     int points=200;     //tymczasowo
     int numerDucha=1;
-
-    public Ghost(int x, int y, int width, int height, int numerDucha){
+    final int width = 20;
+    final int height = 20;
+    public Ghost(int x, int y, int numerDucha){
         this.x = x;
         this.y = y;
-        this.width = width;
-        this.height = height;
         this.numerDucha = numerDucha;
     }
 
