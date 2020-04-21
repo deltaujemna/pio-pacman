@@ -5,14 +5,14 @@ import java.io.File;
 public class Ghost extends LivingEntity {
     double fearTimeLeft;
     int points = 200;     //tymczasowo
-    int numerDucha = 1;
+    int ghostNumber = 1; //jeżeli każdy duch ma inny kolor
     final int width = 20;
     final int height = 20;
 
-    public Ghost(int x, int y, int numerDucha) {
+    public Ghost(int x, int y, int ghostNumber) {
         this.x = x;
         this.y = y;
-        this.numerDucha = numerDucha;
+        this.ghostNumber = ghostNumber;
     }
 
     public void trackPacman() {
@@ -20,7 +20,7 @@ public class Ghost extends LivingEntity {
     }
 
     public void decideDirection() {
-        direction = Direction.LEFT;  //tymczasowo
+        direction = Direction.RIGHT;  //tymczasowo
     }
 
     public boolean isFrightened() {
@@ -53,14 +53,14 @@ public class Ghost extends LivingEntity {
     }
 
     public void render(Graphics g) {
-        String imgPath = "Images/duch" + this.numerDucha + ".png";
+        //String imgPath = "Images/duch" + this.ghostNumber + ".png";
+        String imgPath = "Images/ghost" + this.ghostNumber + ".png";
         try {
             g.drawImage(ImageIO.read(new File(imgPath)), this.x, this.y, this.width, this.height, null);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
 }
 

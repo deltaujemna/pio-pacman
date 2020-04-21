@@ -3,6 +3,7 @@ public class Game implements Runnable {
     public Menu menu;
 
     Ghost ghost = new Ghost(50, 50, 1);
+    Ghost ghost2 = new Ghost(100, 100, 2);
 
     public Game() {
         mazeFrame = new MazeFrame("Pacman");
@@ -11,6 +12,8 @@ public class Game implements Runnable {
 
     public void render() {
         ghost.render(mazeFrame.getGraphics());
+        ghost2.render(mazeFrame.getGraphics());
+
         mazeFrame.repaint();
     }
 
@@ -19,7 +22,16 @@ public class Game implements Runnable {
     }
 
     public void update() {
-        ghost.x++;
+
+        // Aby działało poruszanie się ducha w prawą stronę to: - tymczasowe
+        ghost.decideDirection();
+        ghost.speed = 1; //albo jakiś algorytm, albo jak przy stałych fpsach trzeba ustawić na oko
+
+        ghost.tick();
+
+        ghost2.decideDirection();
+        ghost2.speed = 1;
+        ghost2.tick();
     }
 
     @Override
@@ -48,7 +60,6 @@ public class Game implements Runnable {
         Thread gameThread = new Thread(game);
 
         gameThread.start();
-
 
     }
 }
