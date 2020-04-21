@@ -2,17 +2,24 @@ public class Game implements Runnable {
     public MazeFrame mazeFrame;
     public Menu menu;
 
+    Ghost ghost = new Ghost(50, 50, 1);
+
     public Game() {
         mazeFrame = new MazeFrame("Pacman");
         menu = new Menu("Pacman Menu", mazeFrame);
     }
 
     public void render() {
+        ghost.render(mazeFrame.getGraphics());
         mazeFrame.repaint();
     }
 
-    public void update() {
+    public void renderMaze() {
 
+    }
+
+    public void update() {
+        ghost.x++;
     }
 
     @Override
@@ -20,6 +27,8 @@ public class Game implements Runnable {
         long lastTime = System.nanoTime();
         double nanoSecondConversion = 1000000000.0;
         double changeInSeconds = 0;
+
+        this.renderMaze();
 
         while (true) {
             long now = System.nanoTime();
@@ -37,6 +46,9 @@ public class Game implements Runnable {
     public static void main(String[] args) {
         Game game = new Game();
         Thread gameThread = new Thread(game);
+
         gameThread.start();
+
+
     }
 }
