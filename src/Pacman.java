@@ -9,7 +9,7 @@ public class Pacman extends LivingEntity {
 
     Ghost[] ghosts;
     CollectableEntity[][] dots;
-   // Fruit[] fruits;
+    Fruit[] fruits;
 
     // przekazanie położenie ścian do tej klasy
     public void pushGhosts(Ghost[] ghosts) {
@@ -22,9 +22,9 @@ public class Pacman extends LivingEntity {
     }
 
     // przekazanie położenie owoców do tej klasy
-    //public void pushFruits(Fruit[] fruits) {
-        //this.fruits = fruits;
-    //}
+    public void pushFruits(Fruit[] fruits) {
+        this.fruits = fruits;
+    }
 
     // dodaje punkty
     public void addScore(int value) {
@@ -33,8 +33,8 @@ public class Pacman extends LivingEntity {
 
     // porusza w ustalonym kierunku
     public void move() {
-        if(canMove()) {
-            switch(direction) {
+        if (canMove()) {
+            switch (direction) {
                 case UP:
                     y -= speed;
                     break;
@@ -53,7 +53,7 @@ public class Pacman extends LivingEntity {
 
     // nastąpiła kolizja z duchem
     public void collision(Ghost g) {
-        if(powerupTimeLeft > 0) {
+        if (powerupTimeLeft > 0) {
             addScore(g.points);
             killedGhostsStreak++;
             g.die();
@@ -71,7 +71,7 @@ public class Pacman extends LivingEntity {
     private void loseLife() {
         killedGhostsStreak = 0;
         lives--;
-        if(lives > 0) {
+        if (lives > 0) {
             // TODO: aktualnie respawn jest na środku mapy, ewentualnie zmienić
             teleport((420 - width) / 2, (460 - height) / 2);
             // TODO: forEach Ghost teleport na start
@@ -83,25 +83,25 @@ public class Pacman extends LivingEntity {
     public void tick() {
         move();
 
-        if(powerupTimeLeft > 0) {
-            powerupTimeLeft -= (double)1/60;
+        if (powerupTimeLeft > 0) {
+            powerupTimeLeft -= (double) 1 / 60;
         }
 
-        for(Ghost g : ghosts) {
-            if(getBounds().intersects(g.getBounds())) {
+        for (Ghost g : ghosts) {
+            if (getBounds().intersects(g.getBounds())) {
                 collision(g);
             }
         }
 
-        if(dots[toCells(y)][toCells(x)] != null) {
+        if (dots[toCells(y)][toCells(x)] != null) {
             dots[toCells(y)][toCells(x)].pickup(this);
         }
-        /*
-        for(Fruit f : fruits) {
-            if(getBounds().intersects(f.getBounds())) {
+
+        for (Fruit f : fruits) {
+            if (getBounds().intersects(f.getBounds())) {
                 f.pickup(this);
             }
-        } */
+        }
     }
 
 }

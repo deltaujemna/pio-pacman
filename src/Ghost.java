@@ -4,38 +4,39 @@ import java.io.File;
 
 public class Ghost extends LivingEntity {
     double fearTimeLeft;
-    int points=200;     //tymczasowo
-    int numerDucha=1;
+    int points = 200;     //tymczasowo
+    int numerDucha = 1;
     final int width = 20;
     final int height = 20;
-    public Ghost(int x, int y, int numerDucha){
+
+    public Ghost(int x, int y, int numerDucha) {
         this.x = x;
         this.y = y;
         this.numerDucha = numerDucha;
     }
 
-    public void trackPacman(){
+    public void trackPacman() {
 
     }
 
-    public void decideDirection(){
+    public void decideDirection() {
         direction = Direction.LEFT;  //tymczasowo
     }
 
-    public boolean isFrightened(){
+    public boolean isFrightened() {
         return this.fearTimeLeft > 0;
     }
 
-    public void die(){
+    public void die() {
         this.alive = false;
     }
 
-    public void setFearTimeLeft(){
+    public void setFearTimeLeft() {
         this.fearTimeLeft = 15000; //jeżeli 15 sekund trwa power-up
     }
 
-    public void tick(){
-        switch(direction) {
+    public void tick() {
+        switch (direction) {
             case UP:
                 this.y -= speed;
                 break;
@@ -51,12 +52,11 @@ public class Ghost extends LivingEntity {
         }
     }
 
-    public void render(Graphics g){
+    public void render(Graphics g) {
         String imgPath = "Images/duch" + this.numerDucha + ".png";
         try {
             g.drawImage(ImageIO.read(new File(imgPath)), this.x, this.y, this.width, this.height, null);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
