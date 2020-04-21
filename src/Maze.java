@@ -1,7 +1,10 @@
 import javax.swing.*;
+import javax.swing.JFrame;
 
 public class Maze extends JFrame {
     private JPanel mazePanel = new JPanel();
+
+    public boolean visible = false;
 
     public Maze(String title) {
         super(title);
@@ -13,4 +16,9 @@ public class Maze extends JFrame {
         this.setResizable(false);
         this.setVisible(false);
     }
+
+    public void render() {
+
+    }
+
 }

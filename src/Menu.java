@@ -34,6 +34,8 @@ public class Menu extends JFrame {
                 //TODO: Naciśnięcie start powinno powodować pojawienie się okna Maze
                 maze.setVisible(true);
                 setVisible(false);
+
+                maze.visible = true;
             }
         });
     }
