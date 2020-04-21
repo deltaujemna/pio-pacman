@@ -1,12 +1,16 @@
 import java.awt.Rectangle;
+import java.awt.Graphics;
 
-public interface Entity {
-    int width = 0;
-    int height = 0;
-    int x = 0;
-    int y = 0;
+public abstract class Entity {
+    int width;
+    int height;
+    int x;
+    int y;
 
-    public void render();
-    public void tick();
-    public Rectangle getBounds();
+    abstract public void render(Graphics g);
+    abstract public void tick();
+
+    public Rectangle getBounds() {
+        return new Rectangle(x, y, width, height);
+    }
 }
