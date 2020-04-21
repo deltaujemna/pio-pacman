@@ -7,7 +7,9 @@ public class Menu extends JFrame {
     private JButton startButton;
     private JButton quitButton;
 
-    public Menu(String title) {
+    Maze maze;
+
+    public Menu(String title, Maze maze) {
         super(title);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setContentPane(menuPanel);
@@ -15,6 +17,9 @@ public class Menu extends JFrame {
         this.setBounds(0, 0, 420, 460);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+        this.setResizable(false);
+
+        this.maze = maze;
 
         quitButton.addActionListener(new ActionListener() {
             @Override
@@ -27,6 +32,8 @@ public class Menu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //TODO: Naciśnięcie start powinno powodować pojawienie się okna Maze
+                maze.setVisible(true);
+                setVisible(false);
             }
         });
     }

@@ -10,6 +10,7 @@ public class Maze extends JFrame {
         this.pack();
         this.setBounds(0, 0, 420, 460);
         this.setLocationRelativeTo(null);
-        this.setVisible(true);
+        this.setResizable(false);
+        this.setVisible(false);
     }
 }
