@@ -2,7 +2,7 @@ public class Game implements Runnable {
     public MazeFrame mazeFrame;
     public Menu menu;
 
-    Ghost ghost = new Ghost(50, 50, 1);
+    Ghost ghost = new Ghost(1, 1, 1);
 
     Pacman pacman = new Pacman(0, 0, 20, 1);
 
