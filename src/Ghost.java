@@ -14,8 +14,8 @@ public class Ghost extends LivingEntity {
         //this.y = y;
         this.ghostNumber = ghostNumber;
 
-        this.x = toPixels(x) + BOARD_START_X;
-        this.y = toPixels(y) + BOARD_START_Y;
+        this.x = toPixelsX(x);
+        this.y = toPixelsY(y);
 
     }
 
