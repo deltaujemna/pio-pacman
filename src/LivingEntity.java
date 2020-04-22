@@ -66,7 +66,7 @@ public abstract class LivingEntity extends Entity {
         }
     }
 
-    public boolean canChangeDirectory() {
+    public boolean canChangeDirection() {
         if (directionFuture != null &&  directionFuture != direction ){
 
                 final boolean BOARD_WALL = false;
