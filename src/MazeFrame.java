@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.event.KeyListener;
 
 public class MazeFrame extends JFrame {
 
@@ -17,6 +18,10 @@ public class MazeFrame extends JFrame {
 
     public boolean[][] getBoard() {
         return maze.grid;
+    }
+
+    public void setKeyListener(KeyListener keyListener) {
+        addKeyListener(keyListener);
     }
 
 }

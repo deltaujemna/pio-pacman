@@ -3,7 +3,6 @@ public class Game implements Runnable {
     public Menu menu;
 
     Ghost ghost;
-
     Pacman pacman;
 
     public Game() {
@@ -15,6 +14,8 @@ public class Game implements Runnable {
         pacman = new Pacman(0, 0, 20, 1);
         ghost.pushBoard(mazeFrame.getBoard());
         pacman.pushBoard(mazeFrame.getBoard());
+
+        mazeFrame.setKeyListener(new Keys(pacman));
     }
 
     public void render() {
@@ -28,9 +29,10 @@ public class Game implements Runnable {
     }
 
     public void update() {
-        ghost.x++;
+        //ghost.x++;
         pacman.tick();
     }
+
 
     @Override
     public void run() {
