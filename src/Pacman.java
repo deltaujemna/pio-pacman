@@ -1,3 +1,6 @@
+import java.awt.Graphics;
+import java.awt.Color;
+
 public class Pacman extends LivingEntity {
 
     private int lives = 3;
@@ -10,6 +13,15 @@ public class Pacman extends LivingEntity {
     Ghost[] ghosts;
     CollectableEntity[][] dots;
     Fruit[] fruits;
+
+    public Pacman(int x, int y, int size, double speed) {
+        this.x = toPixels(x) + BOARD_START_X;
+        this.y = toPixels(y) + BOARD_START_Y;
+        this.width = size;
+        this.height = size;
+        this.speed = speed;
+        this.direction = Direction.RIGHT;
+    }
 
     // przekazanie położenie ścian do tej klasy
     public void pushGhosts(Ghost[] ghosts) {
@@ -87,21 +99,33 @@ public class Pacman extends LivingEntity {
             powerUpTimeLeft -= (double) 1 / 60;
         }
 
-        for (Ghost g : ghosts) {
-            if (getBounds().intersects(g.getBounds())) {
-                collision(g);
+        if(ghosts != null) {
+            for (Ghost g : ghosts) {
+                if (getBounds().intersects(g.getBounds())) {
+                    collision(g);
+                }
             }
         }
 
-//        if (dots[toCells(y)][toCells(x)] != null) {
-//            dots[toCells(y)][toCells(x)].pickup(this);
-//        }
-
-        for (Fruit f : fruits) {
-            if (getBounds().intersects(f.getBounds())) {
-                f.pickup(this);
+        if(dots != null) {
+            if (dots[toCells(y - BOARD_START_Y)][toCells(x - BOARD_START_X)] != null) {
+                dots[toCells(y - BOARD_START_Y)][toCells(x - BOARD_START_X)].pickup(this);
             }
         }
+
+        if(fruits != null) {
+            for (Fruit f : fruits) {
+                if (getBounds().intersects(f.getBounds())) {
+                    f.pickup(this);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void render(Graphics g) {
+        g.setColor(Color.YELLOW);
+        g.fillOval(x, y, width + 1, height + 1);
     }
 
 }

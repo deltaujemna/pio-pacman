@@ -18,7 +18,7 @@ public abstract class LivingEntity extends Entity {
 
     // zwraca, czy postać może się poruszyć
     public boolean canMove() {
-        final boolean BOARD_WALL = true;
+        final boolean BOARD_WALL = false;
 
         if (board == null)
             throw new NullPointerException();
@@ -39,14 +39,14 @@ public abstract class LivingEntity extends Entity {
 
         // jeśli któryś z kątów Entity w następnej klatce znalazłby się w ścianie, to Entity nie może się poruszyć
         try {
-//            if (board[toCells(boundsNext.y)][toCells(boundsNext.x)] == BOARD_WALL)
-//                return false;
-//            if (board[toCells(boundsNext.y + boundsNext.height)][toCells(boundsNext.x)] == BOARD_WALL)
-//                return false;
-//            if (board[toCells(boundsNext.y)][toCells(boundsNext.x + boundsNext.width)] == BOARD_WALL)
-//                return false;
-//            if (board[toCells(boundsNext.y + boundsNext.height)][toCells(boundsNext.x + boundsNext.width)] == BOARD_WALL)
-//                return false;
+            if (board[toCells(boundsNext.y - BOARD_START_Y)][toCells(boundsNext.x - BOARD_START_X)] == BOARD_WALL)
+                return false;
+            if (board[toCells(boundsNext.y + boundsNext.height - 1 - BOARD_START_Y)][toCells(boundsNext.x - BOARD_START_X)] == BOARD_WALL)
+                return false;
+            if (board[toCells(boundsNext.y - BOARD_START_Y)][toCells(boundsNext.x + boundsNext.width - 1 - BOARD_START_X)] == BOARD_WALL)
+                return false;
+            if (board[toCells(boundsNext.y + boundsNext.height - 1 - BOARD_START_Y)][toCells(boundsNext.x + boundsNext.width - 1 - BOARD_START_X)] == BOARD_WALL)
+                return false;
 
             // wszystkie kąty zostały sprawdzone, kolizji nie będzie
             return true;
