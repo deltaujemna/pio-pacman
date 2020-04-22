@@ -38,14 +38,22 @@ public abstract class LivingEntity extends Entity {
 
         // jeśli któryś z kątów Entity w następnej klatce znalazłby się w ścianie, to Entity nie może się poruszyć
         try {
-            if (board[toCellsY(boundsNext.y)][toCellsX(boundsNext.x)] == BOARD_WALL)
-                return false;
-            if (board[toCellsY(boundsNext.y + boundsNext.height - 1)][toCellsX(boundsNext.x)] == BOARD_WALL)
-                return false;
-            if (board[toCellsY(boundsNext.y)][toCellsX(boundsNext.x + boundsNext.width - 1)] == BOARD_WALL)
-                return false;
-            if (board[toCellsY(boundsNext.y + boundsNext.height - 1)][toCellsX(boundsNext.x + boundsNext.width - 1)] == BOARD_WALL)
-                return false;
+            if(direction == Direction.LEFT || direction == Direction.UP) {
+                if (board[toCellsY(boundsNext.y)][toCellsX(boundsNext.x)] == BOARD_WALL)
+                    return false;
+            }
+            if(direction == Direction.LEFT || direction == Direction.DOWN) {
+                if (board[toCellsY(boundsNext.y + boundsNext.height - 1)][toCellsX(boundsNext.x)] == BOARD_WALL)
+                    return false;
+            }
+            if(direction == Direction.RIGHT || direction == Direction.UP) {
+                if (board[toCellsY(boundsNext.y)][toCellsX(boundsNext.x + boundsNext.width - 1)] == BOARD_WALL)
+                    return false;
+            }
+            if(direction == Direction.RIGHT || direction == Direction.DOWN) {
+                if (board[toCellsY(boundsNext.y + boundsNext.height - 1)][toCellsX(boundsNext.x + boundsNext.width - 1)] == BOARD_WALL)
+                    return false;
+            }
 
             // wszystkie kąty zostały sprawdzone, kolizji nie będzie
             return true;
