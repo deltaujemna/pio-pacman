@@ -1,10 +1,8 @@
-import java.awt.Rectangle;
-import java.awt.Graphics;
+import java.awt.*;
 
 public abstract class Entity {
 
-    final int BOARD_START_X = 24;
-    final int BOARD_START_Y = 37;
+    private static Insets insets;
 
     int width;
     int height;
@@ -12,20 +10,46 @@ public abstract class Entity {
     int y;
 
     abstract public void render(Graphics g);
+
     abstract public void tick();
 
     public Rectangle getBounds() {
         return new Rectangle(x, y, width, height);
     }
 
-    // zamienia długość z pikseli na komórki
+    public static void setInsets(Insets newInsets) {
+        insets = newInsets;
+    }
+
+    // zamienia długość z pikseli na komórki bez uwzględnienia ramki okna
     int toCells(int value) {
         return value / 20;
     }
 
-    // zamienia długość z komórki na piksele
+    // zamienia długość z komórki na piksele bez uwzględnienia ramki okna
     int toPixels(int value) {
         return value * 20;
     }
+
+    // zamienia długość z pikseli na komórki dla X
+    int toCellsX(int value) {
+        return (value - insets.left) / 20 - 1;
+    }
+
+    // zamienia długość z pikseli na komórki dla Y
+    int toCellsY(int value) {
+        return (value - insets.top) / 20 - 1;
+    }
+
+    // zamienia długość z komórki na piksele dla X
+    int toPixelsX(int value) {
+        return (value + 1) * 20 + insets.left;
+    }
+
+    // zamienia długość z komórki na piksele dla Y
+    int toPixelsY(int value) {
+        return (value + 1) * 20 + insets.top;
+    }
+
 
 }

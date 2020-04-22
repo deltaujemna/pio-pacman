@@ -4,12 +4,14 @@ public class Game implements Runnable {
 
     Ghost ghost = new Ghost(1, 1, 1);
 
-    Pacman pacman = new Pacman(0, 0, 20, 1);
+    Pacman pacman;
 
     public Game() {
         mazeFrame = new MazeFrame("Pacman");
         menu = new Menu("Pacman Menu", mazeFrame);
 
+        Entity.setInsets(mazeFrame.getInsets());
+        pacman = new Pacman(0, 0, 20, 1);
         ghost.pushBoard(mazeFrame.getBoard());
         pacman.pushBoard(mazeFrame.getBoard());
     }
