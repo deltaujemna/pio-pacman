@@ -28,10 +28,13 @@ public abstract class LivingEntity extends Entity {
         switch (direction) {
             case UP:
                 boundsNext.y -= speed;
+                break;
             case DOWN:
                 boundsNext.y += speed;
+                break;
             case LEFT:
                 boundsNext.x -= speed;
+                break;
             case RIGHT:
                 boundsNext.x += speed;
         }
