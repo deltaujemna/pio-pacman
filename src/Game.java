@@ -55,10 +55,14 @@ public class Game implements Runnable {
         }
     }
 
+    //import java.util.Timer;
+    //import java.util.concurrent.ScheduledThreadPoolExecutor;
+
+
     public static void main(String[] args) {
         Game game = new Game();
         Thread gameThread = new Thread(game);
-        gameThread.start();
+        gameThread.start(); // threads for each "sprite"?
 
 
     }
