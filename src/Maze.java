@@ -13,7 +13,6 @@ public class Maze extends JPanel {
                 dots[i][j] = true;
             }
         }
-
         updateEntireMap();
     }
 

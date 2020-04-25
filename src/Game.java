@@ -1,6 +1,11 @@
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class Game implements Runnable {
     public MazeFrame mazeFrame;
     public Menu menu;
+    Timer timer = new Timer();
+    TimerTask tick;
 
     Ghost ghost;
     Pacman pacman;
@@ -9,7 +14,15 @@ public class Game implements Runnable {
         mazeFrame = new MazeFrame("Pacman");
         menu = new Menu("Pacman Menu", mazeFrame);
 
-        Entity.setInsets(mazeFrame.getInsets());
+        //Jest wywoływane przez timer w określonych odstępach czasu
+        tick = new TimerTask() {
+            @Override
+            public void run() {
+                render();
+                update();
+            }
+        };
+
         ghost = new Ghost(1, 1, 1);
         pacman = new Pacman(0, 0, 20, 1);
         ghost.pushBoard(mazeFrame.getBoard());
@@ -19,13 +32,9 @@ public class Game implements Runnable {
     }
 
     public void render() {
-        ghost.render(mazeFrame.getGraphics());
-        pacman.render(mazeFrame.getGraphics());
-        mazeFrame.repaint();
-    }
-
-    public void renderMaze() {
-
+        ghost.render(mazeFrame.getContentPane().getGraphics());
+        pacman.render(mazeFrame.getContentPane().getGraphics());
+        mazeFrame.getContentPane().repaint();
     }
 
     public void update() {
@@ -36,23 +45,7 @@ public class Game implements Runnable {
 
     @Override
     public void run() {
-        long lastTime = System.nanoTime();
-        double nanoSecondConversion = 1000000000.0;
-        double changeInSeconds = 0;
-
-        this.renderMaze();
-
-        while (true) {
-            long now = System.nanoTime();
-            changeInSeconds += (now - lastTime) / nanoSecondConversion;
-
-            while (changeInSeconds >= 1.0 / 60.0) {
-                update();
-                changeInSeconds = 0;
-            }
-            render();
-            lastTime = now;
-        }
+        timer.scheduleAtFixedRate(tick, 0, (long) (1000.0 / 60.0));
     }
 
     //import java.util.Timer;
