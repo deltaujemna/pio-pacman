@@ -10,6 +10,8 @@ public class Game implements Runnable {
     Ghost ghost;
     Pacman pacman;
 
+    private final CollectableEntity[][] dots;
+
     public Game() {
         mazeFrame = new MazeFrame("Pacman");
         menu = new Menu("Pacman Menu", mazeFrame);
@@ -25,8 +27,18 @@ public class Game implements Runnable {
 
         ghost = new Ghost(1, 1, 1);
         pacman = new Pacman(0, 0, 20, 1);
+
+        dots = new CollectableEntity[19][19];
+        for(int i = 0; i < dots.length; i++) {
+            for(int j = 0; j < dots[i].length; j++) {
+                if(mazeFrame.activeDots(i, j))
+                    dots[i][j] = new Dot(j, i);
+            }
+        }
+
         ghost.pushBoard(mazeFrame.getBoard());
         pacman.pushBoard(mazeFrame.getBoard());
+        pacman.pushDots(dots);
 
         mazeFrame.setKeyListener(new Keys(pacman));
     }
@@ -34,6 +46,14 @@ public class Game implements Runnable {
     public void render() {
         ghost.render(mazeFrame.getContentPane().getGraphics());
         pacman.render(mazeFrame.getContentPane().getGraphics());
+
+        for(int i = 0; i < dots.length; i++) {
+            for(int j = 0; j < dots[i].length; j++) {
+                if(dots[i][j] != null && mazeFrame.activeDots(i, j))
+                    dots[i][j].render(mazeFrame.getContentPane().getGraphics());
+            }
+        }
+
         mazeFrame.getContentPane().repaint();
     }
 

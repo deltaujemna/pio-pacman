@@ -107,8 +107,8 @@ public class Pacman extends LivingEntity {
         }
 
         if (dots != null) {
-            if (dots[toCellsY(y)][toCellsX(x)] != null) {
-                dots[toCellsY(y)][toCellsX(x)].pickup(this);
+            if (dots[toCellsY(y + Maze.cellSize / 2)][toCellsX(x + Maze.cellSize / 2)] != null) {
+                dots[toCellsY(y + Maze.cellSize / 2)][toCellsX(x + Maze.cellSize / 2)].pickup(this);
             }
         }
 
