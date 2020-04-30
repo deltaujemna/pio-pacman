@@ -1,9 +1,11 @@
 import javax.swing.*;
-import java.awt.event.KeyListener;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MazeFrame extends JFrame {
 
     public final Maze maze = new Maze();
+    Timer timer = new Timer(); // to chyba można jako daemon (true w argumencie)
 
     public MazeFrame(String title) {
         super(title);
@@ -14,10 +16,15 @@ public class MazeFrame extends JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setVisible(false);
-    }
 
-    public void setKeyListener(KeyListener keyListener) {
-        addKeyListener(keyListener);
+        addKeyListener(new Keys(maze.pacman));
+
+        timer.scheduleAtFixedRate(new TimerTask() {
+            public void run() {
+                getContentPane().repaint();
+                maze.update();
+            }
+        }, 0, 1000 / 60);
     }
 
 }

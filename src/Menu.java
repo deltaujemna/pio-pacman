@@ -9,7 +9,7 @@ public class Menu extends JFrame {
 
     MazeFrame mazeFrame;
 
-    public Menu(String title, MazeFrame mazeFrame) {
+    public Menu(String title) {
         super(title);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setContentPane(menuPanel);
@@ -18,8 +18,6 @@ public class Menu extends JFrame {
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.setResizable(false);
-
-        this.mazeFrame = mazeFrame;
 
         quitButton.addActionListener(new ActionListener() {
             @Override
@@ -31,6 +29,7 @@ public class Menu extends JFrame {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                mazeFrame = new MazeFrame("Pacman");
                 mazeFrame.setVisible(true);
                 setVisible(false);
             }
