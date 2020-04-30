@@ -3,7 +3,7 @@ import java.awt.event.KeyListener;
 
 public class MazeFrame extends JFrame {
 
-    private final Maze maze = new Maze();
+    public final Maze maze = new Maze();
 
     public MazeFrame(String title) {
         super(title);
@@ -16,16 +16,8 @@ public class MazeFrame extends JFrame {
         this.setVisible(false);
     }
 
-    public boolean[][] getBoard() {
-        return maze.grid;
-    }
-
     public void setKeyListener(KeyListener keyListener) {
         addKeyListener(keyListener);
-    }
-
-    public boolean activeDots(int i, int j) {
-        return maze.dots[i][j];
     }
 
 }
