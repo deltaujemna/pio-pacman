@@ -5,6 +5,9 @@ public class Maze extends JPanel {
     static int cellSize = 20; //rozmiar pojedynczej komórki na planszy
     boolean[][] grid = new boolean[19][19];
     boolean[][] dots = new boolean[19][19]; // to na pewno jest potrzebne?
+    Ghost ghost;
+    Pacman pacman;
+    private final CollectableEntity[][] yellowDots;
 
     public Maze() {
         for (int i = 0; i < 19; i++) {
@@ -14,14 +17,39 @@ public class Maze extends JPanel {
             }
         }
         updateEntireMap();
+        ghost = new Ghost(1, 1, 1);
+        pacman = new Pacman(0, 0, 20, 1);
+
+        yellowDots = new CollectableEntity[19][19];
+        for (int i = 0; i < dots.length; i++) {
+            for (int j = 0; j < dots[i].length; j++) {
+                if (activeDots(i, j))
+                    yellowDots[i][j] = new Dot(j, i);
+            }
+        }
+
+        ghost.grid = grid;
+        pacman.grid = grid;
+        pacman.dots = yellowDots;
     }
 
-    //TODO: Poprawić, żeby (jeśli się da) drawBoard było wywołane tylko raz, a nie w każdej klatce
+    public boolean activeDots(int i, int j) {
+        return dots[i][j];
+    }
+
+    public void update() {
+        //ghost.x++;
+        pacman.tick();
+    }
+
     //Rysuje jedną całą klatkę gry
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawBoard(g);
+        pacman.render(g);
+        ghost.render(g);
+        drawDots(g);
     }
 
     /*Aktualizuje fragment mapy - dla prostokąta przekazanego w argumencie (x, y - współrzędne
@@ -140,4 +168,12 @@ public class Maze extends JPanel {
         g.fillRect(120, 320, 20, 60);
     }
 
+    public void drawDots(Graphics g) {
+        for (int i = 0; i < dots.length; i++) {
+            for (int j = 0; j < dots[i].length; j++) {
+                if (yellowDots[i][j] != null && activeDots(i, j))
+                    yellowDots[i][j].render(g);
+            }
+        }
+    }
 }

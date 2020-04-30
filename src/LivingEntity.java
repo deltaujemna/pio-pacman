@@ -9,20 +9,14 @@ public abstract class LivingEntity extends Entity {
     Direction direction;
     Direction directionFuture;
 
-    boolean[][] board;
-
-    // przekazanie położenie ścian do tej klasy
-    public void pushBoard(boolean[][] board) {
-        this.board = board;
-    }
+    boolean[][] grid;
 
     // zwraca, czy postać może się poruszyć
-
     public boolean canMoveThisDirection(Direction direction) {
         if(direction != null) {
-            final boolean BOARD_WALL = false;
+            final boolean GRID_WALL = false;
 
-            if (board == null)
+            if (grid == null)
                 throw new NullPointerException();
 
             Rectangle boundsNext = getBounds();
@@ -45,19 +39,19 @@ public abstract class LivingEntity extends Entity {
             // jeśli któryś z kątów Entity w następnej klatce znalazłby się w ścianie, to Entity nie może się poruszyć
             try {
                 if (direction == Direction.LEFT || direction == Direction.UP) {
-                    if (board[toCellsY(boundsNext.y)][toCellsX(boundsNext.x)] == BOARD_WALL)
+                    if (grid[toCellsY(boundsNext.y)][toCellsX(boundsNext.x)] == GRID_WALL)
                         return false;
                 }
                 if (direction == Direction.LEFT || direction == Direction.DOWN) {
-                    if (board[toCellsY(boundsNext.y + boundsNext.height - 1)][toCellsX(boundsNext.x)] == BOARD_WALL)
+                    if (grid[toCellsY(boundsNext.y + boundsNext.height - 1)][toCellsX(boundsNext.x)] == GRID_WALL)
                         return false;
                 }
                 if (direction == Direction.RIGHT || direction == Direction.UP) {
-                    if (board[toCellsY(boundsNext.y)][toCellsX(boundsNext.x + boundsNext.width - 1)] == BOARD_WALL)
+                    if (grid[toCellsY(boundsNext.y)][toCellsX(boundsNext.x + boundsNext.width - 1)] == GRID_WALL)
                         return false;
                 }
                 if (direction == Direction.RIGHT || direction == Direction.DOWN) {
-                    if (board[toCellsY(boundsNext.y + boundsNext.height - 1)][toCellsX(boundsNext.x + boundsNext.width - 1)] == BOARD_WALL)
+                    if (grid[toCellsY(boundsNext.y + boundsNext.height - 1)][toCellsX(boundsNext.x + boundsNext.width - 1)] == GRID_WALL)
                         return false;
                 }
 
