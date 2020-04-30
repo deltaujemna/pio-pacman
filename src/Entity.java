@@ -44,3 +44,4 @@ public abstract class Entity {
         return (value + 1) * 20;
     }
 }
+//komentasz testowy
