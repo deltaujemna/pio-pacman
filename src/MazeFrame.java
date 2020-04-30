@@ -24,4 +24,8 @@ public class MazeFrame extends JFrame {
         addKeyListener(keyListener);
     }
 
+    public boolean activeDots(int i, int j) {
+        return maze.dots[i][j];
+    }
+
 }

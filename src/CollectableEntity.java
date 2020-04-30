@@ -3,12 +3,15 @@ import java.awt.*;
 public abstract class CollectableEntity extends Entity {
 
     int points;
+    int x, y;
 
-    abstract void pickup(Pacman p);
+    public void pickup(Pacman p) {
+        p.addScore(points);
+    }
 
-    @Override
-    public void render(Graphics g) {
-        // TODO: zrobić
+    public CollectableEntity(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
 }

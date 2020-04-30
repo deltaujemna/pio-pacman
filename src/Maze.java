@@ -2,9 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Maze extends JPanel {
-    int cellSize = 20; //rozmiar pojedynczej komórki na planszy
+    static int cellSize = 20; //rozmiar pojedynczej komórki na planszy
     boolean[][] grid = new boolean[19][19];
-    boolean[][] dots = new boolean[19][19];
+    boolean[][] dots = new boolean[19][19]; // to na pewno jest potrzebne?
 
     private boolean time = true;
 
@@ -15,7 +15,6 @@ public class Maze extends JPanel {
                 dots[i][j] = true;
             }
         }
-
         updateEntireMap();
     }
 

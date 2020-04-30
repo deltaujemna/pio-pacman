@@ -1,9 +1,6 @@
 import java.awt.*;
 
 public abstract class Entity {
-
-    private static Insets insets;
-
     int width;
     int height;
     int x;
@@ -17,39 +14,33 @@ public abstract class Entity {
         return new Rectangle(x, y, width, height);
     }
 
-    public static void setInsets(Insets newInsets) {
-        insets = newInsets;
-    }
-
-    // zamienia długość z pikseli na komórki bez uwzględnienia ramki okna
+    // zamienia długość z pikseli na komórki
     int toCells(int value) {
         return value / 20;
     }
 
-    // zamienia długość z komórki na piksele bez uwzględnienia ramki okna
+    // zamienia długość z komórki na piksele
     int toPixels(int value) {
         return value * 20;
     }
 
     // zamienia długość z pikseli na komórki dla X
     int toCellsX(int value) {
-        return (value - insets.left) / 20 -1;
+        return value / 20 - 1;
     }
 
     // zamienia długość z pikseli na komórki dla Y
     int toCellsY(int value) {
-        return (value - insets.top) / 20 -1;
+        return value / 20 - 1;
     }
 
     // zamienia długość z komórki na piksele dla X
     int toPixelsX(int value) {
-        return (value + 1) * 20 + insets.left;
+        return (value + 1) * 20;
     }
 
     // zamienia długość z komórki na piksele dla Y
     int toPixelsY(int value) {
-        return (value + 1) * 20 + insets.top;
+        return (value + 1) * 20;
     }
-
-
 }
