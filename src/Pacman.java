@@ -44,7 +44,7 @@ public class Pacman extends LivingEntity {
 
     // porusza w ustalonym kierunku
     public void move() {
-        if (canMove()) {
+        if (super.canMove()) {
             switch (direction) {
                 case UP:
                     y -= speed;
@@ -75,7 +75,7 @@ public class Pacman extends LivingEntity {
 
     // zmiana kierunku
     public void setDirection(Direction direction) {
-        this.direction = direction;
+        this.directionFuture = direction;
     }
 
     // utrata życia
