@@ -44,6 +44,7 @@ public class Pacman extends LivingEntity {
 
     // porusza w ustalonym kierunku
     public void move() {
+
         if (super.canMove()) {
             switch (direction) {
                 case UP:
@@ -60,6 +61,7 @@ public class Pacman extends LivingEntity {
                     break;
             }
         }
+
     }
 
     // nastąpiła kolizja z duchem
@@ -93,11 +95,11 @@ public class Pacman extends LivingEntity {
     @Override
     public void tick() {
         move();
-/*
+
         if (powerUpTimeLeft > 0) {
             powerUpTimeLeft -= (double) 1 / 60;
         }
-*//*
+
         if (ghosts != null) {
             for (Ghost g : ghosts) {
                 if (getBounds().intersects(g.getBounds())) {
@@ -119,7 +121,9 @@ public class Pacman extends LivingEntity {
                 }
             }
         }
-        */
+        teleport();
+
+
 
     }
 

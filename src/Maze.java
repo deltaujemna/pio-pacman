@@ -19,7 +19,7 @@ public class Maze extends JPanel {
             }
         }
         updateEntireMap();
-        ghost = new Ghost(1, 1, 1);
+        ghost = new Ghost(8, 8, 1); //8,8
         pacman = new Pacman(0, 0, 20, 1);
 
         yellowDots = new CollectableEntity[19][19];
@@ -40,7 +40,7 @@ public class Maze extends JPanel {
     }
 
     public void update() {
-        //ghost.x++;
+        ghost.tick();
         pacman.tick();
     }
 

@@ -2,11 +2,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Game implements Runnable {
+    private static Thread gameThread;
     public MazeFrame mazeFrame;
     public Menu menu;
     Timer timer = new Timer();
     TimerTask tick;
-
     public Game() {
         mazeFrame = new MazeFrame("Pacman");
         menu = new Menu("Pacman Menu", mazeFrame);
@@ -36,7 +36,8 @@ public class Game implements Runnable {
 
     public static void main(String[] args) {
         Game game = new Game();
-        Thread gameThread = new Thread(game);
+        gameThread = new Thread(game);
         gameThread.start(); // threads for each "sprite"?
+
     }
 }

@@ -13,9 +13,11 @@ public class Ghost extends LivingEntity {
         //this.x = x;
         //this.y = y;
         this.ghostNumber = ghostNumber;
-
+        decideDirection();
         this.x = toPixelsX(x);
         this.y = toPixelsY(y);
+        this.speed = 1;
+        this.directionFuture = Direction.UP;
 
     }
 
@@ -40,19 +42,21 @@ public class Ghost extends LivingEntity {
     }
 
     public void tick() {
-        switch (direction) {
-            case UP:
-                this.y -= speed;
-                break;
-            case DOWN:
-                this.y += speed;
-                break;
-            case LEFT:
-                this.x -= speed;
-                break;
-            case RIGHT:
-                this.x += speed;
-                break;
+        if(canMove()) {
+            switch (direction) {
+                case UP:
+                    this.y -= speed;
+                    break;
+                case DOWN:
+                    this.y += speed;
+                    break;
+                case LEFT:
+                    this.x -= speed;
+                    break;
+                case RIGHT:
+                    this.x += speed;
+                    break;
+            }
         }
     }
 

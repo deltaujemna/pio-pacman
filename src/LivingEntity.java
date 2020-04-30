@@ -5,15 +5,16 @@ public abstract class LivingEntity extends Entity {
     double speed; // wyrażona w pikselach na klatkę
 
     enum Direction {UP, DOWN, LEFT, RIGHT}
-
-    Direction direction;
+    enum LivingObject{PACMAN,GHOST}
+    static Direction directionPacman;
+    static Direction direction;
     Direction directionFuture;
-
     boolean[][] grid;
 
     // zwraca, czy postać może się poruszyć
-    public boolean canMoveThisDirection(Direction direction) {
+    private boolean canMoveThisDirection(Direction direction) {
         if(direction != null) {
+
             final boolean GRID_WALL = false;
 
             if (grid == null)
@@ -54,8 +55,10 @@ public abstract class LivingEntity extends Entity {
                     if (grid[toCellsY(boundsNext.y + boundsNext.height - 1)][toCellsX(boundsNext.x + boundsNext.width - 1)] == GRID_WALL)
                         return false;
                 }
+                //System.out.println("speed = " + this.speed+ "direction  "+direction + " "+this ); // ukazuje ze nie dziala duchy
 
                 // wszystkie kąty zostały sprawdzone, kolizji nie będzie
+
                 this.direction = direction;
                 return true;
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -78,6 +81,17 @@ public abstract class LivingEntity extends Entity {
         this.x = x;
         this.y = y;
     }
+    public void teleport(){
+        if(toCellsY(this.y) == 8){
+            if(toCellsX(this.x) == 0){
+                teleport(toPixelsX(18),toPixelsY(8));
+            }else if(toCellsX(this.x) == 18){
+                teleport(toPixelsX(0),toPixelsY(8));
+            }
+        }
+
+    }
+
 
     @Override
     public void render(Graphics g) {
