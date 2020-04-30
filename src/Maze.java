@@ -5,6 +5,7 @@ public class Maze extends JPanel {
     int cellSize = 20; //rozmiar pojedynczej komórki na planszy
     boolean[][] grid = new boolean[19][19];
     boolean[][] dots = new boolean[19][19];
+
     private boolean time = true;
 
     public Maze() {

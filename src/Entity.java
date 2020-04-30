@@ -33,12 +33,12 @@ public abstract class Entity {
 
     // zamienia długość z pikseli na komórki dla X
     int toCellsX(int value) {
-        return (value - insets.left) / 20 - 1;
+        return (value - insets.left) / 20 -1;
     }
 
     // zamienia długość z pikseli na komórki dla Y
     int toCellsY(int value) {
-        return (value - insets.top) / 20 - 1;
+        return (value - insets.top) / 20 -1;
     }
 
     // zamienia długość z komórki na piksele dla X

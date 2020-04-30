@@ -19,55 +19,15 @@ public abstract class LivingEntity extends Entity {
     }
 
     // zwraca, czy postać może się poruszyć
-    public boolean canMove() {
-        final boolean BOARD_WALL = false;
-
-        if (board == null)
-            throw new NullPointerException();
-
-        Rectangle boundsNext = getBounds();
-
-        // obliczamy położenie Entity w następnej klatce
-        switch (direction) {
-            case UP:
-                boundsNext.y -= speed;
-            case DOWN:
-                boundsNext.y += speed;
-            case LEFT:
-                boundsNext.x -= speed;
-            case RIGHT:
-                boundsNext.x += speed;
-        }
-
-        // jeśli któryś z kątów Entity w następnej klatce znalazłby się w ścianie, to Entity nie może się poruszyć
-        try {
-            if(direction == Direction.LEFT || direction == Direction.UP) {
-                if (board[toCellsY(boundsNext.y)][toCellsX(boundsNext.x)] == BOARD_WALL)
-                    return false;
-            }
-            if(direction == Direction.LEFT || direction == Direction.DOWN) {
-                if (board[toCellsY(boundsNext.y + boundsNext.height - 1)][toCellsX(boundsNext.x)] == BOARD_WALL)
-                    return false;
-            }
-            if(direction == Direction.RIGHT || direction == Direction.UP) {
-                if (board[toCellsY(boundsNext.y)][toCellsX(boundsNext.x + boundsNext.width - 1)] == BOARD_WALL)
-                    return false;
-            }
-            if(direction == Direction.RIGHT || direction == Direction.DOWN) {
-                if (board[toCellsY(boundsNext.y + boundsNext.height - 1)][toCellsX(boundsNext.x + boundsNext.width - 1)] == BOARD_WALL)
-                    return false;
-            }
-
-            // wszystkie kąty zostały sprawdzone, kolizji nie będzie
-
+    
+    public boolean canMove(){
+        if(canChangeDirection(directionFuture)){
             return true;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return false;
-        }
+        }else return canChangeDirection(direction);
     }
 
-    public boolean canChangeDirection() {
-        if (directionFuture != null &&  directionFuture != direction ){
+    public boolean canChangeDirection(Direction directionFuture) {
+        if (directionFuture != null  ){
 
                 final boolean BOARD_WALL = false;
 
@@ -88,15 +48,15 @@ public abstract class LivingEntity extends Entity {
                     case RIGHT:
                         boundsNext.x += speed;
                 }
-
                 // jeśli któryś z kątów Entity w następnej klatce znalazłby się w ścianie, to Entity nie może się poruszyć
                 try {
+
                     if (directionFuture == Direction.LEFT || directionFuture == Direction.UP) {
                         if (board[toCellsY(boundsNext.y)][toCellsX(boundsNext.x)] == BOARD_WALL)
                             return false;
                     }
                     if (directionFuture == Direction.LEFT || directionFuture == Direction.DOWN) {
-                        if (board[toCellsY(boundsNext.y + boundsNext.height - 1)][toCellsX(boundsNext.x)] == BOARD_WALL)
+                        if (board[toCellsY(boundsNext.y + boundsNext.height - 1)][toCellsX(boundsNext.x )] == BOARD_WALL)
                             return false;
                     }
                     if (directionFuture == Direction.RIGHT || directionFuture == Direction.UP) {
@@ -107,12 +67,14 @@ public abstract class LivingEntity extends Entity {
                         if (board[toCellsY(boundsNext.y + boundsNext.height - 1)][toCellsX(boundsNext.x + boundsNext.width - 1)] == BOARD_WALL)
                             return false;
                     }
+                    System.out.println(""+directionFuture);
                     direction = directionFuture;
                     return true;
 
                 } catch (ArrayIndexOutOfBoundsException e) {
                     return false;
                 }
+
         } else{
             return false;
         }
