@@ -23,19 +23,8 @@ public class Game implements Runnable {
     }
 
     public void render() {
-//        ghost.render(mazeFrame.getContentPane().getGraphics());
-//        pacman.render(mazeFrame.getContentPane().getGraphics());
-//
-//        for(int i = 0; i < dots.length; i++) {
-//            for(int j = 0; j < dots[i].length; j++) {
-//                if(dots[i][j] != null && mazeFrame.activeDots(i, j))
-//                    dots[i][j].render(mazeFrame.getContentPane().getGraphics());
-//            }
-//        }
-
         mazeFrame.getContentPane().repaint();
     }
-
 
     @Override
     public void run() {
@@ -45,12 +34,9 @@ public class Game implements Runnable {
     //import java.util.Timer;
     //import java.util.concurrent.ScheduledThreadPoolExecutor;
 
-
     public static void main(String[] args) {
         Game game = new Game();
         Thread gameThread = new Thread(game);
         gameThread.start(); // threads for each "sprite"?
-
-
     }
 }
