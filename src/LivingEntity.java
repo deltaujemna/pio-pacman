@@ -4,12 +4,13 @@ public abstract class LivingEntity extends Entity {
     boolean alive;
     double speed; // wyrażona w pikselach na klatkę
 
+    int startX, startY;
+
     enum Direction {UP, DOWN, LEFT, RIGHT}
 
     enum LivingObject {PACMAN, GHOST}
 
-    static Direction directionPacman;
-    static Direction direction;
+    Direction direction;
     Direction directionFuture;
     boolean[][] grid;
 

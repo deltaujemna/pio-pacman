@@ -14,6 +14,8 @@ public class Pacman extends LivingEntity {
     Fruit[] fruits;
 
     public Pacman(int x, int y, int size, double speed) {
+        this.startX = toPixelsX(x);
+        this.startY = toPixelsY(y);
         this.x = toPixelsX(x);
         this.y = toPixelsY(y);
         this.width = size;
@@ -86,9 +88,13 @@ public class Pacman extends LivingEntity {
         killedGhostsStreak = 0;
         lives--;
         if (lives > 0) {
-            // TODO: aktualnie respawn jest na środku mapy, ewentualnie zmienić
-            teleport((420 - width) / 2, (460 - height) / 2);
-            // TODO: forEach Ghost teleport na start
+            // TODO: jeśli pacman przed śmiercią szedł w lewo to zmiana kierunku jest ignorowana, warto naprawić
+            direction = Direction.RIGHT;
+            teleport(startX, startY);
+            for(Ghost ghost : ghosts) {
+                ghost.direction = Direction.RIGHT; // to chyba będzie można usunąć
+                ghost.teleport(ghost.startX, ghost.startY);
+            }
         }
         // TODO: else koniec gry
     }

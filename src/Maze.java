@@ -5,7 +5,7 @@ public class Maze extends JPanel {
     static int cellSize = 20; //rozmiar pojedynczej komórki na planszy
     boolean[][] grid = new boolean[19][19];
     boolean[][] dots = new boolean[19][19]; // to na pewno jest potrzebne?
-    Ghost ghost;
+    Ghost[] ghosts;
     Pacman pacman;
     private final CollectableEntity[][] yellowDots;
 
@@ -19,8 +19,11 @@ public class Maze extends JPanel {
             }
         }
         updateEntireMap();
-        ghost = new Ghost(8, 8, 1); //8,8
-        pacman = new Pacman(0, 0, 20, 1);
+
+        ghosts = new Ghost[1];
+        ghosts[0] = new Ghost(8, 8, 1); //8,8
+
+        pacman = new Pacman(9, 10, 20, 1);
 
         yellowDots = new CollectableEntity[19][19];
         for (int i = 0; i < dots.length; i++) {
@@ -30,9 +33,10 @@ public class Maze extends JPanel {
             }
         }
 
-        ghost.grid = grid;
+        ghosts[0].grid = grid;
         pacman.grid = grid;
-        pacman.dots = yellowDots;
+        pacman.pushGhosts(ghosts);
+        pacman.pushDots(yellowDots);
     }
 
     public boolean activeDots(int i, int j) {
@@ -40,7 +44,9 @@ public class Maze extends JPanel {
     }
 
     public void update() {
-        ghost.tick();
+        for(Ghost ghost : ghosts) {
+            ghost.tick();
+        }
         pacman.tick();
     }
 
@@ -50,7 +56,9 @@ public class Maze extends JPanel {
         super.paintComponent(g);
         drawBoard(g);
         pacman.render(g);
-        ghost.render(g);
+        for(Ghost ghost : ghosts) {
+            ghost.render(g);
+        }
         drawDots(g);
     }
 

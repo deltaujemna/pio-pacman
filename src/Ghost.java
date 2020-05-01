@@ -6,14 +6,17 @@ public class Ghost extends LivingEntity {
     double fearTimeLeft;
     int points = 200;     //tymczasowo
     int ghostNumber = 1; //jeżeli każdy duch ma inny kolor
-    final int width = 20;
-    final int height = 20;
+    final int size = 20;
 
     public Ghost(int x, int y, int ghostNumber) {
         this.ghostNumber = ghostNumber;
         decideDirection();
+        this.startX = toPixelsX(x);
+        this.startY = toPixelsY(y);
         this.x = toPixelsX(x);
         this.y = toPixelsY(y);
+        this.width = size;
+        this.height = size;
         this.speed = 1;
         this.directionFuture = Direction.UP;
 
