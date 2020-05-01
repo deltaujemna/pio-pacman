@@ -1,16 +1,16 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
+import java.util.Random;
 
 public class Ghost extends LivingEntity {
     double fearTimeLeft;
     int points = 200;     //tymczasowo
     int ghostNumber = 1; //jeżeli każdy duch ma inny kolor
     final int size = 20;
-
+    long timeDecideDirection;
     public Ghost(int x, int y, int ghostNumber) {
         this.ghostNumber = ghostNumber;
-        decideDirection();
         this.startX = toPixelsX(x);
         this.startY = toPixelsY(y);
         this.x = toPixelsX(x);
@@ -18,8 +18,9 @@ public class Ghost extends LivingEntity {
         this.width = size;
         this.height = size;
         this.speed = 1;
+        this.direction = Direction.RIGHT;
         this.directionFuture = Direction.UP;
-
+        this.timeDecideDirection = System.nanoTime();
     }
 
     public void trackPacman() {
@@ -27,7 +28,20 @@ public class Ghost extends LivingEntity {
     }
 
     public void decideDirection() {
-        direction = Direction.RIGHT;  //tymczasowo
+        if(System.nanoTime() - timeDecideDirection >= 0.75e9) {
+            direction = directionFuture;
+            Random rand = new Random();
+            int tempDirection = rand.nextInt(4);
+            if(tempDirection==0)
+                directionFuture = Direction.RIGHT;
+            if(tempDirection==1)
+                directionFuture = Direction.UP;
+            if(tempDirection==2)
+                directionFuture = Direction.DOWN;
+            if(tempDirection==3)
+                directionFuture = Direction.LEFT;
+            timeDecideDirection = System.nanoTime();
+        }
     }
 
     public boolean isFrightened() {
@@ -43,6 +57,7 @@ public class Ghost extends LivingEntity {
     }
 
     public void tick() {
+        decideDirection();
         if (canMove()) {
             switch (direction) {
                 case UP:
@@ -62,8 +77,7 @@ public class Ghost extends LivingEntity {
     }
 
     public void render(Graphics g) {
-        //String imgPath = "Images/duch" + this.ghostNumber + ".png";
-        String imgPath = "Images/ghost" + this.ghostNumber + ".png";
+        String imgPath = "Images/ghost" + ghostNumber + ".png";
         try {
             g.drawImage(ImageIO.read(new File(imgPath)), this.x, this.y, this.width, this.height, null);
         } catch (Exception e) {

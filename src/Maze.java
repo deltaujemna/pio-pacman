@@ -20,8 +20,11 @@ public class Maze extends JPanel {
         }
         updateEntireMap();
 
-        ghosts = new Ghost[1];
+        ghosts = new Ghost[4];
         ghosts[0] = new Ghost(8, 8, 1); //8,8
+        ghosts[1] = new Ghost(8, 8, 2); //8,8
+        ghosts[2] = new Ghost(8, 8, 3); //8,8
+        ghosts[3] = new Ghost(8, 8, 4); //8,8
 
         pacman = new Pacman(9, 10, 20, 1);
 
@@ -34,6 +37,9 @@ public class Maze extends JPanel {
         }
 
         ghosts[0].grid = grid;
+        ghosts[1].grid = grid;
+        ghosts[2].grid = grid;
+        ghosts[3].grid = grid;
         pacman.grid = grid;
         pacman.pushGhosts(ghosts);
         pacman.pushDots(yellowDots);
