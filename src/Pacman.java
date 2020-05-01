@@ -1,4 +1,6 @@
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.io.File;
 
 public class Pacman extends LivingEntity {
 
@@ -6,7 +8,7 @@ public class Pacman extends LivingEntity {
     private int score = 0;
     private double powerUpTimeLeft = 0;
     private int killedGhostsStreak = 0;
-
+    long timeRenderCircle;              //zmienna pomocnicza do animowania ruchu Pacmana
     private final int POWERUP_TIME = 15;
 
     Ghost[] ghosts;
@@ -22,6 +24,7 @@ public class Pacman extends LivingEntity {
         this.height = size;
         this.speed = speed;
         this.direction = Direction.RIGHT;
+        this.timeRenderCircle = System.nanoTime();
     }
 
     // przekazanie położenie ścian do tej klasy
@@ -133,8 +136,52 @@ public class Pacman extends LivingEntity {
 
     @Override
     public void render(Graphics g) {
-        g.setColor(Color.YELLOW);
-        g.fillOval(x, y, width, height);
+        g.setColor(Color.ORANGE);
+        g.setFont(new Font("TimesRoman", Font.BOLD, 15));
+        g.drawString("Score: " + this.score, 14, 14);
+        //g.setColor(Color.YELLOW);
+        //g.fillOval(x, y, width, height);
+        String imgPath = "";
+        if(System.nanoTime() - timeRenderCircle >= 0.15e9) {
+            if (direction == Direction.UP) {
+                imgPath = "Images/pacman_up.png";
+                try {
+                    g.drawImage(ImageIO.read(new File(imgPath)), this.x, this.y, this.width, this.height, null);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (direction == Direction.RIGHT) {
+                imgPath = "Images/pacman_right.png";
+                try {
+                    g.drawImage(ImageIO.read(new File(imgPath)), this.x, this.y, this.width, this.height, null);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (direction == Direction.LEFT) {
+                imgPath = "Images/pacman_left.png";
+                try {
+                    g.drawImage(ImageIO.read(new File(imgPath)), this.x, this.y, this.width, this.height, null);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (direction == Direction.DOWN) {
+                imgPath = "Images/pacman_down.png";
+                try {
+                    g.drawImage(ImageIO.read(new File(imgPath)), this.x, this.y, this.width, this.height, null);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if(System.nanoTime() - timeRenderCircle >= 0.3e9)
+                timeRenderCircle=System.nanoTime();
+        }
+        else{
+            g.setColor(Color.YELLOW);
+            g.fillOval(x, y, width, height);
+        }
     }
 
 

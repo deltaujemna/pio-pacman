@@ -11,7 +11,8 @@ public class Dot extends CollectableEntity {
 
     @Override
     public void pickup(Pacman p) {
-        super.pickup(p);
+        if(renderable)
+            super.pickup(p);
         renderable = false;
     }
 
@@ -27,6 +28,7 @@ public class Dot extends CollectableEntity {
 
     public Dot(int x, int y) {
         super(x, y);
+        this.points = 10;
     }
 
 }
