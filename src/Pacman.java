@@ -139,8 +139,22 @@ public class Pacman extends LivingEntity {
         g.setColor(Color.ORANGE);
         g.setFont(new Font("TimesRoman", Font.BOLD, 15));
         g.drawString("Score: " + this.score, 14, 14);
+        g.drawString("Lives: ",  280, 14);
         //g.setColor(Color.YELLOW);
         //g.fillOval(x, y, width, height);
+        if(lives>=1) {
+            g.setColor(Color.YELLOW);
+            g.fillOval(330, 2, 13, 13);
+        }
+        if(lives>=2) {
+            g.setColor(Color.YELLOW);
+            g.fillOval(350, 2, 13, 13);
+        }
+        if(lives>=3) {
+            g.setColor(Color.YELLOW);
+            g.fillOval(370, 2, 13, 13);
+        }
+
         String imgPath = "";
         if(System.nanoTime() - timeRenderCircle >= 0.15e9) {
             if (direction == Direction.UP) {
