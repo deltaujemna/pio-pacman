@@ -44,9 +44,9 @@ public class Pacman extends LivingEntity {
 
     // porusza w ustalonym kierunku
     public void move() {
-        if(teleport()){
+        if (teleport()) {
 
-        }else if (super.canMove()) {
+        } else if (super.canMove()) {
             switch (direction) {
                 case UP:
                     y -= speed;
@@ -122,10 +122,6 @@ public class Pacman extends LivingEntity {
                 }
             }
         }
-        System.out.println("this x = "+ x + "this y = " +y);
-
-
-
 
     }
 
