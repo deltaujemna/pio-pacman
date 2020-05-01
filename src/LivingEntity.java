@@ -5,7 +5,9 @@ public abstract class LivingEntity extends Entity {
     double speed; // wyrażona w pikselach na klatkę
 
     enum Direction {UP, DOWN, LEFT, RIGHT}
-    enum LivingObject{PACMAN,GHOST}
+
+    enum LivingObject {PACMAN, GHOST}
+
     static Direction directionPacman;
     static Direction direction;
     Direction directionFuture;
@@ -13,7 +15,7 @@ public abstract class LivingEntity extends Entity {
 
     // zwraca, czy postać może się poruszyć
     private boolean canMoveThisDirection(Direction direction) {
-        if(direction != null) {
+        if (direction != null) {
 
             final boolean GRID_WALL = false;
 
@@ -67,28 +69,31 @@ public abstract class LivingEntity extends Entity {
         }
         return false;
     }
-    public boolean canMove(){
-        if(canMoveThisDirection(this.directionFuture)){
+
+    public boolean canMove() {
+        if (canMoveThisDirection(this.directionFuture)) {
             return true;
-        }else if(canMoveThisDirection(this.direction)) {
+        } else if (canMoveThisDirection(this.direction)) {
             return true;
         }
         return false;
 
     }
+
     // teleportuje postać na wskazane x, y
     public void teleport(int x, int y) {
         this.x = x;
         this.y = y;
     }
-    public boolean teleport(){
-        if(this.y == 180){
-            if(this.x == 20){
-                teleport(toPixelsX(18),toPixelsY(8));
+
+    public boolean teleport() {
+        if (this.y == 180) {
+            if (this.x == 20) {
+                teleport(toPixelsX(18), toPixelsY(8));
                 this.x--;
                 return true;
-            }else if(toCellsX(this.x) == 18){
-                teleport(toPixelsX(0),toPixelsY(8));
+            } else if (toCellsX(this.x) == 18) {
+                teleport(toPixelsX(0), toPixelsY(8));
                 this.x++;
                 return true;
             }

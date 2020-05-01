@@ -5,11 +5,6 @@ public class Keys implements KeyListener {
 
     private final Pacman pacman;
 
-    private final int keyUp = 38;
-    private final int keyDown = 40;
-    private final int keyLeft = 37;
-    private final int keyRight = 39;
-
     public Keys(Pacman pacman) {
         this.pacman = pacman;
     }
@@ -21,7 +16,12 @@ public class Keys implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent key) {
-        switch(key.getKeyCode()) {
+        final int keyUp = 38;
+        final int keyDown = 40;
+        final int keyLeft = 37;
+        final int keyRight = 39;
+
+        switch (key.getKeyCode()) {
             case keyUp:
                 pacman.setDirection(LivingEntity.Direction.UP);
                 break;

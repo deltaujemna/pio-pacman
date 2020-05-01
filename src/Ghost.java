@@ -40,7 +40,7 @@ public class Ghost extends LivingEntity {
     }
 
     public void tick() {
-        if(canMove()) {
+        if (canMove()) {
             switch (direction) {
                 case UP:
                     this.y -= speed;

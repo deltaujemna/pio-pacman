@@ -1,5 +1,3 @@
-import java.awt.*;
-
 public abstract class CollectableEntity extends Entity {
 
     int points;
