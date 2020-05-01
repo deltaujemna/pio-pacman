@@ -21,6 +21,11 @@ public class Maze extends JPanel {
         deleteDotsFromCage();
         updateEntireMap();
 
+        // nie chcemy kulek w klatce duchów
+        dots[8][8] = false;
+        dots[8][9] = false;
+        dots[8][10] = false;
+
         ghosts = new Ghost[4];
         ghosts[0] = new Ghost(8, 8, 1); //8,8
         ghosts[1] = new Ghost(8, 8, 2); //8,8

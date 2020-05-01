@@ -2,6 +2,7 @@ public abstract class CollectableEntity extends Entity {
 
     int points;
     int x, y;
+    boolean renderable;
 
     public void pickup(Pacman p) {
         p.addScore(points);
