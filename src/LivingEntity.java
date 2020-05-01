@@ -81,14 +81,19 @@ public abstract class LivingEntity extends Entity {
         this.x = x;
         this.y = y;
     }
-    public void teleport(){
-        if(toCellsY(this.y) == 8){
-            if(toCellsX(this.x) == 0){
+    public boolean teleport(){
+        if(this.y == 180){
+            if(this.x == 20){
                 teleport(toPixelsX(18),toPixelsY(8));
+                this.x--;
+                return true;
             }else if(toCellsX(this.x) == 18){
                 teleport(toPixelsX(0),toPixelsY(8));
+                this.x++;
+                return true;
             }
         }
+        return false;
 
     }
 

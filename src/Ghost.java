@@ -10,8 +10,6 @@ public class Ghost extends LivingEntity {
     final int height = 20;
 
     public Ghost(int x, int y, int ghostNumber) {
-        //this.x = x;
-        //this.y = y;
         this.ghostNumber = ghostNumber;
         decideDirection();
         this.x = toPixelsX(x);
