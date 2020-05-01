@@ -3,7 +3,7 @@ import java.awt.*;
 import java.io.File;
 
 public class Fruit extends CollectableEntity {
-    private boolean renderable = true;
+
     @Override
     public void pickup(Pacman p) {
         // TODO: zrobić

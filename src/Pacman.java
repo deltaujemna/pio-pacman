@@ -10,6 +10,7 @@ public class Pacman extends LivingEntity {
     private int killedGhostsStreak = 0;
     long timeRenderCircle;              //zmienna pomocnicza do animowania ruchu Pacmana
     private final int POWERUP_TIME = 15;
+    private int dotsLeft = 200;
 
     Ghost[] ghosts;
     CollectableEntity[][] dots;
@@ -119,8 +120,14 @@ public class Pacman extends LivingEntity {
         }
 
         if (dots != null) {
-            if (dots[toCellsY(y + Maze.cellSize / 2)][toCellsX(x + Maze.cellSize / 2)] != null) {
+            if (dots[toCellsY(y + Maze.cellSize / 2)][toCellsX(x + Maze.cellSize / 2)] != null &&
+                    dots[toCellsY(y + Maze.cellSize / 2)][toCellsX(x + Maze.cellSize / 2)].renderable) {
                 dots[toCellsY(y + Maze.cellSize / 2)][toCellsX(x + Maze.cellSize / 2)].pickup(this);
+                //System.out.println("pozostalo kulek: " + (dotsLeft - 1));
+                if(--dotsLeft == 0) {
+                    // TODO: zrobić przejście do następnego poziomu
+                    System.err.println("brawo");
+                }
             }
         }
 

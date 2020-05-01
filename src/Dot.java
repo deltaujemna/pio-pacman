@@ -2,8 +2,6 @@ import java.awt.*;
 
 public class Dot extends CollectableEntity {
 
-    private boolean renderable = true;
-
     @Override
     public void tick() {
 
@@ -29,6 +27,7 @@ public class Dot extends CollectableEntity {
     public Dot(int x, int y) {
         super(x, y);
         this.points = 10;
+        this.renderable = true;
     }
 
 }
