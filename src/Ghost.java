@@ -9,6 +9,8 @@ public class Ghost extends LivingEntity {
     int ghostNumber = 1; //jeżeli każdy duch ma inny kolor
     final int size = 20;
     long timeDecideDirection;
+    int pacmanX; //aktualna pozycja Pacmana, żeby można było go śledzić
+    int pacmanY;
 
     public Ghost(int x, int y, int ghostNumber) {
         this.ghostNumber = ghostNumber;
@@ -22,6 +24,14 @@ public class Ghost extends LivingEntity {
         this.direction = Direction.RIGHT;
         this.directionFuture = Direction.UP;
         this.timeDecideDirection = System.nanoTime();
+    }
+
+    public void pushPacmanX(int x) {
+        pacmanX = x;
+    }
+
+    public void pushPacmanY(int y) {
+        pacmanY = y;
     }
 
     public void trackPacman() {
@@ -59,7 +69,9 @@ public class Ghost extends LivingEntity {
 
     public void tick() {
         decideDirection();
-        if (canMove()) {
+        if (teleport()) {
+
+        } else if (canMove()) {
             switch (direction) {
                 case UP:
                     this.y -= speed;

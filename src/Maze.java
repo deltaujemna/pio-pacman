@@ -18,6 +18,7 @@ public class Maze extends JPanel {
                 dots[i][j] = true;
             }
         }
+        deleteDotsFromCage();
         updateEntireMap();
 
         ghosts = new Ghost[4];
@@ -51,6 +52,8 @@ public class Maze extends JPanel {
 
     public void update() {
         for(Ghost ghost : ghosts) {
+            ghost.pushPacmanX(pacman.x);
+            ghost.pushPacmanY(pacman.y);
             ghost.tick();
         }
         pacman.tick();
@@ -63,9 +66,16 @@ public class Maze extends JPanel {
         drawBoard(g);
         pacman.render(g);
         drawDots(g);
-        for(Ghost ghost : ghosts) {
+        for (Ghost ghost : ghosts) {
             ghost.render(g);
         }
+    }
+
+    public void deleteDotsFromCage() {
+        dots[7][9] = false;
+        dots[8][8] = false;
+        dots[8][9] = false;
+        dots[8][10] = false;
     }
 
     /*Aktualizuje fragment mapy - dla prostokąta przekazanego w argumencie (x, y - współrzędne
