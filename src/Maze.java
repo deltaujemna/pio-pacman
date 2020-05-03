@@ -62,10 +62,10 @@ public class Maze extends JPanel {
         super.paintComponent(g);
         drawBoard(g);
         pacman.render(g);
+        drawDots(g);
         for(Ghost ghost : ghosts) {
             ghost.render(g);
         }
-        drawDots(g);
     }
 
     /*Aktualizuje fragment mapy - dla prostokąta przekazanego w argumencie (x, y - współrzędne

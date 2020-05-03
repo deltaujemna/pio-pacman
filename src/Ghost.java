@@ -9,6 +9,7 @@ public class Ghost extends LivingEntity {
     int ghostNumber = 1; //jeżeli każdy duch ma inny kolor
     final int size = 20;
     long timeDecideDirection;
+
     public Ghost(int x, int y, int ghostNumber) {
         this.ghostNumber = ghostNumber;
         this.startX = toPixelsX(x);
@@ -28,17 +29,17 @@ public class Ghost extends LivingEntity {
     }
 
     public void decideDirection() {
-        if(System.nanoTime() - timeDecideDirection >= 0.75e9) {
+        if (System.nanoTime() - timeDecideDirection >= 0.75e9) {
             direction = directionFuture;
             Random rand = new Random();
             int tempDirection = rand.nextInt(4);
-            if(tempDirection==0)
+            if (tempDirection == 0)
                 directionFuture = Direction.RIGHT;
-            if(tempDirection==1)
+            if (tempDirection == 1)
                 directionFuture = Direction.UP;
-            if(tempDirection==2)
+            if (tempDirection == 2)
                 directionFuture = Direction.DOWN;
-            if(tempDirection==3)
+            if (tempDirection == 3)
                 directionFuture = Direction.LEFT;
             timeDecideDirection = System.nanoTime();
         }
@@ -77,14 +78,18 @@ public class Ghost extends LivingEntity {
     }
 
     public void render(Graphics g) {
-        String imgPath = "Images/ghost" + ghostNumber + ".png";
+        String imgPath = "Images/ghost" + ghostNumber + "_right" + ".png";
+        if (direction == Direction.RIGHT || directionFuture == Direction.RIGHT)
+            imgPath = "Images/ghost" + ghostNumber + "_right" + ".png";
+        if (direction == Direction.LEFT || directionFuture == Direction.LEFT)
+            imgPath = "Images/ghost" + ghostNumber + "_left" + ".png";
+
         try {
             g.drawImage(ImageIO.read(new File(imgPath)), this.x, this.y, this.width, this.height, null);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 }
 
 
