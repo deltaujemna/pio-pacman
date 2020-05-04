@@ -9,7 +9,7 @@ public class Maze extends JPanel {
     Pacman pacman;
     private final CollectableEntity[][] yellowDots;
 
-    private boolean time = true;
+    private final int[][] powerDotPos = {{2, 0}, {16, 0}, {2, 18}, {16, 18}};
 
     public Maze() {
         for (int i = 0; i < 19; i++) {
@@ -35,9 +35,14 @@ public class Maze extends JPanel {
         pacman = new Pacman(9, 10, 20, 1);
 
         yellowDots = new CollectableEntity[19][19];
+
+        for(int[] singlePowerDotPos : powerDotPos) {
+            yellowDots[singlePowerDotPos[1]][singlePowerDotPos[0]] = new PowerDot(singlePowerDotPos[0], singlePowerDotPos[1]);
+        }
+
         for (int i = 0; i < dots.length; i++) {
             for (int j = 0; j < dots[i].length; j++) {
-                if (activeDots(i, j))
+                if (activeDots(i, j) && yellowDots[i][j] == null)
                     yellowDots[i][j] = new Dot(j, i);
             }
         }

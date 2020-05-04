@@ -10,7 +10,7 @@ public class Pacman extends LivingEntity {
     private int killedGhostsStreak = 0;
     long timeRenderCircle;              //zmienna pomocnicza do animowania ruchu Pacmana
     private final int POWERUP_TIME = 15;
-    private int dotsLeft = 200;
+    private int dotsLeft = 199;
 
     Ghost[] ghosts;
     CollectableEntity[][] dots;
@@ -73,12 +73,13 @@ public class Pacman extends LivingEntity {
 
     // nastąpiła kolizja z duchem
     public void collision(Ghost g) {
-        if (powerUpTimeLeft > 0) {
-            addScore(g.points);
-            killedGhostsStreak++;
-            g.die();
-        } else {
-            loseLife();
+        if(g.alive) {
+            if (g.isFrightened()) {
+                addScore(g.points * (++killedGhostsStreak));
+                g.die();
+            } else {
+                loseLife();
+            }
         }
     }
 
@@ -101,6 +102,14 @@ public class Pacman extends LivingEntity {
             }
         }
         // TODO: else koniec gry
+    }
+
+    // uruchomienie powerupa
+    public void activatePowerup() {
+        powerUpTimeLeft = POWERUP_TIME;
+        for(Ghost ghost : ghosts) {
+            ghost.setFearTimeLeft();
+        }
     }
 
     @Override

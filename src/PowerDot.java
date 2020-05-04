@@ -1,6 +1,10 @@
 import java.awt.*;
 
-public class Dot extends CollectableEntity {
+public class PowerDot extends CollectableEntity {
+
+    public void activatePowerup(Pacman p) {
+        p.activatePowerup();
+    }
 
     @Override
     public void tick() {
@@ -9,14 +13,16 @@ public class Dot extends CollectableEntity {
 
     @Override
     public void pickup(Pacman p) {
-        if(renderable)
+        if(renderable) {
             super.pickup(p);
+            activatePowerup(p);
+        }
         renderable = false;
     }
 
     @Override
     public void render(Graphics g) {
-        final int size = 7;
+        final int size = 13;
 
         if (renderable) {
             g.setColor(Color.ORANGE);
@@ -24,9 +30,9 @@ public class Dot extends CollectableEntity {
         }
     }
 
-    public Dot(int x, int y) {
+    public PowerDot(int x, int y) {
         super(x, y);
-        this.points = 10;
+        this.points = 20;
         this.renderable = true;
     }
 

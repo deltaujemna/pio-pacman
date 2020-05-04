@@ -5,6 +5,7 @@ import java.util.Random;
 
 public class Ghost extends LivingEntity {
     double fearTimeLeft;
+    double deadTimeLeft;
     int points = 200;     //tymczasowo
     int ghostNumber = 1; //jeżeli każdy duch ma inny kolor
     final int size = 20;
@@ -24,6 +25,7 @@ public class Ghost extends LivingEntity {
         this.direction = Direction.RIGHT;
         this.directionFuture = Direction.UP;
         this.timeDecideDirection = System.nanoTime();
+        this.alive = true;
     }
 
     public void pushPacmanX(int x) {
@@ -61,10 +63,11 @@ public class Ghost extends LivingEntity {
 
     public void die() {
         this.alive = false;
+        this.deadTimeLeft = 10;
     }
 
     public void setFearTimeLeft() {
-        this.fearTimeLeft = 15000; //jeżeli 15 sekund trwa power-up
+        this.fearTimeLeft = 15; //jeżeli 15 sekund trwa power-up
     }
 
     public void tick() {
@@ -87,14 +90,37 @@ public class Ghost extends LivingEntity {
                     break;
             }
         }
+
+        if (fearTimeLeft > 0) {
+            fearTimeLeft -= (double) 1 / 60;
+        }
+        if(deadTimeLeft > 0) {
+            deadTimeLeft -= (double) 1 / 60;
+            if(deadTimeLeft <= 0)
+                alive = true;
+        }
     }
 
     public void render(Graphics g) {
-        String imgPath = "Images/ghost" + ghostNumber + "_right" + ".png";
-        if (direction == Direction.RIGHT || directionFuture == Direction.RIGHT)
-            imgPath = "Images/ghost" + ghostNumber + "_right" + ".png";
-        if (direction == Direction.LEFT || directionFuture == Direction.LEFT)
-            imgPath = "Images/ghost" + ghostNumber + "_left" + ".png";
+        String imgPath;
+
+        if(alive) {
+            if(isFrightened()) {
+                imgPath = "Images/ghost_frightened.png";
+            } else {
+                imgPath = "Images/ghost" + ghostNumber + "_right" + ".png";
+                if (direction == Direction.RIGHT || directionFuture == Direction.RIGHT)
+                    imgPath = "Images/ghost" + ghostNumber + "_right" + ".png";
+                if (direction == Direction.LEFT || directionFuture == Direction.LEFT)
+                    imgPath = "Images/ghost" + ghostNumber + "_left" + ".png";
+            }
+        } else {
+            imgPath = "Images/ghost_dead_right.png";
+            if (direction == Direction.RIGHT || directionFuture == Direction.RIGHT)
+                imgPath = "Images/ghost_dead_right.png";
+            if (direction == Direction.LEFT || directionFuture == Direction.LEFT)
+                imgPath = "Images/ghost_dead_left.png";
+        }
 
         try {
             g.drawImage(ImageIO.read(new File(imgPath)), this.x, this.y, this.width, this.height, null);
