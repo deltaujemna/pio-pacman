@@ -84,7 +84,14 @@ public class Ghost extends LivingEntity {
         if (System.nanoTime() - timeDecideDirection >= 0.75e9) {
             if(this.y < pacmanY){
                 directionFuture = Direction.UP;
-            }else{
+            }else if(this.y == pacmanY){
+                if(this.x < pacmanY){
+                    directionFuture = Direction.RIGHT;
+                }else{
+                    directionFuture = Direction.LEFT;
+                }
+            }
+            else{
                 directionFuture = Direction.DOWN;
             }
             timeDecideDirection = System.nanoTime();
@@ -94,7 +101,16 @@ public class Ghost extends LivingEntity {
         if (System.nanoTime() - timeDecideDirection >= 0.75e9) {
             if(this.x < pacmanY){
                 directionFuture = Direction.RIGHT;
-            }else{
+            }if(this.x == pacmanX){
+                if(this.y < pacmanY){
+                    directionFuture = Direction.UP;
+                }
+                else{
+                    directionFuture = Direction.DOWN;
+                }
+
+            }
+            else{
                 directionFuture = Direction.LEFT;
             }
             timeDecideDirection = System.nanoTime();
