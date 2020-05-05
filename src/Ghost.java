@@ -12,6 +12,8 @@ public class Ghost extends LivingEntity {
     long timeDecideDirection;
     int pacmanX; //aktualna pozycja Pacmana, żeby można było go śledzić
     int pacmanY;
+    Direction pacmanDirectory;
+    Direction pacmanDirectoryFuture;
 
     public Ghost(int x, int y, int ghostNumber) {
         this.ghostNumber = ghostNumber;
@@ -36,11 +38,26 @@ public class Ghost extends LivingEntity {
         pacmanY = y;
     }
 
+    public void pushPacmanDirection(Direction direction) { pacmanDirectory = direction; }
+
+    public void pushPacmanDirectorFuture(Direction direction) {
+        pacmanDirectoryFuture = direction;
+    }
+
     public void trackPacman() {
+        if(ghostNumber == 1){
+            decideDirection1();
+        }else if(ghostNumber == 2){
+            decideDirection2();
+        }else if(ghostNumber == 3){
+            decideDirection3();
+        }else{
+            decideDirection4();
+        }
 
     }
 
-    public void decideDirection() {
+    public void decideDirection1() {
         if (System.nanoTime() - timeDecideDirection >= 0.75e9) {
             direction = directionFuture;
             Random rand = new Random();
@@ -57,6 +74,51 @@ public class Ghost extends LivingEntity {
         }
     }
 
+    public void decideDirection2() {
+        if (System.nanoTime() - timeDecideDirection >= 0.75e9) {
+            directionFuture = pacmanDirectory;
+            timeDecideDirection = System.nanoTime();
+        }
+    }
+    public void decideDirection3() {
+        if (System.nanoTime() - timeDecideDirection >= 0.75e9) {
+            if(this.y < pacmanY){
+                directionFuture = Direction.UP;
+            }else{
+                directionFuture = Direction.DOWN;
+            }
+            timeDecideDirection = System.nanoTime();
+        }
+    }
+    public void decideDirection4() {
+        if (System.nanoTime() - timeDecideDirection >= 0.75e9) {
+            if(this.x < pacmanY){
+                directionFuture = Direction.RIGHT;
+            }else{
+                directionFuture = Direction.LEFT;
+            }
+            timeDecideDirection = System.nanoTime();
+        }
+    }
+    public boolean isBase(){
+        if(this.y == toPixelsY(8)){
+            if(this.x == toPixelsX(8)){
+                direction = Direction.RIGHT;
+                directionFuture = Direction.UP;
+                return true;
+            }else if(this.x == toPixelsX(10)){
+                direction = Direction.LEFT;
+                directionFuture = Direction.UP;
+                return true;
+            }
+
+        }
+        return false;
+
+    }
+
+
+
     public boolean isFrightened() {
         return this.fearTimeLeft > 0;
     }
@@ -71,7 +133,9 @@ public class Ghost extends LivingEntity {
     }
 
     public void tick() {
-        decideDirection();
+        if(!isBase()) {
+            trackPacman();
+        }
         if (teleport()) {
 
         } else if (canMove()) {
@@ -94,9 +158,9 @@ public class Ghost extends LivingEntity {
         if (fearTimeLeft > 0) {
             fearTimeLeft -= (double) 1 / 60;
         }
-        if(deadTimeLeft > 0) {
+        if (deadTimeLeft > 0) {
             deadTimeLeft -= (double) 1 / 60;
-            if(deadTimeLeft <= 0)
+            if (deadTimeLeft <= 0)
                 alive = true;
         }
     }
@@ -104,8 +168,8 @@ public class Ghost extends LivingEntity {
     public void render(Graphics g) {
         String imgPath;
 
-        if(alive) {
-            if(isFrightened()) {
+        if (alive) {
+            if (isFrightened()) {
                 imgPath = "Images/ghost_frightened.png";
             } else {
                 imgPath = "Images/ghost" + ghostNumber + "_right" + ".png";

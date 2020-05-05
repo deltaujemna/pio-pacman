@@ -64,6 +64,8 @@ public class Maze extends JPanel {
         for(Ghost ghost : ghosts) {
             ghost.pushPacmanX(pacman.x);
             ghost.pushPacmanY(pacman.y);
+            ghost.pushPacmanDirection(pacman.direction);
+            ghost.pushPacmanDirectorFuture(pacman.directionFuture);
             ghost.tick();
         }
         pacman.tick();
