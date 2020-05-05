@@ -150,7 +150,7 @@ public class Ghost extends LivingEntity {
 
     public void tick() {
         if(!isBase()) {
-            trackPacman();
+            trackPacman();// dopracowania
         }
         if (teleport()) {
 
