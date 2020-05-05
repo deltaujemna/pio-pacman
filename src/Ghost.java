@@ -155,22 +155,33 @@ public class Ghost extends LivingEntity {
         if (teleport()) {
 
         } else if (canMove()) {
-            switch (direction) {
-                case UP:
-                    this.y -= speed;
-                    break;
-                case DOWN:
-                    this.y += speed;
-                    break;
-                case LEFT:
-                    this.x -= speed;
-                    break;
-                case RIGHT:
-                    this.x += speed;
-                    break;
+
+        }else {
+            direction = Direction.DOWN;
+            directionFuture = Direction.RIGHT;
+            if(canMove()){
+
+            }else {
+                direction = Direction.UP;
+                directionFuture = Direction.LEFT;
             }
-        }else{
-            this.directionFuture = pacmanDirectoryFuture;
+            if(!canMove()){
+                System.out.println("blad w zmie kierunku ducha "); // do testow
+            }
+        }
+        switch (direction) {
+            case UP:
+                this.y -= speed;
+                break;
+            case DOWN:
+                this.y += speed;
+                break;
+            case LEFT:
+                this.x -= speed;
+                break;
+            case RIGHT:
+                this.x += speed;
+                break;
         }
 
         if (fearTimeLeft > 0) {
