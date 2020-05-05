@@ -169,6 +169,8 @@ public class Ghost extends LivingEntity {
                     this.x += speed;
                     break;
             }
+        }else{
+            this.directionFuture = pacmanDirectoryFuture;
         }
 
         if (fearTimeLeft > 0) {
