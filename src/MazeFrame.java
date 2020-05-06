@@ -3,9 +3,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MazeFrame extends JFrame {
-
-    public final Maze maze = new Maze();
+    public final Maze maze = new Maze(this);
     Timer timer = new Timer(); // to chyba można jako daemon (true w argumencie)
+
+    public boolean running = true;
 
     public MazeFrame(String title) {
         super(title);
@@ -21,8 +22,10 @@ public class MazeFrame extends JFrame {
 
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
-                getContentPane().repaint();
-                maze.update();
+                if(running) {
+                    getContentPane().repaint();
+                    maze.update();
+                }
             }
         }, 0, 1000 / 60);
     }

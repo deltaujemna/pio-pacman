@@ -16,7 +16,9 @@ public class Pacman extends LivingEntity {
     CollectableEntity[][] dots;
     Fruit[] fruits;
 
-    public Pacman(int x, int y, int size, double speed) {
+    MazeFrame mazeFrame;
+
+    public Pacman(int x, int y, int size, double speed, MazeFrame mazeframe) {
         this.startX = toPixelsX(x);
         this.startY = toPixelsY(y);
         this.x = toPixelsX(x);
@@ -26,6 +28,8 @@ public class Pacman extends LivingEntity {
         this.speed = speed;
         this.direction = Direction.RIGHT;
         this.timeRenderCircle = System.nanoTime();
+
+        this.mazeFrame = mazeframe;
     }
 
     // przekazanie położenie ścian do tej klasy
@@ -100,8 +104,21 @@ public class Pacman extends LivingEntity {
                 ghost.direction = Direction.RIGHT; // to chyba będzie można usunąć
                 ghost.teleport(ghost.startX, ghost.startY);
             }
+        } else {
+            // TODO: else koniec gry
+            System.out.println("DEAD");
+            mazeFrame.running = false;
+            //mazeFrame.setVisible(false);
+
+            //GameOverWindow gameOverWindow = new GameOverWindow("GAME OVER!");
+            // Może się utworzyć dwa razybo tyle "czasu" minie od powiadomienia pętli run żeby nic nie robiła
+
+            // Jezli chcemy menu znowu odpalać to trzeba połączyć pacmana, maze itd. tworzenie nowego "okna" moze byc prostsze
+
+
+            //System.exit(1);
         }
-        // TODO: else koniec gry
+
     }
 
     // uruchomienie powerupa

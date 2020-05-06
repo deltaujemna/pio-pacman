@@ -11,7 +11,12 @@ public class Maze extends JPanel {
 
     private final int[][] powerDotPos = {{2, 0}, {16, 0}, {2, 18}, {16, 18}};
 
-    public Maze() {
+    MazeFrame mazeFrame;
+
+    public Maze(MazeFrame mazeframe) {
+
+        this.mazeFrame = mazeframe;
+
         for (int i = 0; i < 19; i++) {
             for (int j = 0; j < 19; j++) {
                 grid[i][j] = true; //przed ustawieniem ścian można się poruszać po wszystkich komórkach
@@ -32,7 +37,7 @@ public class Maze extends JPanel {
         ghosts[2] = new Ghost(8, 8, 3); //8,8
         ghosts[3] = new Ghost(8, 8, 4); //8,8
 
-        pacman = new Pacman(9, 10, 20, 1);
+        pacman = new Pacman(9, 10, 20, 1, mazeFrame);
 
         yellowDots = new CollectableEntity[19][19];
 
