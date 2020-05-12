@@ -3,21 +3,29 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Menu extends JFrame {
-    private JPanel menuPanel;
-    private JButton startButton;
-    private JButton quitButton;
-
     MazeFrame mazeFrame;
 
     public Menu(String title) {
         super(title);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setContentPane(menuPanel);
-        this.pack();
-        this.setBounds(0, 0, 420, 460);
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
-        this.setResizable(false);
+        JPanel menuPanel = new JPanel();
+        JButton startButton = new JButton("START");
+        JButton quitButton = new JButton("QUIT");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(null);
+        menuPanel.setLayout(null);
+        menuPanel.setSize(420, 400);
+        setContentPane(menuPanel);
+        setSize(menuPanel.getSize());
+        setLocationRelativeTo(null);
+        setResizable(false);
+
+        menuPanel.add(startButton);
+        startButton.setBounds(60, 60, 300, 40);
+
+        menuPanel.add(quitButton);
+        quitButton.setBounds(60, 260, 300, 40);
+
+        setVisible(true);
 
         quitButton.addActionListener(new ActionListener() {
             @Override
