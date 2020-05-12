@@ -7,58 +7,17 @@ public class Maze extends JPanel {
     boolean[][] dots = new boolean[19][19]; // to na pewno jest potrzebne?
     Ghost[] ghosts;
     Pacman pacman;
-    private final CollectableEntity[][] yellowDots;
+    private CollectableEntity[][] yellowDots;
+    private int level;
 
     private final int[][] powerDotPos = {{2, 0}, {16, 0}, {2, 18}, {16, 18}};
 
     MazeFrame mazeFrame;
 
-    public Maze(MazeFrame mazeframe) {
-
-        this.mazeFrame = mazeframe;
-
-        for (int i = 0; i < 19; i++) {
-            for (int j = 0; j < 19; j++) {
-                grid[i][j] = true; //przed ustawieniem ścian można się poruszać po wszystkich komórkach
-                dots[i][j] = true;
-            }
-        }
-        deleteDotsFromCage();
-        updateEntireMap();
-
-        // nie chcemy kulek w klatce duchów
-        dots[8][8] = false;
-        dots[8][9] = false;
-        dots[8][10] = false;
-
-        ghosts = new Ghost[4];
-        ghosts[0] = new Ghost(8, 8, 1); //8,8
-        ghosts[1] = new Ghost(8, 8, 2); //8,8
-        ghosts[2] = new Ghost(8, 8, 3); //8,8
-        ghosts[3] = new Ghost(8, 8, 4); //8,8
-
-        pacman = new Pacman(9, 10, 20, 1, mazeFrame);
-
-        yellowDots = new CollectableEntity[19][19];
-
-        for(int[] singlePowerDotPos : powerDotPos) {
-            yellowDots[singlePowerDotPos[1]][singlePowerDotPos[0]] = new PowerDot(singlePowerDotPos[0], singlePowerDotPos[1]);
-        }
-
-        for (int i = 0; i < dots.length; i++) {
-            for (int j = 0; j < dots[i].length; j++) {
-                if (activeDots(i, j) && yellowDots[i][j] == null)
-                    yellowDots[i][j] = new Dot(j, i);
-            }
-        }
-
-        ghosts[0].grid = grid;
-        ghosts[1].grid = grid;
-        ghosts[2].grid = grid;
-        ghosts[3].grid = grid;
-        pacman.grid = grid;
-        pacman.pushGhosts(ghosts);
-        pacman.pushDots(yellowDots);
+    public Maze(MazeFrame mazeFrame) {
+        this.mazeFrame = mazeFrame;
+        level = 1;
+        resetBoard();
     }
 
     public boolean activeDots(int i, int j) {
@@ -66,7 +25,7 @@ public class Maze extends JPanel {
     }
 
     public void update() {
-        for(Ghost ghost : ghosts) {
+        for (Ghost ghost : ghosts) {
             ghost.pushPacmanX(pacman.x);
             ghost.pushPacmanY(pacman.y);
             ghost.pushPacmanDirection(pacman.direction);
@@ -93,6 +52,57 @@ public class Maze extends JPanel {
         dots[8][8] = false;
         dots[8][9] = false;
         dots[8][10] = false;
+    }
+
+    public void levelUp() {
+        level++;
+        resetBoard();
+    }
+
+    public void resetBoard() {
+        for (int i = 0; i < 19; i++) {
+            for (int j = 0; j < 19; j++) {
+                grid[i][j] = true; //przed ustawieniem ścian można się poruszać po wszystkich komórkach
+                dots[i][j] = true;
+            }
+        }
+
+        deleteDotsFromCage();
+        updateEntireMap();
+
+        ghosts = new Ghost[4];
+        ghosts[0] = new Ghost(8, 8, 1); //8,8
+        ghosts[1] = new Ghost(8, 8, 2); //8,8
+        ghosts[2] = new Ghost(8, 8, 3); //8,8
+        ghosts[3] = new Ghost(8, 8, 4); //8,8
+
+        if (level == 1)
+            pacman = new Pacman(9, 10, 20, 1, mazeFrame);
+        else {
+            pacman.x = pacman.startX;
+            pacman.y = pacman.startY;
+        }
+
+        yellowDots = new CollectableEntity[19][19];
+
+        for (int[] singlePowerDotPos : powerDotPos) {
+            yellowDots[singlePowerDotPos[1]][singlePowerDotPos[0]] = new PowerDot(singlePowerDotPos[0], singlePowerDotPos[1]);
+        }
+
+        for (int i = 0; i < dots.length; i++) {
+            for (int j = 0; j < dots[i].length; j++) {
+                if (activeDots(i, j) && yellowDots[i][j] == null)
+                    yellowDots[i][j] = new Dot(j, i);
+            }
+        }
+
+        ghosts[0].grid = grid;
+        ghosts[1].grid = grid;
+        ghosts[2].grid = grid;
+        ghosts[3].grid = grid;
+        pacman.grid = grid;
+        pacman.pushGhosts(ghosts);
+        pacman.pushDots(yellowDots);
     }
 
     /*Aktualizuje fragment mapy - dla prostokąta przekazanego w argumencie (x, y - współrzędne

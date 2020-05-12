@@ -157,8 +157,9 @@ public class Pacman extends LivingEntity {
                 dots[toCellsY(y + Maze.cellSize / 2)][toCellsX(x + Maze.cellSize / 2)].pickup(this);
                 //System.out.println("pozostalo kulek: " + (dotsLeft - 1));
                 if(--dotsLeft == 0) {
-                    // TODO: zrobić przejście do następnego poziomu
-                    System.err.println("brawo");
+                    //TODO - przydała by się chwila pauzy przed rozpoczęciem kolejnego poziomu
+                    mazeFrame.maze.levelUp();
+                    dotsLeft = 199;
                 }
             }
         }
