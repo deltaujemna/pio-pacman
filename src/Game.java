@@ -1,5 +1,5 @@
 public class Game {
-    public Menu menu;
+    public static Menu menu;
 
     public Game() {
         menu = new Menu("Pacman Menu");

@@ -2,7 +2,7 @@ import javax.swing.*;
 
 public class GameOverWindow extends JFrame {
 
-
+//TODO - sugeruję usunąć tę klasę i zostawić tylko message boxa z komunikatem o końcu gry - MM
     MazeFrame mazeFrame;
 
     public GameOverWindow(String title) {

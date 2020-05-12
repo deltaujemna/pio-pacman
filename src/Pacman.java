@@ -1,4 +1,5 @@
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 
@@ -106,8 +107,13 @@ public class Pacman extends LivingEntity {
             }
         } else {
             // TODO: else koniec gry
-            System.out.println("DEAD");
             mazeFrame.running = false;
+            JOptionPane.showMessageDialog(mazeFrame, "KONIEC GRY!\nZdobyte punkty: " + score,
+                    "Koniec gry", JOptionPane.INFORMATION_MESSAGE);
+            mazeFrame.dispose();
+            Game.menu.setVisible(true);
+            //TODO - (jak wyżej) -> tak wygląda moja propozycja - MM
+            //TODO - problem: jeśli Pacman traci ostatnie życie przez kolizję z dwoma duchami naraz to komunikat wyskakuje dwa razy
             //mazeFrame.setVisible(false);
 
             //GameOverWindow gameOverWindow = new GameOverWindow("GAME OVER!");
