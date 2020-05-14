@@ -54,24 +54,12 @@ public class Pacman extends LivingEntity {
     }
 
     // porusza w ustalonym kierunku
-    public void move() {
+    private void move() {
         if (teleport()) {
 
-        } else if (super.canMove()) {
-            switch (direction) {
-                case UP:
-                    y -= speed;
-                    break;
-                case DOWN:
-                    y += speed;
-                    break;
-                case LEFT:
-                    x -= speed;
-                    break;
-                case RIGHT:
-                    x += speed;
-                    break;
-            }
+        } else if (super.canMoveDirectorFutureAndDirectory()) {
+            setSpeed(direction);// petla switch case
+
         }
 
     }
