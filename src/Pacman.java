@@ -78,7 +78,7 @@ public class Pacman extends LivingEntity {
 
     // nastąpiła kolizja z duchem
     public void collision(Ghost g) {
-        if(g.alive) {
+        if (g.alive) {
             if (g.isFrightened()) {
                 addScore(g.points * (++killedGhostsStreak));
                 g.die();
@@ -101,7 +101,7 @@ public class Pacman extends LivingEntity {
             // TODO: jeśli pacman przed śmiercią szedł w lewo to zmiana kierunku jest ignorowana, warto naprawić
             direction = Direction.RIGHT;
             teleport(startX, startY);
-            for(Ghost ghost : ghosts) {
+            for (Ghost ghost : ghosts) {
                 ghost.direction = Direction.RIGHT; // to chyba będzie można usunąć
                 ghost.teleport(ghost.startX, ghost.startY);
             }
@@ -112,25 +112,14 @@ public class Pacman extends LivingEntity {
                     "Koniec gry", JOptionPane.INFORMATION_MESSAGE);
             mazeFrame.dispose();
             Game.menu.setVisible(true);
-            //TODO - (jak wyżej) -> tak wygląda moja propozycja - MM
             //TODO - problem: jeśli Pacman traci ostatnie życie przez kolizję z dwoma duchami naraz to komunikat wyskakuje dwa razy
-            //mazeFrame.setVisible(false);
-
-            //GameOverWindow gameOverWindow = new GameOverWindow("GAME OVER!");
-            // Może się utworzyć dwa razybo tyle "czasu" minie od powiadomienia pętli run żeby nic nie robiła
-
-            // Jezli chcemy menu znowu odpalać to trzeba połączyć pacmana, maze itd. tworzenie nowego "okna" moze byc prostsze
-
-
-            //System.exit(1);
         }
-
     }
 
     // uruchomienie powerupa
     public void activatePowerup() {
         powerUpTimeLeft = POWERUP_TIME;
-        for(Ghost ghost : ghosts) {
+        for (Ghost ghost : ghosts) {
             ghost.setFearTimeLeft();
         }
     }
@@ -156,7 +145,7 @@ public class Pacman extends LivingEntity {
                     dots[toCellsY(y + Maze.cellSize / 2)][toCellsX(x + Maze.cellSize / 2)].renderable) {
                 dots[toCellsY(y + Maze.cellSize / 2)][toCellsX(x + Maze.cellSize / 2)].pickup(this);
                 //System.out.println("pozostalo kulek: " + (dotsLeft - 1));
-                if(--dotsLeft == 0) {
+                if (--dotsLeft == 0) {
                     //TODO - przydała by się chwila pauzy przed rozpoczęciem kolejnego poziomu
                     mazeFrame.maze.levelUp();
                     dotsLeft = 199;
@@ -174,70 +163,58 @@ public class Pacman extends LivingEntity {
 
     }
 
+    private String decidePacmanImageForRender() {
+        String imgPath = "";
+        if (direction == Direction.UP) {
+            imgPath = "Images/pacman_up.png";
+        }
+        if (direction == Direction.RIGHT) {
+            imgPath = "Images/pacman_right.png";
+        }
+        if (direction == Direction.LEFT) {
+            imgPath = "Images/pacman_left.png";
+        }
+        if (direction == Direction.DOWN) {
+            imgPath = "Images/pacman_down.png";
+        }
+        return imgPath;
+    }
+
     @Override
     public void render(Graphics g) {
         g.setColor(Color.ORANGE);
         g.setFont(new Font("TimesRoman", Font.BOLD, 15));
         g.drawString("Score: " + this.score, 14, 14);
-        g.drawString("Lives: ",  280, 14);
-        //g.setColor(Color.YELLOW);
-        //g.fillOval(x, y, width, height);
-        if(lives>=1) {
+        g.drawString("Lives: ", 280, 14);
+
+        if (lives >= 1) {
             g.setColor(Color.YELLOW);
             g.fillOval(330, 2, 13, 13);
         }
-        if(lives>=2) {
+        if (lives >= 2) {
             g.setColor(Color.YELLOW);
             g.fillOval(350, 2, 13, 13);
         }
-        if(lives>=3) {
+        if (lives >= 3) {
             g.setColor(Color.YELLOW);
             g.fillOval(370, 2, 13, 13);
         }
 
         String imgPath = "";
-        if(System.nanoTime() - timeRenderCircle >= 0.15e9) {
-            if (direction == Direction.UP) {
-                imgPath = "Images/pacman_up.png";
-                try {
-                    g.drawImage(ImageIO.read(new File(imgPath)), this.x, this.y, this.width, this.height, null);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        if (System.nanoTime() - timeRenderCircle >= 0.15e9) {
+
+            imgPath = decidePacmanImageForRender();
+            try {
+                g.drawImage(ImageIO.read(new File(imgPath)), this.x, this.y, this.width, this.height, null);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            if (direction == Direction.RIGHT) {
-                imgPath = "Images/pacman_right.png";
-                try {
-                    g.drawImage(ImageIO.read(new File(imgPath)), this.x, this.y, this.width, this.height, null);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            if (direction == Direction.LEFT) {
-                imgPath = "Images/pacman_left.png";
-                try {
-                    g.drawImage(ImageIO.read(new File(imgPath)), this.x, this.y, this.width, this.height, null);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            if (direction == Direction.DOWN) {
-                imgPath = "Images/pacman_down.png";
-                try {
-                    g.drawImage(ImageIO.read(new File(imgPath)), this.x, this.y, this.width, this.height, null);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            if(System.nanoTime() - timeRenderCircle >= 0.3e9)
-                timeRenderCircle=System.nanoTime();
-        }
-        else{
+
+            if (System.nanoTime() - timeRenderCircle >= 0.3e9)
+                timeRenderCircle = System.nanoTime();
+        } else {
             g.setColor(Color.YELLOW);
             g.fillOval(x, y, width, height);
         }
     }
-
-
-
 }
