@@ -121,6 +121,15 @@ public class Ghost extends LivingEntity {
             int xDistanceFromPacman = this.x - pacmanX;
             int yDistanceFromPacman = this.y - pacmanY;
 
+            if (this.x == 200 && this.y == 140){
+                if (xDistanceFromPacman > 0 && availableDirectoryLeft) {
+                    direction = Direction.LEFT;
+                    return;
+                }else if(availableDirectoryRight){
+                    direction = Direction.RIGHT;
+                    return;
+                }
+            }
             if ((xDistanceFromPacman * xDistanceFromPacman) > (yDistanceFromPacman * yDistanceFromPacman)) {
                 if (xDistanceFromPacman > 0 && availableDirectoryLeft) {
                     direction = Direction.LEFT;
