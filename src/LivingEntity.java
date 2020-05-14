@@ -87,7 +87,7 @@ public abstract class LivingEntity extends Entity {
         return false;
     }
 
-    public boolean canMove() {
+    public boolean canMoveDirectorFutureAndDirectory() {
         if (canMoveThisDirection(this.directionFuture)) {
             this.direction = directionFuture;
             return true;
