@@ -53,9 +53,8 @@ public class Ghost extends LivingEntity {
     }
 
     public void trackPacman() {
-        findAvailableDirectory();
-        decideDirection4();
-       /* if (ghostNumber == 1) {
+
+        if (ghostNumber == 1) {
             decideDirection1();
         } else if (ghostNumber == 2) {
             decideDirection2();
@@ -65,7 +64,6 @@ public class Ghost extends LivingEntity {
             decideDirection4();
         }
 
-        */
     }
 
     // red ghost
@@ -100,6 +98,77 @@ public class Ghost extends LivingEntity {
     // orange ghost
     public void decideDirection3() {
         if (System.nanoTime() - timeDecideDirection >= 0.75e9) {
+            findAvailableDirectory();
+            boolean isLeft;
+            boolean isUp;
+            int xDistanceFromPacman = this.x - pacmanX;
+            int yDistanceFromPacman = this.y - pacmanY;
+            if(xDistanceFromPacman > 0){
+                isLeft = true;
+            }else{
+                isLeft = false;
+            }
+            if(yDistanceFromPacman > 0 ){
+                isUp = true;
+            }else{
+                isUp = false;
+            }
+            if (this.x == 200 && this.y == 140) {
+                if (xDistanceFromPacman > 0 && availableDirectoryLeft) {
+                    direction = Direction.LEFT;
+                } else if (availableDirectoryRight) {
+                    direction = Direction.RIGHT;
+                }
+            } else if ((xDistanceFromPacman * xDistanceFromPacman) > (yDistanceFromPacman * yDistanceFromPacman)) {
+                if(isLeft){
+                    if(availableDirectoryLeft){
+                        direction =Direction.LEFT;
+                    }else {
+                        if(isUp && availableDirectoryUp ){
+                            direction = Direction.UP;
+                        }else if(availableDirectoryDown){
+                            direction = Direction.DOWN;
+                        }
+                    }
+                }else{
+                    if(availableDirectoryRight){
+                        direction =Direction.RIGHT;
+                    }else {
+                        if(isUp && availableDirectoryUp ){
+                            direction = Direction.UP;
+                        }else if(availableDirectoryDown){
+                            direction = Direction.DOWN;
+                        }
+                    }
+                }
+            }else {
+                if(isUp){
+                    if(availableDirectoryUp){
+                        direction =Direction.UP;
+                    }else {
+                        if(isLeft && availableDirectoryLeft ){
+                            direction = Direction.LEFT;
+                        }else if(availableDirectoryRight){
+                            direction = Direction.RIGHT;
+                        }
+                    }
+                }else{
+                    if(availableDirectoryDown){
+                        direction =Direction.DOWN;
+                    }else {
+                        if(isLeft && availableDirectoryLeft ){
+                            direction = Direction.LEFT;
+                        }else if(availableDirectoryRight){
+                            direction = Direction.RIGHT;
+                        }
+                    }
+                }
+
+            }
+            directionFuture = direction;
+
+            /*
+
             if (this.y < pacmanY) {
                 directionFuture = Direction.UP;
             } else if (this.y == pacmanY) {
@@ -112,54 +181,47 @@ public class Ghost extends LivingEntity {
                 directionFuture = Direction.DOWN;
             }
             timeDecideDirection = System.nanoTime();
+
+             */
         }
     }
 
     // yellow ghost
     public void decideDirection4() {
         if (System.nanoTime() - timeDecideDirection >= 0.75e9) {
+            findAvailableDirectory();
+            decideDirection3();
             int xDistanceFromPacman = this.x - pacmanX;
             int yDistanceFromPacman = this.y - pacmanY;
 
-            if (this.x == 200 && this.y == 140){
+            if (this.x == 200 && this.y == 140) {
                 if (xDistanceFromPacman > 0 && availableDirectoryLeft) {
                     direction = Direction.LEFT;
-                    return;
-                }else if(availableDirectoryRight){
+                } else if (availableDirectoryRight) {
                     direction = Direction.RIGHT;
-                    return;
                 }
-            }
-            if ((xDistanceFromPacman * xDistanceFromPacman) > (yDistanceFromPacman * yDistanceFromPacman)) {
+            } else if ((xDistanceFromPacman * xDistanceFromPacman) > (yDistanceFromPacman * yDistanceFromPacman)) {
                 if (xDistanceFromPacman > 0 && availableDirectoryLeft) {
                     direction = Direction.LEFT;
-                    return;
-                }else if(availableDirectoryRight){
+                } else if (availableDirectoryRight) {
                     direction = Direction.RIGHT;
-                    return;
-                }else if(yDistanceFromPacman > 0 && availableDirectoryUp){
+                } else if (yDistanceFromPacman > 0 && availableDirectoryUp) {
                     direction = Direction.UP;
-                    return;
-                }else if(availableDirectoryDown){
+                } else if (availableDirectoryDown) {
                     direction = Direction.DOWN;
-                    return;
                 }
-            }else{
-                if(yDistanceFromPacman > 0 && availableDirectoryUp){
+            } else {
+                if (yDistanceFromPacman > 0 && availableDirectoryUp) {
                     direction = Direction.UP;
-                    return;
-                }else if(availableDirectoryDown){
+                } else if (availableDirectoryDown) {
                     direction = Direction.DOWN;
-                    return;
-                }else if (xDistanceFromPacman > 0 && availableDirectoryLeft) {
+                } else if (xDistanceFromPacman > 0 && availableDirectoryLeft) {
                     direction = Direction.LEFT;
-                    return;
-                }else if(availableDirectoryRight){
+                } else if (availableDirectoryRight) {
                     direction = Direction.RIGHT;
-                    return;
                 }
             }
-            System.out.println("blad nie wybrano zadnego kierunku ");
+            directionFuture = direction;
 
 
      /*       if (this.x < pacmanY) {
@@ -183,20 +245,20 @@ public class Ghost extends LivingEntity {
     }
 
     public boolean isBase() {
-        System.out.println("xPositon "  + this.x + "yPosition "+ this.y);
+        System.out.println("xPositon " + this.x + "yPosition " + this.y);
         if (this.y <= 180 && this.y > 140) {
             if ((180 <= this.x) && (200 > this.x)) {
                 direction = Direction.RIGHT;
-                System.out.println("tutaj xPositon" + this.x + " a toPixel"+ toPixelsX(8) + " xPosition9  "+ toPixelsX(9));
-             //   directionFuture = Direction.UP;
+                System.out.println("tutaj xPositon" + this.x + " a toPixel" + toPixelsX(8) + " xPosition9  " + toPixelsX(9));
+                //   directionFuture = Direction.UP;
                 return true;
-            } else if ((this.x <= 220) && (200 < this.x) ) {
+            } else if ((this.x <= 220) && (200 < this.x)) {
                 direction = Direction.LEFT;
-              //  directionFuture = Direction.UP;
+                //  directionFuture = Direction.UP;
                 return true;
-            }else if( this.x == 200){
+            } else if (this.x == 200) {
                 direction = Direction.UP;
-               // directionFuture = Direction.RIGHT;
+                // directionFuture = Direction.RIGHT;
                 return true;
             }
 
@@ -228,7 +290,7 @@ public class Ghost extends LivingEntity {
 
     private boolean availableThisDirectory(Direction direction) {
         if (canMoveThisDirection(direction)) {
-            System.out.println("to directory jest avaible "+direction);
+            System.out.println("to directory jest avaible " + direction);
             return true;
         } else {
             return false;
@@ -239,24 +301,24 @@ public class Ghost extends LivingEntity {
         if (!isBase()) {
             System.out.println("nie bazie");
             trackPacman();// dopracowania
-            //directionFuture = direction;
-        }else{
+            if (teleport()) {
+
+            } else if (!canMove()) {
+                direction = Direction.DOWN;
+                directionFuture = Direction.RIGHT;
+
+                if (!canMove()) {
+                    direction = Direction.UP;
+                    directionFuture = Direction.LEFT;
+                }
+            }
+        } else {
             System.out.println("jestem bazie ");
         }
-/*
-        if (teleport()) {
 
-        } else if (!canMove()) {
-            direction = Direction.DOWN;
-            directionFuture = Direction.RIGHT;
 
-            if (!canMove()) {
-                direction = Direction.UP;
-                directionFuture = Direction.LEFT;
-            }
-        }
 
-*/
+
 
         switch (direction) {
             case UP:
