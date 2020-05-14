@@ -43,25 +43,23 @@ public abstract class LivingEntity extends Entity {
             // jeśli któryś z kątów Entity w następnej klatce znalazłby się w ścianie, to Entity nie może się poruszyć
             try {
                 if (direction == Direction.LEFT || direction == Direction.UP) {
-                    if (grid[toCellsY(boundsNext.y)][toCellsX(boundsNext.x)] == GRID_WALL)
+                    if (!grid[toCellsY(boundsNext.y)][toCellsX(boundsNext.x)])
                         return false;
                 }
                 if (direction == Direction.LEFT || direction == Direction.DOWN) {
-                    if (grid[toCellsY(boundsNext.y + boundsNext.height - 1)][toCellsX(boundsNext.x)] == GRID_WALL)
+                    if (!grid[toCellsY(boundsNext.y + boundsNext.height - 1)][toCellsX(boundsNext.x)])
                         return false;
                 }
                 if (direction == Direction.RIGHT || direction == Direction.UP) {
-                    if (grid[toCellsY(boundsNext.y)][toCellsX(boundsNext.x + boundsNext.width - 1)] == GRID_WALL)
+                    if (!grid[toCellsY(boundsNext.y)][toCellsX(boundsNext.x + boundsNext.width - 1)])
                         return false;
                 }
                 if (direction == Direction.RIGHT || direction == Direction.DOWN) {
-                    if (grid[toCellsY(boundsNext.y + boundsNext.height - 1)][toCellsX(boundsNext.x + boundsNext.width - 1)] == GRID_WALL)
+                    if (!grid[toCellsY(boundsNext.y + boundsNext.height - 1)][toCellsX(boundsNext.x + boundsNext.width - 1)])
                         return false;
                 }
-                //System.out.println("speed = " + this.speed+ "direction  "+direction + " "+this ); // ukazuje ze nie dziala duchy
 
                 // wszystkie kąty zostały sprawdzone, kolizji nie będzie
-
                 this.direction = direction;
                 return true;
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -78,7 +76,6 @@ public abstract class LivingEntity extends Entity {
             return true;
         }
         return false;
-
     }
 
     // teleportuje postać na wskazane x, y
