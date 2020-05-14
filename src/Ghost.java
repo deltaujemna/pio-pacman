@@ -91,7 +91,7 @@ public class Ghost extends LivingEntity {
             System.out.println("nie bazie");
             trackPacman.trackPacman();// dopracowania
             if (!teleport()) {
-                if (canMoveDirectorFutureAndDirectory()) {
+               /* if (canMoveDirectorFutureAndDirectory()) {
                     direction = Direction.DOWN;
                     directionFuture = Direction.RIGHT;
                     if (canMoveDirectorFutureAndDirectory()) {
@@ -99,9 +99,14 @@ public class Ghost extends LivingEntity {
                         directionFuture = Direction.LEFT;
                     }
                 }
+                */
             }
         } else {
             System.out.println("jestem bazie ");
+        }
+        if(!canMoveThisDirection(direction) ){
+            System.out.println("blad ghost num " +this.ghostNumber);
+            this.direction = null;
         }
 
         setSpeed(direction);
