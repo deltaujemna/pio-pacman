@@ -121,7 +121,6 @@ public class Ghost extends LivingEntity {
             int xDistanceFromPacman = this.x - pacmanX;
             int yDistanceFromPacman = this.y - pacmanY;
 
-
             if ((xDistanceFromPacman * xDistanceFromPacman) > (yDistanceFromPacman * yDistanceFromPacman)) {
                 if (xDistanceFromPacman > 0 && availableDirectoryLeft) {
                     direction = Direction.LEFT;
@@ -182,7 +181,7 @@ public class Ghost extends LivingEntity {
                 System.out.println("tutaj xPositon" + this.x + " a toPixel"+ toPixelsX(8) + " xPosition9  "+ toPixelsX(9));
              //   directionFuture = Direction.UP;
                 return true;
-            } else if ((this.x <= 220) && (200 > this.x) ) {
+            } else if ((this.x <= 220) && (200 < this.x) ) {
                 direction = Direction.LEFT;
               //  directionFuture = Direction.UP;
                 return true;
