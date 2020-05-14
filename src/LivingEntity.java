@@ -13,7 +13,22 @@ public abstract class LivingEntity extends Entity {
     Direction direction;
     Direction directionFuture;
     boolean[][] grid;
-
+    public void setSpeed(Direction direction){
+        switch (direction) {
+            case UP:
+                this.y -= speed;
+                break;
+            case DOWN:
+                this.y += speed;
+                break;
+            case LEFT:
+                this.x -= speed;
+                break;
+            case RIGHT:
+                this.x += speed;
+                break;
+        }
+    }
     // zwraca, czy postać może się poruszyć
     public boolean canMoveThisDirection(Direction direction) {
         if (direction != null) {

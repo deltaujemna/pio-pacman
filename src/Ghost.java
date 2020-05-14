@@ -21,6 +21,8 @@ public class Ghost extends LivingEntity {
     boolean availableDirectoryRight;
     boolean availableDirectoryLeft;
 
+    private  TrackPacman trackPacman;
+
     public Ghost(int x, int y, int ghostNumber) {
         this.ghostNumber = ghostNumber;
         this.startX = toPixelsX(x);
@@ -34,6 +36,7 @@ public class Ghost extends LivingEntity {
         this.directionFuture = Direction.UP;
         this.timeDecideDirection = System.nanoTime();
         this.alive = true;
+        trackPacman = new TrackPacman(this);
     }
 
     public void pushPacmanX(int x) {
@@ -70,19 +73,18 @@ public class Ghost extends LivingEntity {
     public void decideDirection1() {
         if (System.nanoTime() - timeDecideDirection >= 0.75e9) {
             direction = directionFuture;
-
             Random rand = new Random();
+
             int tempDirection = rand.nextInt(4);
-
-            if (tempDirection == 0)
+            if (tempDirection == 0) {
                 directionFuture = Direction.RIGHT;
-            if (tempDirection == 1)
-                directionFuture = Direction.UP;
-            if (tempDirection == 2)
-                directionFuture = Direction.DOWN;
-            if (tempDirection == 3)
-                directionFuture = Direction.LEFT;
-
+                if (tempDirection == 1)
+                    directionFuture = Direction.UP;
+                if (tempDirection == 2)
+                    directionFuture = Direction.DOWN;
+                if (tempDirection == 3)
+                    directionFuture = Direction.LEFT;
+            }
             timeDecideDirection = System.nanoTime();
         }
     }
@@ -103,86 +105,64 @@ public class Ghost extends LivingEntity {
             boolean isUp;
             int xDistanceFromPacman = this.x - pacmanX;
             int yDistanceFromPacman = this.y - pacmanY;
-            if(xDistanceFromPacman > 0){
+            if (xDistanceFromPacman > 0) {
                 isLeft = true;
-            }else{
+            } else {
                 isLeft = false;
             }
-            if(yDistanceFromPacman > 0 ){
+            if (yDistanceFromPacman > 0) {
                 isUp = true;
-            }else{
+            } else {
                 isUp = false;
             }
-            if (this.x == 200 && this.y == 140) {
-                if (xDistanceFromPacman > 0 && availableDirectoryLeft) {
-                    direction = Direction.LEFT;
-                } else if (availableDirectoryRight) {
-                    direction = Direction.RIGHT;
-                }
+            if (donMoveToBase(xDistanceFromPacman)) {
+
             } else if ((xDistanceFromPacman * xDistanceFromPacman) > (yDistanceFromPacman * yDistanceFromPacman)) {
-                if(isLeft){
-                    if(availableDirectoryLeft){
-                        direction =Direction.LEFT;
-                    }else {
-                        if(isUp && availableDirectoryUp ){
-                            direction = Direction.UP;
-                        }else if(availableDirectoryDown){
-                            direction = Direction.DOWN;
-                        }
+                if (isLeft) {
+                    if (availableDirectoryLeft) {
+                        direction = Direction.LEFT;
+                    } else {
+                        moveDownorUp(isUp);
                     }
-                }else{
-                    if(availableDirectoryRight){
-                        direction =Direction.RIGHT;
-                    }else {
-                        if(isUp && availableDirectoryUp ){
-                            direction = Direction.UP;
-                        }else if(availableDirectoryDown){
-                            direction = Direction.DOWN;
-                        }
+                } else {
+                    if (availableDirectoryRight) {
+                        direction = Direction.RIGHT;
+                    } else {
+                        moveDownorUp(isUp);
                     }
                 }
-            }else {
-                if(isUp){
-                    if(availableDirectoryUp){
-                        direction =Direction.UP;
-                    }else {
-                        if(isLeft && availableDirectoryLeft ){
-                            direction = Direction.LEFT;
-                        }else if(availableDirectoryRight){
-                            direction = Direction.RIGHT;
-                        }
+            } else {
+                if (isUp) {
+                    if (availableDirectoryUp) {
+                        direction = Direction.UP;
+                    } else {
+                        moveLeftorRight(isLeft);
                     }
-                }else{
-                    if(availableDirectoryDown){
-                        direction =Direction.DOWN;
-                    }else {
-                        if(isLeft && availableDirectoryLeft ){
-                            direction = Direction.LEFT;
-                        }else if(availableDirectoryRight){
-                            direction = Direction.RIGHT;
-                        }
+                } else {
+                    if (availableDirectoryDown) {
+                        direction = Direction.DOWN;
+                    } else {
+                        moveLeftorRight(isLeft);
                     }
                 }
 
             }
             directionFuture = direction;
+        }
+    }
 
-            /*
-
-            if (this.y < pacmanY) {
-                directionFuture = Direction.UP;
-            } else if (this.y == pacmanY) {
-                if (this.x < pacmanY) {
-                    directionFuture = Direction.RIGHT;
-                } else {
-                    directionFuture = Direction.LEFT;
-                }
-            } else {
-                directionFuture = Direction.DOWN;
-            }
-            timeDecideDirection = System.nanoTime();
-
-             */
+    private void moveLeftorRight(boolean isLeft){
+        if (isLeft && availableDirectoryLeft) {
+            direction = Direction.LEFT;
+        } else if (availableDirectoryRight) {
+            direction = Direction.RIGHT;
+        }
+    }
+    private void moveDownorUp(boolean isUp){
+        if (isUp && availableDirectoryUp) {
+            direction = Direction.UP;
+        } else if (availableDirectoryDown) {
+            direction = Direction.DOWN;
         }
     }
 
@@ -194,12 +174,8 @@ public class Ghost extends LivingEntity {
             int xDistanceFromPacman = this.x - pacmanX;
             int yDistanceFromPacman = this.y - pacmanY;
 
-            if (this.x == 200 && this.y == 140) {
-                if (xDistanceFromPacman > 0 && availableDirectoryLeft) {
-                    direction = Direction.LEFT;
-                } else if (availableDirectoryRight) {
-                    direction = Direction.RIGHT;
-                }
+            if (donMoveToBase(xDistanceFromPacman)) {
+
             } else if ((xDistanceFromPacman * xDistanceFromPacman) > (yDistanceFromPacman * yDistanceFromPacman)) {
                 if (xDistanceFromPacman > 0 && availableDirectoryLeft) {
                     direction = Direction.LEFT;
@@ -222,26 +198,22 @@ public class Ghost extends LivingEntity {
                 }
             }
             directionFuture = direction;
-
-
-     /*       if (this.x < pacmanY) {
-                directionFuture = Direction.RIGHT;
-            }
-            if (this.x == pacmanX) {
-                if (this.y < pacmanY) {
-                    directionFuture = Direction.UP;
-                } else {
-                    directionFuture = Direction.DOWN;
-                }
-
-            } else {
-                directionFuture = Direction.LEFT;
-            }
-            timeDecideDirection = System.nanoTime();
-      */
         }
 
 
+    }
+
+    private boolean donMoveToBase(int xDistanceFromPacman) {
+        if (this.x == 200 && this.y == 140) {
+            if (xDistanceFromPacman > 0 && availableDirectoryLeft) {
+                direction = Direction.LEFT;
+                return true;
+            } else if (availableDirectoryRight) {
+                direction = Direction.RIGHT;
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean isBase() {
@@ -250,18 +222,14 @@ public class Ghost extends LivingEntity {
             if ((180 <= this.x) && (200 > this.x)) {
                 direction = Direction.RIGHT;
                 System.out.println("tutaj xPositon" + this.x + " a toPixel" + toPixelsX(8) + " xPosition9  " + toPixelsX(9));
-                //   directionFuture = Direction.UP;
                 return true;
             } else if ((this.x <= 220) && (200 < this.x)) {
                 direction = Direction.LEFT;
-                //  directionFuture = Direction.UP;
                 return true;
             } else if (this.x == 200) {
                 direction = Direction.UP;
-                // directionFuture = Direction.RIGHT;
                 return true;
             }
-
         }
         return false;
     }
@@ -300,13 +268,12 @@ public class Ghost extends LivingEntity {
     public void tick() {
         if (!isBase()) {
             System.out.println("nie bazie");
-            trackPacman();// dopracowania
+            trackPacman.trackPacman();// dopracowania
             if (teleport()) {
 
             } else if (!canMove()) {
                 direction = Direction.DOWN;
                 directionFuture = Direction.RIGHT;
-
                 if (!canMove()) {
                     direction = Direction.UP;
                     directionFuture = Direction.LEFT;
@@ -316,24 +283,7 @@ public class Ghost extends LivingEntity {
             System.out.println("jestem bazie ");
         }
 
-
-
-
-
-        switch (direction) {
-            case UP:
-                this.y -= speed;
-                break;
-            case DOWN:
-                this.y += speed;
-                break;
-            case LEFT:
-                this.x -= speed;
-                break;
-            case RIGHT:
-                this.x += speed;
-                break;
-        }
+        setSpeed(direction);
 
         if (fearTimeLeft > 0) {
             fearTimeLeft -= (double) 1 / 60;
