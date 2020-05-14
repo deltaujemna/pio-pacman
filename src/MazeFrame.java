@@ -8,6 +8,11 @@ public class MazeFrame extends JFrame {
 
     public boolean running = true;
 
+    public int frameWidth;
+
+//    GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();  //fullscreen exclusive
+//    GraphicsDevice graphicsDevice = graphicsEnvironment.getDefaultScreenDevice();  //fullscreen exclusive
+
     public MazeFrame(String title) {
         super(title);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -17,6 +22,9 @@ public class MazeFrame extends JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setVisible(false);
+
+        //graphicsDevice.setFullScreenWindow(this); //fullscreen exclusive
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         addKeyListener(new Keys(maze.pacman));
 
