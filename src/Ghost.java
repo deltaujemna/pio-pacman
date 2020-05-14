@@ -136,10 +136,8 @@ public class Ghost extends LivingEntity {
                 directionFuture = Direction.UP;
                 return true;
             }
-
         }
         return false;
-
     }
 
 
@@ -228,5 +226,3 @@ public class Ghost extends LivingEntity {
         }
     }
 }
-
-

@@ -9,7 +9,7 @@ public class Dot extends CollectableEntity {
 
     @Override
     public void pickup(Pacman p) {
-        if(renderable)
+        if (renderable)
             super.pickup(p);
         renderable = false;
     }

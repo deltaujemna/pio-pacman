@@ -17,7 +17,7 @@ public class Fruit extends CollectableEntity {
     @Override
     public void render(Graphics g) {
         final int size = 10;
-        String imgPath="Images/fruit.png";
+        String imgPath = "Images/fruit.png";
         if (renderable) {
             try {
                 g.drawImage(ImageIO.read(new File(imgPath)), this.x, this.y, this.width, this.height, null);

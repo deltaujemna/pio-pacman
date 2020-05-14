@@ -13,7 +13,7 @@ public class PowerDot extends CollectableEntity {
 
     @Override
     public void pickup(Pacman p) {
-        if(renderable) {
+        if (renderable) {
             super.pickup(p);
             activatePowerup(p);
         }
@@ -23,7 +23,6 @@ public class PowerDot extends CollectableEntity {
     @Override
     public void render(Graphics g) {
         final int size = 13;
-
         if (renderable) {
             g.setColor(Color.ORANGE);
             g.fillOval(toPixelsX(x) + (Maze.cellSize - size) / 2, toPixelsY(y) + (Maze.cellSize - size) / 2, size, size);
@@ -35,5 +34,4 @@ public class PowerDot extends CollectableEntity {
         this.points = 20;
         this.renderable = true;
     }
-
 }
