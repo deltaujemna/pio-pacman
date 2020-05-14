@@ -175,27 +175,25 @@ public class Ghost extends LivingEntity {
     }
 
     public boolean isBase() {
-        if (this.y <= toPixelsY(8) && this.y > toPixels(6)) {
-            if ((toPixelsX(8) <= this.x) && (toPixels(9) > this.x)) {
+        System.out.println("xPositon "  + this.x + "yPosition "+ this.y);
+        if (this.y <= 180 && this.y > 140) {
+            if ((180 <= this.x) && (200 > this.x)) {
                 direction = Direction.RIGHT;
                 System.out.println("tutaj xPositon" + this.x + " a toPixel"+ toPixelsX(8) + " xPosition9  "+ toPixelsX(9));
              //   directionFuture = Direction.UP;
                 return true;
-            } else if ((this.x <= toPixels(10)) && (toPixels(9)  > this.x) ) {
+            } else if ((this.x <= 220) && (200 > this.x) ) {
                 direction = Direction.LEFT;
               //  directionFuture = Direction.UP;
                 return true;
-            }else if( this.x == toPixelsX(9)){
+            }else if( this.x == 200){
                 direction = Direction.UP;
                // directionFuture = Direction.RIGHT;
                 return true;
             }
 
         }
-
-
         return false;
-
     }
 
 
@@ -231,7 +229,8 @@ public class Ghost extends LivingEntity {
 
     public void tick() {
         if (!isBase()) {
-            //trackPacman();// dopracowania
+            System.out.println("nie bazie");
+            trackPacman();// dopracowania
             //directionFuture = direction;
         }else{
             System.out.println("jestem bazie ");
