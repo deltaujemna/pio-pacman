@@ -15,7 +15,7 @@ public abstract class LivingEntity extends Entity {
     boolean[][] grid;
 
     // zwraca, czy postać może się poruszyć
-    private boolean canMoveThisDirection(Direction direction) {
+    public boolean canMoveThisDirection(Direction direction) {
         if (direction != null) {
 
             final boolean GRID_WALL = false;
@@ -62,7 +62,6 @@ public abstract class LivingEntity extends Entity {
 
                 // wszystkie kąty zostały sprawdzone, kolizji nie będzie
 
-                this.direction = direction;
                 return true;
             } catch (ArrayIndexOutOfBoundsException e) {
                 return false;
@@ -73,6 +72,7 @@ public abstract class LivingEntity extends Entity {
 
     public boolean canMove() {
         if (canMoveThisDirection(this.directionFuture)) {
+            this.direction = directionFuture;
             return true;
         } else if (canMoveThisDirection(this.direction)) {
             return true;
