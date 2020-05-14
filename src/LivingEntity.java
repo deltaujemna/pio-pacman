@@ -13,9 +13,26 @@ public abstract class LivingEntity extends Entity {
     Direction direction;
     Direction directionFuture;
     boolean[][] grid;
-
+    public void setSpeed(Direction direction){
+        if(direction != null) {
+            switch (direction) {
+                case UP:
+                    this.y -= speed;
+                    break;
+                case DOWN:
+                    this.y += speed;
+                    break;
+                case LEFT:
+                    this.x -= speed;
+                    break;
+                case RIGHT:
+                    this.x += speed;
+                    break;
+            }
+        }
+    }
     // zwraca, czy postać może się poruszyć
-    private boolean canMoveThisDirection(Direction direction) {
+    public boolean canMoveThisDirection(Direction direction) {
         if (direction != null) {
 
             final boolean GRID_WALL = false;
@@ -58,9 +75,10 @@ public abstract class LivingEntity extends Entity {
                     if (!grid[toCellsY(boundsNext.y + boundsNext.height - 1)][toCellsX(boundsNext.x + boundsNext.width - 1)])
                         return false;
                 }
+                //System.out.println("speed = " + this.speed+ "direction  "+direction + " "+this ); // ukazuje ze nie dziala duchy
 
                 // wszystkie kąty zostały sprawdzone, kolizji nie będzie
-                this.direction = direction;
+
                 return true;
             } catch (ArrayIndexOutOfBoundsException e) {
                 return false;
@@ -71,11 +89,13 @@ public abstract class LivingEntity extends Entity {
 
     public boolean canMove() {
         if (canMoveThisDirection(this.directionFuture)) {
+            this.direction = directionFuture;
             return true;
         } else if (canMoveThisDirection(this.direction)) {
             return true;
         }
         return false;
+
     }
 
     // teleportuje postać na wskazane x, y

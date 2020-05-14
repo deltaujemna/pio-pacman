@@ -1,19 +1,25 @@
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
-import java.util.Random;
 
 public class Ghost extends LivingEntity {
+
     double fearTimeLeft;
     double deadTimeLeft;
+
     int points = 200;     //tymczasowo
-    int ghostNumber = 1; //jeżeli każdy duch ma inny kolor
+    int ghostNumber;//jeżeli każdy duch ma inny kolor
+
     final int size = 20;
     long timeDecideDirection;
+
     int pacmanX; //aktualna pozycja Pacmana, żeby można było go śledzić
     int pacmanY;
+
     Direction pacmanDirectory;
     Direction pacmanDirectoryFuture;
+
+    private TrackPacman trackPacman;
 
     public Ghost(int x, int y, int ghostNumber) {
         this.ghostNumber = ghostNumber;
@@ -28,6 +34,7 @@ public class Ghost extends LivingEntity {
         this.directionFuture = Direction.UP;
         this.timeDecideDirection = System.nanoTime();
         this.alive = true;
+        trackPacman = new TrackPacman(this);
     }
 
     public void pushPacmanX(int x) {
@@ -46,94 +53,16 @@ public class Ghost extends LivingEntity {
         pacmanDirectoryFuture = direction;
     }
 
-    public void trackPacman() {
-        if (ghostNumber == 1) {
-            decideDirection1();
-        } else if (ghostNumber == 2) {
-            decideDirection2();
-        } else if (ghostNumber == 3) {
-            decideDirection3();
-        } else {
-            decideDirection4();
-        }
-    }
-
-    // red ghost
-    public void decideDirection1() {
-        if (System.nanoTime() - timeDecideDirection >= 0.75e9) {
-            direction = directionFuture;
-
-            Random rand = new Random();
-            int tempDirection = rand.nextInt(4);
-
-            if (tempDirection == 0)
-                directionFuture = Direction.RIGHT;
-            if (tempDirection == 1)
-                directionFuture = Direction.UP;
-            if (tempDirection == 2)
-                directionFuture = Direction.DOWN;
-            if (tempDirection == 3)
-                directionFuture = Direction.LEFT;
-
-            timeDecideDirection = System.nanoTime();
-        }
-    }
-
-    // pink ghost
-    public void decideDirection2() {
-        if (System.nanoTime() - timeDecideDirection >= 0.75e9) {
-            directionFuture = pacmanDirectory;
-            timeDecideDirection = System.nanoTime();
-        }
-    }
-
-    // orange ghost
-    public void decideDirection3() {
-        if (System.nanoTime() - timeDecideDirection >= 0.75e9) {
-            if (this.y < pacmanY) {
-                directionFuture = Direction.UP;
-            } else if (this.y == pacmanY) {
-                if (this.x < pacmanY) {
-                    directionFuture = Direction.RIGHT;
-                } else {
-                    directionFuture = Direction.LEFT;
-                }
-            } else {
-                directionFuture = Direction.DOWN;
-            }
-            timeDecideDirection = System.nanoTime();
-        }
-    }
-
-    // yellow ghost
-    public void decideDirection4() {
-        if (System.nanoTime() - timeDecideDirection >= 0.75e9) {
-            if (this.x < pacmanY) {
-                directionFuture = Direction.RIGHT;
-            }
-            if (this.x == pacmanX) {
-                if (this.y < pacmanY) {
-                    directionFuture = Direction.UP;
-                } else {
-                    directionFuture = Direction.DOWN;
-                }
-
-            } else {
-                directionFuture = Direction.LEFT;
-            }
-            timeDecideDirection = System.nanoTime();
-        }
-    }
-
     public boolean isBase() {
-        if (this.y == toPixelsY(8)) {
-            if (this.x == toPixelsX(8)) {
+        if (this.y <= 180 && this.y > 140) {
+            if ((180 <= this.x) && (200 > this.x)) {
                 direction = Direction.RIGHT;
-                directionFuture = Direction.UP;
                 return true;
-            } else if (this.x == toPixelsX(10)) {
+            } else if ((this.x <= 220) && (200 < this.x)) {
                 direction = Direction.LEFT;
-                directionFuture = Direction.UP;
+                return true;
+            } else if (this.x == 200) {
+                direction = Direction.UP;
                 return true;
             }
         }
@@ -154,38 +83,33 @@ public class Ghost extends LivingEntity {
         this.fearTimeLeft = 15; //jeżeli 15 sekund trwa power-up
     }
 
+
     public void tick() {
-
         if (!isBase()) {
-            trackPacman();// dopracowania
-        }
-
-        if (teleport()) {
-
-        } else if (!canMove()) {
-            direction = Direction.DOWN;
-            directionFuture = Direction.RIGHT;
-
-            if (!canMove()) {
-                direction = Direction.UP;
-                directionFuture = Direction.LEFT;
+            trackPacman.trackPacman();// dopracowania
+            if (!teleport()) {
+               /* if (canMoveDirectorFutureAndDirectory()) {
+                    direction = Direction.DOWN;
+                    directionFuture = Direction.RIGHT;
+                    if (canMoveDirectorFutureAndDirectory()) {
+                        direction = Direction.UP;
+                        directionFuture = Direction.LEFT;
+                    }
+                }
+                */
             }
         }
-
-        switch (direction) {
-            case UP:
-                this.y -= speed;
-                break;
-            case DOWN:
-                this.y += speed;
-                break;
-            case LEFT:
-                this.x -= speed;
-                break;
-            case RIGHT:
-                this.x += speed;
-                break;
+        if(!canMoveThisDirection(direction) ){
+            System.out.println("blad ghost num " + this.ghostNumber + "director "+ direction);
+            System.out.println("trackPacman.availableDirectoryLeft " + trackPacman.availableDirectoryLeft);
+            System.out.println("trackPacman.availableDirectoryRi " + trackPacman.availableDirectoryRight);
+            System.out.println("trackPacman.availableDirectoryUp " + trackPacman.availableDirectoryUp);
+            System.out.println("trackPacman.availableDirectoryDown " + trackPacman.availableDirectoryDown);
+            System.exit(1);
+            this.direction = null;
         }
+
+        setSpeed(direction);
 
         if (fearTimeLeft > 0) {
             fearTimeLeft -= (double) 1 / 60;
@@ -196,6 +120,7 @@ public class Ghost extends LivingEntity {
             if (deadTimeLeft <= 0)
                 alive = true;
         }
+        
     }
 
     public void render(Graphics g) {
