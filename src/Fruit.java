@@ -6,7 +6,9 @@ public class Fruit extends CollectableEntity {
 
     @Override
     public void pickup(Pacman p) {
-        // TODO: zrobić
+        if (renderable)
+            super.pickup(p);
+        renderable = false;
     }
 
     @Override
@@ -16,8 +18,7 @@ public class Fruit extends CollectableEntity {
 
     @Override
     public void render(Graphics g) {
-        final int size = 10;
-        String imgPath = "Images/fruit.png";
+        String imgPath = "Images/cherry.png";
         if (renderable) {
             try {
                 g.drawImage(ImageIO.read(new File(imgPath)), this.x, this.y, this.width, this.height, null);
@@ -29,6 +30,12 @@ public class Fruit extends CollectableEntity {
 
     public Fruit(int x, int y) {
         super(x, y);
+        super.x = toPixelsX(x);
+        super.y = toPixelsX(y);
+        this.points = 100;
+        this.renderable = true;
+        width = 17;
+        height = 17;
     }
 
 }

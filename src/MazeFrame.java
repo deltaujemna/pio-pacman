@@ -15,23 +15,23 @@ public class MazeFrame extends JFrame {
 
     public MazeFrame(String title) {
         super(title);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setContentPane(maze);
-        this.pack();
-        this.setBounds(0, 0, 440, 460); //większy rozmiar / full screen exclusive mode
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
-        this.setVisible(false);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setContentPane(maze);
+        pack();
+        setBounds(0, 0, 440, 460); //większy rozmiar / full screen exclusive mode
+        setLocationRelativeTo(null);
+        setResizable(false);
+        setVisible(false);
 
         //graphicsDevice.setFullScreenWindow(this); //fullscreen exclusive
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         addKeyListener(new Keys(maze.pacman));
 
-            // <=> scheduleWithFixedDelay - lokalne, animacja
+        // <=> scheduleWithFixedDelay - lokalne, animacja
         timer.schedule(new TimerTask() {
             public void run() { //jeden wątek do wszystkiego
-                if(running) {
+                if (running) {
                     getContentPane().repaint();
                     maze.update();
                 }

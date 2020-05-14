@@ -6,6 +6,7 @@ public class Maze extends JPanel {
     boolean[][] grid = new boolean[19][19];
     boolean[][] dots = new boolean[19][19]; // to na pewno jest potrzebne?
     Ghost[] ghosts;
+    Fruit[] fruits;
     Pacman pacman;
     private CollectableEntity[][] yellowDots;
     private int level;
@@ -45,6 +46,8 @@ public class Maze extends JPanel {
         for (Ghost ghost : ghosts) {
             ghost.render(g);
         }
+        for (Fruit fruit : fruits)
+            fruit.render(g);
     }
 
     public void deleteDotsFromCage() {
@@ -84,6 +87,14 @@ public class Maze extends JPanel {
         }
 
         yellowDots = new CollectableEntity[19][19];
+        //TODO - owoce na razie są umieszczone na sztywno nad kropkami. Problem - jeśli fruits[i][j] == null -> gra się crashuje
+        //nie pomaga nawet warunek if(fruit != null) w metodzie render
+        //potencjalne rozwiązanie - utworzyć owoce zawczasu, tylko renderować je gdzieś poza planszą
+        fruits = new Fruit[4];
+        fruits[0] = new Fruit(6, 6);
+        fruits[1] = new Fruit(12, 6);
+        fruits[2] = new Fruit(6, 14);
+        fruits[3] = new Fruit(12, 14);
 
         for (int[] singlePowerDotPos : powerDotPos) {
             yellowDots[singlePowerDotPos[1]][singlePowerDotPos[0]] = new PowerDot(singlePowerDotPos[0], singlePowerDotPos[1]);
@@ -103,6 +114,7 @@ public class Maze extends JPanel {
         pacman.grid = grid;
         pacman.pushGhosts(ghosts);
         pacman.pushDots(yellowDots);
+        pacman.pushFruits(fruits);
     }
 
     /*Aktualizuje fragment mapy - dla prostokąta przekazanego w argumencie (x, y - współrzędne
