@@ -20,7 +20,7 @@ public class Dot extends CollectableEntity {
 
         if (renderable) {
             g.setColor(Color.ORANGE);
-            g.fillOval(toPixelsX(x) + (Maze.cellSize - size) / 2, toPixelsY(y) + (Maze.cellSize - size) / 2, size, size);
+            g.fillOval(toPixelsX(x) + (Maze.cellSize - size) / 2 + Maze.deltaX, toPixelsY(y) + (Maze.cellSize - size) / 2 + Maze.deltaY, size, size);
         }
     }
 

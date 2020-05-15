@@ -45,7 +45,9 @@ public class Maze extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        drawBoard(g);
+        //drawBoard(g);
+        drawBoardCenter(g);
+
         pacman.render(g);
         drawDots(g);
         for (Ghost ghost : ghosts) {
@@ -250,6 +252,70 @@ public class Maze extends JPanel {
         g.fillRect(240, 360, 140, 20);
         g.fillRect(280, 320, 20, 40);
         g.fillRect(120, 320, 20, 60);
+    }
+
+    //                          przydałoby się wydobyć dla poszczególnego komputera jego full screen
+    public static int deltaX = (1920 - MazeFrame.width)/2;
+    public static int deltaY = (1080 - MazeFrame.height)/2;
+
+    public void drawBoardCenter(Graphics g) {
+
+        g.setColor(Color.BLACK);
+        g.fillRect(0 + deltaX, 0 + deltaY, 440, 460);
+
+        g.setColor(Color.WHITE);
+        g.drawRect(19 + deltaX, 19 + deltaY, 382, 382);
+
+        g.setColor(Color.BLUE);
+        g.fillRect(40 + deltaX, 40+ deltaY, 60, 20);
+        g.fillRect(120 + deltaX, 40+ deltaY, 60, 20);
+        g.fillRect(200 + deltaX, 20+ deltaY, 20, 40);
+        g.fillRect(240 + deltaX, 40+ deltaY, 60, 20);
+        g.fillRect(320 + deltaX, 40+ deltaY, 60, 20);
+        g.fillRect(40 + deltaX, 80+ deltaY, 60, 20);
+        g.fillRect(160 + deltaX, 80+ deltaY, 100, 20);
+        g.fillRect(200 + deltaX, 80+ deltaY, 20, 60);
+        g.fillRect(320 + deltaX, 80+ deltaY, 60, 20);
+
+        g.fillRect(20 + deltaX, 120+ deltaY, 80, 60);
+        g.fillRect(320 + deltaX, 120+ deltaY, 80, 60);
+        g.fillRect(20 + deltaX, 200+ deltaY, 80, 60);
+        g.fillRect(320 + deltaX, 200+ deltaY, 80, 60);
+
+        g.fillRect(160 + deltaX, 160+ deltaY, 40, 20);
+        g.fillRect(220 + deltaX, 160+ deltaY, 40, 20);
+        g.fillRect(160 + deltaX, 180+ deltaY, 20, 20);
+        g.fillRect(160 + deltaX, 200+ deltaY, 100, 20);
+        g.fillRect(240 + deltaX, 180+ deltaY, 20, 20);
+
+        g.setColor(Color.BLUE);
+        g.fillRect(120 + deltaX, 120+ deltaY, 60, 20);
+        g.fillRect(120 + deltaX, 80+ deltaY, 20, 100);
+        g.fillRect(280 + deltaX, 80+ deltaY, 20, 100);
+        g.fillRect(240 + deltaX, 120+ deltaY, 60, 20);
+
+        g.fillRect(280 + deltaX, 200+ deltaY, 20, 60);
+        g.fillRect(120 + deltaX, 200+ deltaY, 20, 60);
+        g.fillRect(160 + deltaX, 240+ deltaY, 100, 20);
+        g.fillRect(200 + deltaX, 260+ deltaY, 20, 40);
+
+        g.fillRect(120 + deltaX, 280+ deltaY, 60, 20);
+        g.fillRect(240 + deltaX, 280+ deltaY, 60, 20);
+
+        g.fillRect(40 + deltaX, 280+ deltaY, 60, 20);
+        g.fillRect(80 + deltaX, 280+ deltaY, 20, 60);
+        g.fillRect(320 + deltaX, 280+ deltaY, 60, 20);
+        g.fillRect(320 + deltaX, 280+ deltaY, 20, 60);
+
+        g.fillRect(20 + deltaX, 320+ deltaY, 40, 20);
+        g.fillRect(360 + deltaX, 320+ deltaY, 40, 20);
+        g.fillRect(160 + deltaX, 320+ deltaY, 100, 20);
+        g.fillRect(200 + deltaX, 320+ deltaY, 20, 60);
+
+        g.fillRect(40+ deltaX, 360+ deltaY, 140, 20);
+        g.fillRect(240+ deltaX, 360+ deltaY, 140, 20);
+        g.fillRect(280 + deltaX, 320+ deltaY, 20, 40);
+        g.fillRect(120 + deltaX, 320+ deltaY, 20, 60);
     }
 
     public void drawDots(Graphics g) {

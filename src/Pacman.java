@@ -174,20 +174,20 @@ public class Pacman extends LivingEntity {
     public void render(Graphics g) {
         g.setColor(Color.ORANGE);
         g.setFont(new Font("TimesRoman", Font.BOLD, 15));
-        g.drawString("Score: " + this.score, 14, 14);
-        g.drawString("Lives: ", 280, 14);
+        g.drawString("Score: " + this.score, 14 + Maze.deltaX, 14 + Maze.deltaY);
+        g.drawString("Lives: ", 280 + Maze.deltaX, 14 + Maze.deltaY);
 
         if (lives >= 1) {
             g.setColor(Color.YELLOW);
-            g.fillOval(330, 2, 13, 13);
+            g.fillOval(330 + Maze.deltaX, 2 + Maze.deltaY, 13, 13);
         }
         if (lives >= 2) {
             g.setColor(Color.YELLOW);
-            g.fillOval(350, 2, 13, 13);
+            g.fillOval(350 + Maze.deltaX, 2 + Maze.deltaY, 13, 13);
         }
         if (lives >= 3) {
             g.setColor(Color.YELLOW);
-            g.fillOval(370, 2, 13, 13);
+            g.fillOval(370 + Maze.deltaX, 2 + Maze.deltaY, 13, 13);
         }
 
         String imgPath = "";
@@ -195,7 +195,7 @@ public class Pacman extends LivingEntity {
 
             imgPath = decidePacmanImageForRender();
             try {
-                g.drawImage(ImageIO.read(new File(imgPath)), this.x, this.y, this.width, this.height, null);
+                g.drawImage(ImageIO.read(new File(imgPath)), this.x + Maze.deltaX, this.y + Maze.deltaY, this.width, this.height, null);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -204,7 +204,7 @@ public class Pacman extends LivingEntity {
                 timeRenderCircle = System.nanoTime();
         } else {
             g.setColor(Color.YELLOW);
-            g.fillOval(x, y, width, height);
+            g.fillOval(x + Maze.deltaX, y + Maze.deltaY, width, height);
         }
     }
 }
