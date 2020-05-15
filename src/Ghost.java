@@ -85,35 +85,38 @@ public class Ghost extends LivingEntity {
 
 
     public void tick() {
-        if (!isBase()) {
-            trackPacman.trackPacman();// dopracowania
-            if (!teleport()) {
-
-            }
-        }
-        if (!canMoveThisDirection(direction)) {
-            System.out.println("blad ghost num " + this.ghostNumber + "director " + direction);
-            System.out.println("trackPacman.availableDirectoryLeft " + trackPacman.availableDirectoryLeft);
-            System.out.println("trackPacman.availableDirectoryRi " + trackPacman.availableDirectoryRight);
-            System.out.println("trackPacman.availableDirectoryUp " + trackPacman.availableDirectoryUp);
-            System.out.println("trackPacman.availableDirectoryDown " + trackPacman.availableDirectoryDown);
-            System.exit(1);
-            this.direction = null;
-        }
-
-        super.setSpeed(direction);
-
         if (fearTimeLeft > 0) {
+            trackPacman.escapeFromPacman();
             fearTimeLeft -= (double) 1 / 60;
-        }
-
-        if (deadTimeLeft > 0) {
+        }else if (deadTimeLeft > 0) {
+            trackPacman.escapeFromPacman();
             deadTimeLeft -= (double) 1 / 60;
             if (deadTimeLeft <= 0)
                 alive = true;
+        }else {
+            if (!isBase()) {
+                trackPacman.trackPacman();
+                if (!teleport()) {
+
+                }
+            }
+            if (!canMoveThisDirection(direction)) {
+                System.out.println("blad ghost num " + this.ghostNumber + "director " + direction);
+                System.out.println("trackPacman.availableDirectoryLeft " + trackPacman.availableDirectoryLeft);
+                System.out.println("trackPacman.availableDirectoryRi " + trackPacman.availableDirectoryRight);
+                System.out.println("trackPacman.availableDirectoryUp " + trackPacman.availableDirectoryUp);
+                System.out.println("trackPacman.availableDirectoryDown " + trackPacman.availableDirectoryDown);
+                System.exit(1);
+                this.direction = null;
+            }
         }
+        super.setSpeed(direction);
+
+
 
     }
+
+
 
     public void render(Graphics g) {
         String imgPath;
