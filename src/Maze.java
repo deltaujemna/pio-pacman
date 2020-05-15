@@ -1,15 +1,20 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Maze extends JPanel {
     static int cellSize = 20; //rozmiar pojedynczej komórki na planszy
-    boolean[][] grid = new boolean[19][19];
+    boolean[][] grid = new boolean[19][19];  //[y][x]
     boolean[][] dots = new boolean[19][19]; // to na pewno jest potrzebne?
     Ghost[] ghosts;
-    Fruit[] fruits;
+    private ArrayList<Fruit> fruits = new ArrayList<>();
     Pacman pacman;
     private CollectableEntity[][] yellowDots;
     private int level;
+    Timer timer = new Timer();
 
     private final int[][] powerDotPos = {{2, 0}, {16, 0}, {2, 18}, {16, 18}};
 
@@ -46,8 +51,11 @@ public class Maze extends JPanel {
         for (Ghost ghost : ghosts) {
             ghost.render(g);
         }
-        for (Fruit fruit : fruits)
-            fruit.render(g);
+        try {
+            for (Fruit fruit : fruits)
+                fruit.render(g);
+        } catch (ConcurrentModificationException e) {
+        }
     }
 
     public void deleteDotsFromCage() {
@@ -87,14 +95,21 @@ public class Maze extends JPanel {
         }
 
         yellowDots = new CollectableEntity[19][19];
-        //TODO - owoce na razie są umieszczone na sztywno nad kropkami. Problem - jeśli fruits[i][j] == null -> gra się crashuje
-        //nie pomaga nawet warunek if(fruit != null) w metodzie render
-        //potencjalne rozwiązanie - utworzyć owoce zawczasu, tylko renderować je gdzieś poza planszą
-        fruits = new Fruit[4];
-        fruits[0] = new Fruit(6, 6);
-        fruits[1] = new Fruit(12, 6);
-        fruits[2] = new Fruit(6, 14);
-        fruits[3] = new Fruit(12, 14);
+
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                int randX = (int) (Math.random() * 18);
+                int randY = (int) (Math.random() * 18);
+                if ((randX == 9 && randY == 7) || (randX == 8 && randY == 8) || (randX == 9 && randY == 8) || (randX == 10 && randY == 8)) {
+                } else if (grid[randY][randX] && !yellowDots[randY][randX].renderable) {
+                    try {
+                        fruits.add(new Fruit(randX, randY));
+                    } catch (ConcurrentModificationException e) {
+                    }
+                }
+            }
+        }, 5000, 5000);
 
         for (int[] singlePowerDotPos : powerDotPos) {
             yellowDots[singlePowerDotPos[1]][singlePowerDotPos[0]] = new PowerDot(singlePowerDotPos[0], singlePowerDotPos[1]);

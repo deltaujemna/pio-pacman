@@ -2,6 +2,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.util.ArrayList;
 
 public class Pacman extends LivingEntity {
 
@@ -15,7 +16,7 @@ public class Pacman extends LivingEntity {
 
     Ghost[] ghosts;
     CollectableEntity[][] dots;
-    Fruit[] fruits;
+    ArrayList<Fruit> fruits = new ArrayList<>();
 
     MazeFrame mazeFrame;
 
@@ -44,7 +45,7 @@ public class Pacman extends LivingEntity {
     }
 
     // przekazanie położenie owoców do tej klasy
-    public void pushFruits(Fruit[] fruits) {
+    public void pushFruits(ArrayList<Fruit> fruits) {
         this.fruits = fruits;
     }
 
@@ -96,6 +97,7 @@ public class Pacman extends LivingEntity {
         } else {
             // TODO: else koniec gry
             mazeFrame.running = false;
+            mazeFrame.maze.timer.cancel();
             JOptionPane.showMessageDialog(mazeFrame, "KONIEC GRY!\nZdobyte punkty: " + score,
                     "Koniec gry", JOptionPane.INFORMATION_MESSAGE);
             mazeFrame.dispose();

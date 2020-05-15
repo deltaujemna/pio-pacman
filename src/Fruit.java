@@ -32,7 +32,7 @@ public class Fruit extends CollectableEntity {
         super(x, y);
         super.x = toPixelsX(x);
         super.y = toPixelsX(y);
-        this.points = 100;
+        this.points = 200;
         this.renderable = true;
         width = 17;
         height = 17;
