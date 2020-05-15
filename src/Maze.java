@@ -97,20 +97,22 @@ public class Maze extends JPanel {
 
         yellowDots = new CollectableEntity[19][19];
 
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                int randX = (int) (Math.random() * 18);
-                int randY = (int) (Math.random() * 18);
-                if ((randX == 9 && randY == 7) || (randX == 8 && randY == 8) || (randX == 9 && randY == 8) || (randX == 10 && randY == 8)) {
-                } else if (grid[randY][randX] && !yellowDots[randY][randX].renderable) {
-                    try {
-                        fruits.add(new Fruit(randX, randY));
-                    } catch (ConcurrentModificationException e) {
+        if (level == 1) {
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    int randX = (int) (Math.random() * 18);
+                    int randY = (int) (Math.random() * 18);
+                    if ((randX == 9 && randY == 7) || (randX == 8 && randY == 8) || (randX == 9 && randY == 8) || (randX == 10 && randY == 8)) {
+                    } else if (grid[randY][randX] && !yellowDots[randY][randX].renderable) {
+                        try {
+                            fruits.add(new Fruit(randX, randY));
+                        } catch (ConcurrentModificationException e) {
+                        }
                     }
                 }
-            }
-        }, 5000, 5000);
+            }, 5000, 5000);
+        }
 
         for (int[] singlePowerDotPos : powerDotPos) {
             yellowDots[singlePowerDotPos[1]][singlePowerDotPos[0]] = new PowerDot(singlePowerDotPos[0], singlePowerDotPos[1]);
