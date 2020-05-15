@@ -177,6 +177,10 @@ public class TrackPacman {
                             ghost.direction = LivingEntity.Direction.UP;
                         } else if (availableDirectoryDown) {
                             ghost.direction = LivingEntity.Direction.DOWN;
+                        }else if(availableDirectoryLeft){
+                            ghost.direction = LivingEntity.Direction.LEFT;
+                        }else if(availableDirectoryUp){
+                            ghost.direction = LivingEntity.Direction.UP;
                         }
                     } else {
                         if (yDistanceFromPacman > 0 && availableDirectoryUp) {
@@ -187,6 +191,11 @@ public class TrackPacman {
                             ghost.direction = LivingEntity.Direction.LEFT;
                         } else if (availableDirectoryRight) {
                             ghost.direction = LivingEntity.Direction.RIGHT;
+                        }else if(availableDirectoryUp){
+                            ghost.direction = LivingEntity.Direction.UP;
+                        }else if(availableDirectoryLeft){
+                            ghost.direction = LivingEntity.Direction.LEFT;
+
                         }
                     }
                 }
