@@ -99,8 +99,8 @@ public class Ghost extends LivingEntity {
                 */
             }
         }
-        if(!canMoveThisDirection(direction) ){
-            System.out.println("blad ghost num " + this.ghostNumber + "director "+ direction);
+        if (!canMoveThisDirection(direction)) {
+            System.out.println("blad ghost num " + this.ghostNumber + "director " + direction);
             System.out.println("trackPacman.availableDirectoryLeft " + trackPacman.availableDirectoryLeft);
             System.out.println("trackPacman.availableDirectoryRi " + trackPacman.availableDirectoryRight);
             System.out.println("trackPacman.availableDirectoryUp " + trackPacman.availableDirectoryUp);
@@ -120,7 +120,7 @@ public class Ghost extends LivingEntity {
             if (deadTimeLeft <= 0)
                 alive = true;
         }
-        
+
     }
 
     public void render(Graphics g) {
@@ -145,7 +145,7 @@ public class Ghost extends LivingEntity {
         }
 
         try {
-            g.drawImage(ImageIO.read(new File(imgPath)), this.x, this.y, this.width, this.height, null);
+            g.drawImage(ImageIO.read(new File(imgPath)), this.x + Maze.deltaX, this.y + Maze.deltaY, this.width, this.height, null);
         } catch (Exception e) {
             e.printStackTrace();
         }

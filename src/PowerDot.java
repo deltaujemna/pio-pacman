@@ -25,7 +25,7 @@ public class PowerDot extends CollectableEntity {
         final int size = 13;
         if (renderable) {
             g.setColor(Color.ORANGE);
-            g.fillOval(toPixelsX(x) + (Maze.cellSize - size) / 2, toPixelsY(y) + (Maze.cellSize - size) / 2, size, size);
+            g.fillOval(toPixelsX(x) + (Maze.cellSize - size) / 2 + Maze.deltaX, toPixelsY(y) + (Maze.cellSize - size) / 2 + Maze.deltaY, size, size);
         }
     }
 

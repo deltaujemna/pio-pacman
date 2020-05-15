@@ -1,15 +1,20 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Maze extends JPanel {
     static int cellSize = 20; //rozmiar pojedynczej komórki na planszy
-    boolean[][] grid = new boolean[19][19];
+    boolean[][] grid = new boolean[19][19];  //[y][x]
     boolean[][] dots = new boolean[19][19]; // to na pewno jest potrzebne?
     Ghost[] ghosts;
-    Fruit[] fruits;
+    private ArrayList<Fruit> fruits = new ArrayList<>();
     Pacman pacman;
     private CollectableEntity[][] yellowDots;
     private int level;
+    Timer timer = new Timer();
 
     private final int[][] powerDotPos = {{2, 0}, {16, 0}, {2, 18}, {16, 18}};
 
@@ -40,14 +45,19 @@ public class Maze extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        drawBoard(g);
+        //drawBoard(g);
+        drawBoardCenter(g);
+
         pacman.render(g);
         drawDots(g);
         for (Ghost ghost : ghosts) {
             ghost.render(g);
         }
-        for (Fruit fruit : fruits)
-            fruit.render(g);
+        try {
+            for (Fruit fruit : fruits)
+                fruit.render(g);
+        } catch (ConcurrentModificationException e) {
+        }
     }
 
     public void deleteDotsFromCage() {
@@ -70,6 +80,7 @@ public class Maze extends JPanel {
             }
         }
 
+        fruits.clear();
         deleteDotsFromCage();
         updateEntireMap();
 
@@ -87,14 +98,23 @@ public class Maze extends JPanel {
         }
 
         yellowDots = new CollectableEntity[19][19];
-        //TODO - owoce na razie są umieszczone na sztywno nad kropkami. Problem - jeśli fruits[i][j] == null -> gra się crashuje
-        //nie pomaga nawet warunek if(fruit != null) w metodzie render
-        //potencjalne rozwiązanie - utworzyć owoce zawczasu, tylko renderować je gdzieś poza planszą
-        fruits = new Fruit[4];
-        fruits[0] = new Fruit(6, 6);
-        fruits[1] = new Fruit(12, 6);
-        fruits[2] = new Fruit(6, 14);
-        fruits[3] = new Fruit(12, 14);
+
+        if (level == 1) {
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    int randX = (int) (Math.random() * 18);
+                    int randY = (int) (Math.random() * 18);
+                    if ((randX == 9 && randY == 7) || (randX == 8 && randY == 8) || (randX == 9 && randY == 8) || (randX == 10 && randY == 8)) {
+                    } else if (grid[randY][randX] && !yellowDots[randY][randX].renderable) {
+                        try {
+                            fruits.add(new Fruit(randX, randY));
+                        } catch (ConcurrentModificationException e) {
+                        }
+                    }
+                }
+            }, 5000, 5000);
+        }
 
         for (int[] singlePowerDotPos : powerDotPos) {
             yellowDots[singlePowerDotPos[1]][singlePowerDotPos[0]] = new PowerDot(singlePowerDotPos[0], singlePowerDotPos[1]);
@@ -232,6 +252,70 @@ public class Maze extends JPanel {
         g.fillRect(240, 360, 140, 20);
         g.fillRect(280, 320, 20, 40);
         g.fillRect(120, 320, 20, 60);
+    }
+
+    //                          przydałoby się wydobyć dla poszczególnego komputera jego full screen
+    public static int deltaX = (1920 - MazeFrame.width)/2;
+    public static int deltaY = (1080 - MazeFrame.height)/2;
+
+    public void drawBoardCenter(Graphics g) {
+
+        g.setColor(Color.BLACK);
+        g.fillRect(0 + deltaX, 0 + deltaY, 440, 460);
+
+        g.setColor(Color.WHITE);
+        g.drawRect(19 + deltaX, 19 + deltaY, 382, 382);
+
+        g.setColor(Color.BLUE);
+        g.fillRect(40 + deltaX, 40+ deltaY, 60, 20);
+        g.fillRect(120 + deltaX, 40+ deltaY, 60, 20);
+        g.fillRect(200 + deltaX, 20+ deltaY, 20, 40);
+        g.fillRect(240 + deltaX, 40+ deltaY, 60, 20);
+        g.fillRect(320 + deltaX, 40+ deltaY, 60, 20);
+        g.fillRect(40 + deltaX, 80+ deltaY, 60, 20);
+        g.fillRect(160 + deltaX, 80+ deltaY, 100, 20);
+        g.fillRect(200 + deltaX, 80+ deltaY, 20, 60);
+        g.fillRect(320 + deltaX, 80+ deltaY, 60, 20);
+
+        g.fillRect(20 + deltaX, 120+ deltaY, 80, 60);
+        g.fillRect(320 + deltaX, 120+ deltaY, 80, 60);
+        g.fillRect(20 + deltaX, 200+ deltaY, 80, 60);
+        g.fillRect(320 + deltaX, 200+ deltaY, 80, 60);
+
+        g.fillRect(160 + deltaX, 160+ deltaY, 40, 20);
+        g.fillRect(220 + deltaX, 160+ deltaY, 40, 20);
+        g.fillRect(160 + deltaX, 180+ deltaY, 20, 20);
+        g.fillRect(160 + deltaX, 200+ deltaY, 100, 20);
+        g.fillRect(240 + deltaX, 180+ deltaY, 20, 20);
+
+        g.setColor(Color.BLUE);
+        g.fillRect(120 + deltaX, 120+ deltaY, 60, 20);
+        g.fillRect(120 + deltaX, 80+ deltaY, 20, 100);
+        g.fillRect(280 + deltaX, 80+ deltaY, 20, 100);
+        g.fillRect(240 + deltaX, 120+ deltaY, 60, 20);
+
+        g.fillRect(280 + deltaX, 200+ deltaY, 20, 60);
+        g.fillRect(120 + deltaX, 200+ deltaY, 20, 60);
+        g.fillRect(160 + deltaX, 240+ deltaY, 100, 20);
+        g.fillRect(200 + deltaX, 260+ deltaY, 20, 40);
+
+        g.fillRect(120 + deltaX, 280+ deltaY, 60, 20);
+        g.fillRect(240 + deltaX, 280+ deltaY, 60, 20);
+
+        g.fillRect(40 + deltaX, 280+ deltaY, 60, 20);
+        g.fillRect(80 + deltaX, 280+ deltaY, 20, 60);
+        g.fillRect(320 + deltaX, 280+ deltaY, 60, 20);
+        g.fillRect(320 + deltaX, 280+ deltaY, 20, 60);
+
+        g.fillRect(20 + deltaX, 320+ deltaY, 40, 20);
+        g.fillRect(360 + deltaX, 320+ deltaY, 40, 20);
+        g.fillRect(160 + deltaX, 320+ deltaY, 100, 20);
+        g.fillRect(200 + deltaX, 320+ deltaY, 20, 60);
+
+        g.fillRect(40+ deltaX, 360+ deltaY, 140, 20);
+        g.fillRect(240+ deltaX, 360+ deltaY, 140, 20);
+        g.fillRect(280 + deltaX, 320+ deltaY, 20, 40);
+        g.fillRect(120 + deltaX, 320+ deltaY, 20, 60);
     }
 
     public void drawDots(Graphics g) {

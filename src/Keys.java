@@ -21,6 +21,9 @@ public class Keys implements KeyListener {
         final int keyLeft = 37;
         final int keyRight = 39;
 
+        final int escape = 27;
+
+
         switch (key.getKeyCode()) {
             case keyUp:
                 pacman.setDirection(LivingEntity.Direction.UP);
@@ -33,6 +36,9 @@ public class Keys implements KeyListener {
                 break;
             case keyRight:
                 pacman.setDirection(LivingEntity.Direction.RIGHT);
+                break;
+            case escape:
+                System.exit(0);
                 break;
         }
     }
