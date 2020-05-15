@@ -88,15 +88,7 @@ public class Ghost extends LivingEntity {
         if (!isBase()) {
             trackPacman.trackPacman();// dopracowania
             if (!teleport()) {
-               /* if (canMoveDirectorFutureAndDirectory()) {
-                    direction = Direction.DOWN;
-                    directionFuture = Direction.RIGHT;
-                    if (canMoveDirectorFutureAndDirectory()) {
-                        direction = Direction.UP;
-                        directionFuture = Direction.LEFT;
-                    }
-                }
-                */
+
             }
         }
         if (!canMoveThisDirection(direction)) {
@@ -109,7 +101,7 @@ public class Ghost extends LivingEntity {
             this.direction = null;
         }
 
-        setSpeed(direction);
+        super.setSpeed(direction);
 
         if (fearTimeLeft > 0) {
             fearTimeLeft -= (double) 1 / 60;
