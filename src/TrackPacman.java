@@ -40,7 +40,6 @@ public class TrackPacman {
 
     // red ghost
     public void decideDirection1() {
-        if (System.nanoTime() - ghost.timeDecideDirection >= 0.75e9) {
             Random rand = new Random();
             if (!samePath()) {
                 if (!ghost.canMoveThisDirection(ghost.direction)) {
@@ -61,14 +60,11 @@ public class TrackPacman {
                     }
                 }
             }
-            //ghost.timeDecideDirection = System.nanoTime();
-        }
 
     }
 
     // pink ghost
     public void decideDirection2() {
-        if (System.nanoTime() - ghost.timeDecideDirection >= 0.75e9) {
             if (!samePath()) {
                 if (!ghost.canMoveThisDirection(ghost.direction)) {
                     if (ghost.canMoveThisDirection(ghost.pacmanDirectory)) {
@@ -80,13 +76,10 @@ public class TrackPacman {
                     }
                 }
             }
-           // ghost.timeDecideDirection = System.nanoTime();
-        }
     }
 
     // orange ghost
     public void decideDirection3() {
-        if (System.nanoTime() - ghost.timeDecideDirection >= 0.75e9) {
             findAvailableDirectory();
             boolean isLeft;
             boolean isUp;
@@ -134,8 +127,6 @@ public class TrackPacman {
                 }
 
             }
-         //   ghost.timeDecideDirection = System.nanoTime();
-        }
 
     }
 
@@ -161,7 +152,6 @@ public class TrackPacman {
 
     // yellow ghost
     public void decideDirection4() {
-        if (System.nanoTime() - ghost.timeDecideDirection >= 0.75e9) {
             findAvailableDirectory();
             int xDistanceFromPacman = ghost.x - ghost.pacmanX;
             int yDistanceFromPacman = ghost.y - ghost.pacmanY;
@@ -193,9 +183,7 @@ public class TrackPacman {
                     }
                 }
             }
-          //  ghost.timeDecideDirection = System.nanoTime();
 
-        }
 
     }
 
