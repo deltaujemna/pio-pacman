@@ -78,6 +78,7 @@ public class Maze extends JPanel {
             }
         }
 
+        fruits.clear();
         deleteDotsFromCage();
         updateEntireMap();
 
