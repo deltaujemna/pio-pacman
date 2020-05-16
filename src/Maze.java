@@ -1,5 +1,3 @@
-import org.w3c.dom.ls.LSOutput;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -12,7 +10,7 @@ public class Maze extends JPanel {
     boolean[][] grid = new boolean[19][19];  //[y][x]
     boolean[][] dots = new boolean[19][19]; // to na pewno jest potrzebne?
     Ghost[] ghosts;
-    private ArrayList<Fruit> fruits = new ArrayList<>();
+    private final ArrayList<Fruit> fruits = new ArrayList<>();
     Pacman pacman;
     private CollectableEntity[][] yellowDots;
     private int level;
@@ -59,7 +57,7 @@ public class Maze extends JPanel {
         try {
             for (Fruit fruit : fruits)
                 fruit.render(g);
-        } catch (ConcurrentModificationException e) {
+        } catch (ConcurrentModificationException ignored) {
         }
     }
 
@@ -112,7 +110,7 @@ public class Maze extends JPanel {
                     } else if (grid[randY][randX] && !yellowDots[randY][randX].renderable) {
                         try {
                             fruits.add(new Fruit(randX, randY));
-                        } catch (ConcurrentModificationException e) {
+                        } catch (ConcurrentModificationException ignored) {
                         }
                     }
                 }
