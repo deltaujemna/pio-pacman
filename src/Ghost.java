@@ -95,25 +95,45 @@ public class Ghost extends LivingEntity {
                 alive = true;
         }else {
             if (!isBase()) {
-                trackPacman.trackPacman();
-                if (!teleport()) {
-
+                if (!teleportGhost()) {
+                    trackPacman.trackPacman();
                 }
             }
-            if (!canMoveThisDirection(direction)) {
-                System.out.println("blad ghost num " + this.ghostNumber + "director " + direction);
-                System.out.println("trackPacman.availableDirectoryLeft " + trackPacman.availableDirectoryLeft);
-                System.out.println("trackPacman.availableDirectoryRi " + trackPacman.availableDirectoryRight);
-                System.out.println("trackPacman.availableDirectoryUp " + trackPacman.availableDirectoryUp);
-                System.out.println("trackPacman.availableDirectoryDown " + trackPacman.availableDirectoryDown);
-                System.exit(1);
-                this.direction = null;
-            }
+
+        }
+        if (!canMoveThisDirection(direction)) { // do testow
+            System.out.println("blad ghost num " + this.ghostNumber + "director " + direction);
+            System.out.println("trackPacman.availableDirectoryLeft " + trackPacman.availableDirectoryLeft);
+            System.out.println("trackPacman.availableDirectoryRi " + trackPacman.availableDirectoryRight);
+            System.out.println("trackPacman.availableDirectoryUp " + trackPacman.availableDirectoryUp);
+            System.out.println("trackPacman.availableDirectoryDown " + trackPacman.availableDirectoryDown);
+            System.exit(1);
+            this.direction = null;
         }
         super.setSpeed(direction);
 
-
-
+    }
+    private boolean teleportGhost(){
+        if (this.y == 180) {
+            if (this.x < 80) {
+                if(direction != Direction.RIGHT) {
+                    direction = Direction.LEFT;
+                    if (this.x == 20) {
+                        teleport(toPixelsX(18), toPixelsY(8));
+                    }
+                    return true;
+                }
+            } else if (toCellsX(this.x) > 14) {
+                if(direction != Direction.LEFT) {
+                    direction = Direction.RIGHT;
+                    if (toCellsX((this.x)) == 18) {
+                        teleport(toPixelsX(0), toPixelsY(8));
+                    }
+                }
+                return true;
+            }
+        }
+        return false;
     }
 
 
