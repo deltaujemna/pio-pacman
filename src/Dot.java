@@ -16,12 +16,12 @@ public class Dot extends CollectableEntity {
 
     @Override
     public void render(Graphics g) {
-        final int size = (int) (7 * Maze.scale);
+        final int size = 7;
 
         if (renderable) {
             g.setColor(Color.ORANGE);
-            g.fillOval((int) ((toPixelsX(x) + (Maze.cellSize - size) / 2 + Maze.deltaX) * Maze.scale),
-                    (int) ((toPixelsY(y) + (Maze.cellSize - size) / 2 + Maze.deltaY) * Maze.scale), size, size);
+            g.fillOval((int) ((toPixelsX(x) + Maze.deltaX + (Maze.cellSize - size) / 2) * Maze.scale),
+                    (int) ((toPixelsY(y) + Maze.deltaY + (Maze.cellSize - size) / 2) * Maze.scale), (int)(size * Maze.scale), (int)(size * Maze.scale));
         }
     }
 
