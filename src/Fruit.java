@@ -21,7 +21,8 @@ public class Fruit extends CollectableEntity {
         String imgPath = "Images/cherry.png";
         if (renderable) {
             try {
-                g.drawImage(ImageIO.read(new File(imgPath)), this.x + Maze.deltaX, this.y + Maze.deltaY, this.width, this.height, null);
+                g.drawImage(ImageIO.read(new File(imgPath)), (int)((this.x + Maze.deltaX) * Maze.scale),
+                        (int) ((this.y + Maze.deltaY) * Maze.scale), (int)(this.width * Maze.scale), (int)(this.height * Maze.scale), null);
             } catch (Exception e) {
                 e.printStackTrace();
             }

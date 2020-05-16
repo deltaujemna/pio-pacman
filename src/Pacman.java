@@ -170,32 +170,37 @@ public class Pacman extends LivingEntity {
         return imgPath;
     }
 
+    private void renderLives(Graphics g) {
+        if (lives >= 1) {
+            g.setColor(Color.YELLOW);
+            g.fillOval((int) ((330 + Maze.deltaX) * Maze.scale), (int) ((2 + Maze.deltaY) * Maze.scale), (int) (13 * Maze.scale), (int) (13 * Maze.scale));
+        }
+        if (lives >= 2) {
+            g.setColor(Color.YELLOW);
+            g.fillOval((int) ((350 + Maze.deltaX) * Maze.scale), (int) ((2 + Maze.deltaY) * Maze.scale), (int) (13 * Maze.scale), (int) (13 * Maze.scale));
+        }
+        if (lives >= 3) {
+            g.setColor(Color.YELLOW);
+            g.fillOval((int) ((370 + Maze.deltaX) * Maze.scale), (int) ((2 + Maze.deltaY) * Maze.scale), (int) (13 * Maze.scale), (int) (13 * Maze.scale));
+        }
+    }
+
     @Override
     public void render(Graphics g) {
         g.setColor(Color.ORANGE);
         g.setFont(new Font("TimesRoman", Font.BOLD, 15));
-        g.drawString("Score: " + this.score, 14 + Maze.deltaX, 14 + Maze.deltaY);
-        g.drawString("Lives: ", 280 + Maze.deltaX, 14 + Maze.deltaY);
+        g.drawString("Score: " + this.score, (int) ((14 + Maze.deltaX) * Maze.scale), (int) ((14 + Maze.deltaY) * Maze.scale));
+        g.drawString("Lives: ", (int) ((280 + Maze.deltaX) * Maze.scale), (int) ((14 + Maze.deltaY) * Maze.scale));
 
-        if (lives >= 1) {
-            g.setColor(Color.YELLOW);
-            g.fillOval(330 + Maze.deltaX, 2 + Maze.deltaY, 13, 13);
-        }
-        if (lives >= 2) {
-            g.setColor(Color.YELLOW);
-            g.fillOval(350 + Maze.deltaX, 2 + Maze.deltaY, 13, 13);
-        }
-        if (lives >= 3) {
-            g.setColor(Color.YELLOW);
-            g.fillOval(370 + Maze.deltaX, 2 + Maze.deltaY, 13, 13);
-        }
+        renderLives(g);
 
         String imgPath = "";
         if (System.nanoTime() - timeRenderCircle >= 0.15e9) {
 
             imgPath = decidePacmanImageForRender();
             try {
-                g.drawImage(ImageIO.read(new File(imgPath)), this.x + Maze.deltaX, this.y + Maze.deltaY, this.width, this.height, null);
+                g.drawImage(ImageIO.read(new File(imgPath)), (int) ((this.x + Maze.deltaX) * Maze.scale), (int) ((this.y + Maze.deltaY) * Maze.scale),
+                        (int) (this.width * Maze.scale), (int) (this.height * Maze.scale), null);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -204,7 +209,7 @@ public class Pacman extends LivingEntity {
                 timeRenderCircle = System.nanoTime();
         } else {
             g.setColor(Color.YELLOW);
-            g.fillOval(x + Maze.deltaX, y + Maze.deltaY, width, height);
+            g.fillOval((int) ((x + Maze.deltaX) * Maze.scale), (int) ((y + Maze.deltaY) * Maze.scale), (int) (width * Maze.scale), (int) (height * Maze.scale));
         }
     }
 }
