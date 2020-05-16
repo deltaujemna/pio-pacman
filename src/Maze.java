@@ -324,8 +324,6 @@ public class Maze extends JPanel {
     }
 
     public void drawBoardCenterAndBigger(Graphics g) {
-        System.out.println(deltaX);
-
         g.setColor(Color.BLACK);
         g.fillRect((int) ((0 + deltaX) * scale), (int) ((0 + deltaY) * scale), (int) (440 * scale), (int) (460 * scale));
 
