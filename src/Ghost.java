@@ -7,8 +7,8 @@ public class Ghost extends LivingEntity {
     double fearTimeLeft;
     double deadTimeLeft;
 
-    int points = 200;     //tymczasowo
-    int ghostNumber;//jeżeli każdy duch ma inny kolor
+    int points = 200;
+    int ghostNumber; //potrzebne bo każdy duch ma inny kolor
 
     final int size = 20;
     long timeDecideDirection;
@@ -16,8 +16,8 @@ public class Ghost extends LivingEntity {
     int pacmanX; //aktualna pozycja Pacmana, żeby można było go śledzić
     int pacmanY;
 
-    Direction pacmanDirectory;
-    Direction pacmanDirectoryFuture;
+    Direction pacmanDirection;
+    Direction pacmanDirectionFuture;
 
     private final TrackPacman trackPacman;
 
@@ -46,11 +46,11 @@ public class Ghost extends LivingEntity {
     }
 
     public void pushPacmanDirection(Direction direction) {
-        pacmanDirectory = direction;
+        pacmanDirection = direction;
     }
 
-    public void pushPacmanDirectorFuture(Direction direction) {
-        pacmanDirectoryFuture = direction;
+    public void pushPacmanDirectionFuture(Direction direction) {
+        pacmanDirectionFuture = direction;
     }
 
     public boolean isBase() {
@@ -83,17 +83,17 @@ public class Ghost extends LivingEntity {
         this.fearTimeLeft = 15; //jeżeli 15 sekund trwa power-up
     }
 
-
+    //TODO - co z tym komentarzem poniżej?
     public void tick() {
         if (deadTimeLeft > 0)
             teleport(toPixelsX(8), toPixelsY(8));
         if (!isBase()) {
             trackPacman.trackPacman();// dopracowania
             if (!teleport()) {
-               /* if (canMoveDirectorFutureAndDirectory()) {
+               /* if (canMoveDirectionFutureAndDirection()) {
                     direction = Direction.DOWN;
                     directionFuture = Direction.RIGHT;
-                    if (canMoveDirectorFutureAndDirectory()) {
+                    if (canMoveDirectionFutureAndDirection()) {
                         direction = Direction.UP;
                         directionFuture = Direction.LEFT;
                     }
@@ -101,12 +101,12 @@ public class Ghost extends LivingEntity {
                 */
             }
         }
-        if (!canMoveThisDirection(direction)) {
-            System.out.println("blad ghost num " + this.ghostNumber + "director " + direction);
-            System.out.println("trackPacman.availableDirectoryLeft " + trackPacman.availableDirectoryLeft);
-            System.out.println("trackPacman.availableDirectoryRi " + trackPacman.availableDirectoryRight);
-            System.out.println("trackPacman.availableDirectoryUp " + trackPacman.availableDirectoryUp);
-            System.out.println("trackPacman.availableDirectoryDown " + trackPacman.availableDirectoryDown);
+        if (!canMoveThisDirection(direction)) { //TODO - to jest raczej do usunięcia
+            System.out.println("blad ghost num " + this.ghostNumber + "direction " + direction);
+            System.out.println("trackPacman.availableDirectionLeft " + trackPacman.availableDirectionLeft);
+            System.out.println("trackPacman.availableDirectionRi " + trackPacman.availableDirectionRight);
+            System.out.println("trackPacman.availableDirectionUp " + trackPacman.availableDirectionUp);
+            System.out.println("trackPacman.availableDirectionDown " + trackPacman.availableDirectionDown);
             System.exit(1);
             this.direction = null;
         }

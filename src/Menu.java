@@ -3,7 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Menu extends JFrame {
-    MazeFrame mazeFrame;
+    private MazeFrame mazeFrame;
 
     public Menu(String title) {
         super(title);

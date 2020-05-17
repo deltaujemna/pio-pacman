@@ -1,8 +1,7 @@
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
+import java.awt.*;
 
 public class FullScreen {
-    private MazeFrame mazeFrame;
+    private final MazeFrame mazeFrame;
 
     GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();  //fullscreen exclusive
     GraphicsDevice graphicsDevice = graphicsEnvironment.getDefaultScreenDevice();  //fullscreen exclusive
@@ -10,9 +9,10 @@ public class FullScreen {
     public FullScreen(MazeFrame mazeFrame) {
         this.mazeFrame = mazeFrame;
     }
+
     public void makeFullScreen() {
-        if (!graphicsDevice.isFullScreenSupported ()) {
-            throw new UnsupportedOperationException ("Fullscreen mode is unsupported.");
+        if (!graphicsDevice.isFullScreenSupported()) {
+            throw new UnsupportedOperationException("Fullscreen mode is unsupported.");
         }
         graphicsDevice.setFullScreenWindow(mazeFrame);
     }

@@ -14,16 +14,6 @@ public abstract class Entity {
         return new Rectangle(x, y, width, height);
     }
 
-    // zamienia długość z pikseli na komórki
-    int toCells(int value) {
-        return value / 20;
-    }
-
-    // zamienia długość z komórki na piksele
-    int toPixels(int value) {
-        return value * 20;
-    }
-
     // zamienia długość z pikseli na komórki dla X
     int toCellsX(int value) {
         return value / 20 - 1;

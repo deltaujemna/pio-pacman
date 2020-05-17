@@ -8,7 +8,8 @@ import java.util.TimerTask;
 public class Maze extends JPanel {
     static int cellSize = 20; //rozmiar pojedynczej komórki na planszy
     boolean[][] grid = new boolean[19][19];  //[y][x]
-    boolean[][] dots = new boolean[19][19]; // to na pewno jest potrzebne?
+    boolean[][] dots = new boolean[19][19]; // zamiast tego można by stosować yellowDots[i][j].renderable, ale
+    // plus tego jest taki, że dots[][] nie wymaga istnienia obiektów klasy Dots
     Ghost[] ghosts;
     private final ArrayList<Fruit> fruits = new ArrayList<>();
     Pacman pacman;
@@ -35,13 +36,14 @@ public class Maze extends JPanel {
             ghost.pushPacmanX(pacman.x);
             ghost.pushPacmanY(pacman.y);
             ghost.pushPacmanDirection(pacman.direction);
-            ghost.pushPacmanDirectorFuture(pacman.directionFuture);
+            ghost.pushPacmanDirectionFuture(pacman.directionFuture);
             ghost.tick();
         }
         pacman.tick();
     }
 
     //Rysuje jedną całą klatkę gry
+    //TODO - usunąć niepotrzebne drawBoard'y jak już skończymy prace nad fullscreenem
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -86,10 +88,10 @@ public class Maze extends JPanel {
         updateEntireMap();
 
         ghosts = new Ghost[4];
-        ghosts[0] = new Ghost(8, 8, 1); //8,8
-        ghosts[1] = new Ghost(8, 8, 2); //8,8
-        ghosts[2] = new Ghost(8, 8, 3); //8,8
-        ghosts[3] = new Ghost(8, 8, 4); //8,8
+        ghosts[0] = new Ghost(8, 8, 1); //komórka 8,8
+        ghosts[1] = new Ghost(8, 8, 2); //komórka 8,8
+        ghosts[2] = new Ghost(8, 8, 3); //komórka 8,8
+        ghosts[3] = new Ghost(8, 8, 4); //komórka 8,8
 
         if (level == 1)
             pacman = new Pacman(9, 10, 20, 1, mazeFrame);
@@ -196,7 +198,6 @@ public class Maze extends JPanel {
 
     //Rysuje planszę na panelu
     public void drawBoard(Graphics g) {
-
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, 440, 460);
 
@@ -258,11 +259,10 @@ public class Maze extends JPanel {
     public static double scale = 1.5;
 
     // przydałoby się wydobyć dla poszczególnego komputera jego full screen,
-    public static int deltaX =  400; // tak akurat dla 1.5 wygląda dobrze, ale np. dla scale = 2 to 200 i 50
+    public static int deltaX = 400; // tak akurat dla 1.5 wygląda dobrze, ale np. dla scale = 2 to 200 i 50
     public static int deltaY = 100;
 
     public void drawBoardCenter(Graphics g) {
-
         g.setColor(Color.BLACK);
         g.fillRect(0 + deltaX, 0 + deltaY, 440, 460);
 
@@ -322,9 +322,7 @@ public class Maze extends JPanel {
     }
 
     public void drawBoardCenterAndBigger(Graphics g) {
-
         // UWAGA: zakładamy, że szerokość okna jest większa niż wysokość
-
         final double boardScale = 0.75; // procent ekranu, jaki plansza ma zajmować (w pionie)
         final int boardSize = 420; // rozmiar boku planszy bez skalowania w pikselach
 
@@ -333,8 +331,8 @@ public class Maze extends JPanel {
 
         scale = screenHeight * boardScale / boardSize;
 
-        deltaX = (int)(((double)screenWidth / scale - boardSize) / 2);
-        deltaY = (int)(((double)screenHeight / scale - boardSize) / 2);
+        deltaX = (int) (((double) screenWidth / scale - boardSize) / 2);
+        deltaY = (int) (((double) screenHeight / scale - boardSize) / 2);
 
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, screenWidth, screenHeight);

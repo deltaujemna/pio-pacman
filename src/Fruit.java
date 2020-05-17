@@ -3,7 +3,6 @@ import java.awt.*;
 import java.io.File;
 
 public class Fruit extends CollectableEntity {
-
     @Override
     public void pickup(Pacman p) {
         if (renderable)
@@ -13,7 +12,6 @@ public class Fruit extends CollectableEntity {
 
     @Override
     public void tick() {
-        // TODO: zrobić
     }
 
     @Override
@@ -21,8 +19,8 @@ public class Fruit extends CollectableEntity {
         String imgPath = "Images/cherry.png";
         if (renderable) {
             try {
-                g.drawImage(ImageIO.read(new File(imgPath)), (int)((this.x + Maze.deltaX) * Maze.scale),
-                        (int) ((this.y + Maze.deltaY) * Maze.scale), (int)(this.width * Maze.scale), (int)(this.height * Maze.scale), null);
+                g.drawImage(ImageIO.read(new File(imgPath)), (int) ((this.x + Maze.deltaX) * Maze.scale),
+                        (int) ((this.y + Maze.deltaY) * Maze.scale), (int) (this.width * Maze.scale), (int) (this.height * Maze.scale), null);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -38,5 +36,4 @@ public class Fruit extends CollectableEntity {
         width = 17;
         height = 17;
     }
-
 }

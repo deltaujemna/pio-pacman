@@ -3,18 +3,16 @@ import java.awt.*;
 public abstract class LivingEntity extends Entity {
     boolean alive;
     double speed; // wyrażona w pikselach na klatkę
-
     int startX, startY;
 
     enum Direction {UP, DOWN, LEFT, RIGHT}
 
-    enum LivingObject {PACMAN, GHOST}
-
     Direction direction;
     Direction directionFuture;
     boolean[][] grid;
-    public void setSpeed(Direction direction){
-        if(direction != null) {
+
+    public void setSpeed(Direction direction) {
+        if (direction != null) {
             switch (direction) {
                 case UP:
                     this.y -= speed;
@@ -31,12 +29,10 @@ public abstract class LivingEntity extends Entity {
             }
         }
     }
+
     // zwraca, czy postać może się poruszyć
     public boolean canMoveThisDirection(Direction direction) {
         if (direction != null) {
-
-            final boolean GRID_WALL = false;
-
             if (grid == null)
                 throw new NullPointerException();
 
@@ -78,7 +74,6 @@ public abstract class LivingEntity extends Entity {
                 //System.out.println("speed = " + this.speed+ "direction  "+direction + " "+this ); // ukazuje ze nie dziala duchy
 
                 // wszystkie kąty zostały sprawdzone, kolizji nie będzie
-
                 return true;
             } catch (ArrayIndexOutOfBoundsException e) {
                 return false;
@@ -87,7 +82,7 @@ public abstract class LivingEntity extends Entity {
         return false;
     }
 
-    public boolean canMoveDirectorFutureAndDirectory() {
+    public boolean canMoveDirectionFutureAndDirection() {
         if (canMoveThisDirection(this.directionFuture)) {
             this.direction = directionFuture;
             return true;
@@ -115,12 +110,5 @@ public abstract class LivingEntity extends Entity {
             }
         }
         return false;
-
-    }
-
-
-    @Override
-    public void render(Graphics g) {
-        // TODO: zrobić
     }
 }

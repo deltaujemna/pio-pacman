@@ -5,12 +5,11 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class Pacman extends LivingEntity {
-
     private int lives = 3;
     private int score = 0;
     private double powerUpTimeLeft = 0;
     private int killedGhostsStreak = 0;
-    long timeRenderCircle;              //zmienna pomocnicza do animowania ruchu Pacmana
+    long timeRenderCircle; //zmienna pomocnicza do animowania ruchu Pacmana
     private final int POWERUP_TIME = 15;
     private int dotsLeft = 199;
 
@@ -30,11 +29,10 @@ public class Pacman extends LivingEntity {
         this.speed = speed;
         this.direction = Direction.RIGHT;
         this.timeRenderCircle = System.nanoTime();
-
         this.mazeFrame = mazeframe;
     }
 
-    // przekazanie położenie ścian do tej klasy
+    //przekazanie informacji o duchach do tej klasy
     public void pushGhosts(Ghost[] ghosts) {
         this.ghosts = ghosts;
     }
@@ -49,15 +47,14 @@ public class Pacman extends LivingEntity {
         this.fruits = fruits;
     }
 
-    // dodaje punkty
     public void addScore(int value) {
         score += value;
     }
 
     // porusza w ustalonym kierunku
     private void move() {
-        if (!teleport() && super.canMoveDirectorFutureAndDirectory()) {
-            setSpeed(direction);// petla switch case
+        if (!teleport() && super.canMoveDirectionFutureAndDirection()) {
+            setSpeed(direction);// pętla switch case
         }
     }
 
@@ -73,12 +70,10 @@ public class Pacman extends LivingEntity {
         }
     }
 
-    // zmiana kierunku
     public void setDirection(Direction direction) {
         this.directionFuture = direction;
     }
 
-    // utrata życia
     private void loseLife() {
         killedGhostsStreak = 0;
         lives--;
@@ -86,10 +81,8 @@ public class Pacman extends LivingEntity {
             direction = Direction.RIGHT;
             directionFuture = Direction.RIGHT;
             teleport(startX, startY);
-            for (Ghost ghost : ghosts) {
-                ghost.direction = Direction.RIGHT; // to chyba będzie można usunąć
+            for (Ghost ghost : ghosts)
                 ghost.teleport(ghost.startX, ghost.startY);
-            }
         } else if (lives == 0) {
             mazeFrame.running = false;
             mazeFrame.maze.timer.cancel();
@@ -144,7 +137,6 @@ public class Pacman extends LivingEntity {
                 }
             }
         }
-
     }
 
     private String decidePacmanImageForRender() {
@@ -188,7 +180,7 @@ public class Pacman extends LivingEntity {
 
         renderLives(g);
 
-        String imgPath = "";
+        String imgPath;
         if (System.nanoTime() - timeRenderCircle >= 0.15e9) {
 
             imgPath = decidePacmanImageForRender();

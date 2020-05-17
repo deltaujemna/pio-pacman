@@ -2,7 +2,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class Keys implements KeyListener {
-
     private final Pacman pacman;
 
     public Keys(Pacman pacman) {

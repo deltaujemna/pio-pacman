@@ -1,10 +1,8 @@
 import java.awt.*;
 
 public class Dot extends CollectableEntity {
-
     @Override
     public void tick() {
-
     }
 
     @Override
@@ -21,7 +19,7 @@ public class Dot extends CollectableEntity {
         if (renderable) {
             g.setColor(Color.ORANGE);
             g.fillOval((int) ((toPixelsX(x) + Maze.deltaX + (Maze.cellSize - size) / 2) * Maze.scale),
-                    (int) ((toPixelsY(y) + Maze.deltaY + (Maze.cellSize - size) / 2) * Maze.scale), (int)(size * Maze.scale), (int)(size * Maze.scale));
+                    (int) ((toPixelsY(y) + Maze.deltaY + (Maze.cellSize - size) / 2) * Maze.scale), (int) (size * Maze.scale), (int) (size * Maze.scale));
         }
     }
 
@@ -30,5 +28,4 @@ public class Dot extends CollectableEntity {
         this.points = 10;
         this.renderable = true;
     }
-
 }
