@@ -16,17 +16,17 @@ public class Ghost extends LivingEntity {
     int pacmanX; //aktualna pozycja Pacmana, żeby można było go śledzić
     int pacmanY;
 
-    Direction pacmanDirectory;
-    Direction pacmanDirectoryFuture;
+    Direction pacmanDirection;
+    Direction pacmanDirectionFuture;
 
-    private TrackPacman trackPacman;
+    private final TrackPacman trackPacman;
 
     public Ghost(int x, int y, int ghostNumber) {
         this.ghostNumber = ghostNumber;
-        this.startX = toPixelsX(x);
-        this.startY = toPixelsY(y);
-        this.x = toPixelsX(x);
-        this.y = toPixelsY(y);
+        this.startX = toPixels(x);
+        this.startY = toPixels(y);
+        this.x = toPixels(x);
+        this.y = toPixels(y);
         this.width = size;
         this.height = size;
         this.speed = 1;
@@ -46,11 +46,11 @@ public class Ghost extends LivingEntity {
     }
 
     public void pushPacmanDirection(Direction direction) {
-        pacmanDirectory = direction;
+        pacmanDirection = direction;
     }
 
-    public void pushPacmanDirectorFuture(Direction direction) {
-        pacmanDirectoryFuture = direction;
+    public void pushPacmanDirectionFuture(Direction direction) {
+        pacmanDirectionFuture = direction;
     }
 
     public boolean isBase() {
