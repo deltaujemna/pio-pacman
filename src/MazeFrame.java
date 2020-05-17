@@ -15,9 +15,11 @@ public class MazeFrame extends JFrame {
     public static int width = 440;
     public static int height = 460;
 
-    public MazeFrame(String title) {
+    public MazeFrame(String title, boolean fullScreenMode) {
         super(title);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        if (fullScreenMode)
+            setUndecorated(true);
         setContentPane(maze);
         pack();
         setBounds(0, 0, width, height);
@@ -30,8 +32,10 @@ public class MazeFrame extends JFrame {
         setMinimumSize(new Dimension(440, 480));
         setVisible(false);
 
-        FullScreen fullScreen = new FullScreen(this);
-        fullScreen.makeFullScreen();
+        if (fullScreenMode) {
+            FullScreen fullScreen = new FullScreen(this);
+            fullScreen.makeFullScreen();
+        }
 
         addKeyListener(new Keys(maze.pacman));
 

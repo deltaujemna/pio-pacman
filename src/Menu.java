@@ -10,6 +10,10 @@ public class Menu extends JFrame {
         JPanel menuPanel = new JPanel();
         JButton startButton = new JButton("START");
         JButton quitButton = new JButton("QUIT");
+        String[] fullScreenComboBoxItems = new String[2];
+        fullScreenComboBoxItems[0] = "Pełny ekran";
+        fullScreenComboBoxItems[1] = "Okno";
+        JComboBox fullScreenComboBox = new JComboBox(fullScreenComboBoxItems);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
         menuPanel.setLayout(null);
@@ -25,6 +29,9 @@ public class Menu extends JFrame {
         menuPanel.add(quitButton);
         quitButton.setBounds(60, 260, 300, 40);
 
+        menuPanel.add(fullScreenComboBox);
+        fullScreenComboBox.setBounds(135, 120, 150, 25);
+
         setVisible(true);
 
         quitButton.addActionListener(new ActionListener() {
@@ -37,7 +44,10 @@ public class Menu extends JFrame {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mazeFrame = new MazeFrame("Pacman");
+                if (fullScreenComboBox.getSelectedIndex() == 0)
+                    mazeFrame = new MazeFrame("Pacman", true);
+                else
+                    mazeFrame = new MazeFrame("Pacman", false);
                 mazeFrame.setVisible(true);
                 setVisible(false);
             }
