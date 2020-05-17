@@ -1,4 +1,8 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -18,7 +22,12 @@ public class MazeFrame extends JFrame {
         pack();
         setBounds(0, 0, width, height);
         setLocationRelativeTo(null);
-        setResizable(false);
+        try {
+            setIconImage(ImageIO.read(new File("Images/pacman_right.png")));
+        } catch (IOException e) {
+        }
+        setResizable(true);
+        setMinimumSize(new Dimension(440, 480));
         setVisible(false);
 
         FullScreen fullScreen = new FullScreen(this);

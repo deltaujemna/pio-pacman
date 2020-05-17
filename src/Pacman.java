@@ -177,7 +177,7 @@ public class Pacman extends LivingEntity {
         g.setFont(new Font("TimesRoman", Font.BOLD, 15));
         g.drawString("Score: " + this.score, (int) ((14 + Maze.deltaX) * Maze.scale), (int) ((14 + Maze.deltaY) * Maze.scale));
         g.drawString("Lives: ", (int) ((280 + Maze.deltaX) * Maze.scale), (int) ((14 + Maze.deltaY) * Maze.scale));
-        g.drawString("Level: " + mazeFrame.maze.getLevel(), (int) ((100 + Maze.deltaX) * Maze.scale), (int) ((14 + Maze.deltaY) * Maze.scale));
+        g.drawString("Level: " + mazeFrame.maze.getLevel(), (int) ((170 + Maze.deltaX) * Maze.scale), (int) ((14 + Maze.deltaY) * Maze.scale));
 
         renderLives(g);
 
