@@ -1,9 +1,8 @@
-import javax.swing.JFrame;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
+import javax.swing.*;
+import java.awt.*;
 
 public class FullScreen {
-    private MazeFrame mazeFrame;
+    private final MazeFrame mazeFrame;
 
     GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
     GraphicsDevice graphicsDevice = graphicsEnvironment.getDefaultScreenDevice();
@@ -11,8 +10,9 @@ public class FullScreen {
     public FullScreen(MazeFrame mazeFrame) {
         this.mazeFrame = mazeFrame;
     }
+
     public void makeFullScreen() {
-        if (!graphicsDevice.isFullScreenSupported ()) {
+        if (!graphicsDevice.isFullScreenSupported()) {
             mazeFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         } else {
             graphicsDevice.setFullScreenWindow(mazeFrame);
