@@ -89,7 +89,7 @@ public class Ghost extends LivingEntity {
             trackPacman.escapeFromPacman();
             fearTimeLeft -= (double) 1 / 60;
         }else if (deadTimeLeft > 0) {
-            trackPacman.escapeFromPacman();
+            teleport(toPixels(8), toPixels(8));
             deadTimeLeft -= (double) 1 / 60;
             if (deadTimeLeft <= 0)
                 alive = true;
@@ -101,7 +101,19 @@ public class Ghost extends LivingEntity {
             }
 
         }
-        super.setSpeed(direction);
+
+
+        setSpeed(direction);
+
+        if (fearTimeLeft > 0) {
+            fearTimeLeft -= (double) 1 / 60;
+        }
+
+        if (deadTimeLeft > 0) {
+            deadTimeLeft -= (double) 1 / 60;
+            if (deadTimeLeft <= 0)
+                alive = true;
+        }
 
     }
     private boolean teleportGhost(){
@@ -110,15 +122,15 @@ public class Ghost extends LivingEntity {
                 if(direction != Direction.RIGHT) {
                     direction = Direction.LEFT;
                     if (this.x == 20) {
-                        teleport(toPixelsX(18), toPixelsY(8));
+                        teleport(380, 180);//18 8
                     }
                     return true;
                 }
-            } else if (toCellsX(this.x) > 14) {
+            } else if(this.x > 300) {
                 if(direction != Direction.LEFT) {
                     direction = Direction.RIGHT;
-                    if (toCellsX((this.x)) == 18) {
-                        teleport(toPixelsX(0), toPixelsY(8));
+                    if (this.x == 380) {
+                        teleport(20, 180);//18 8
                     }
                 }
                 return true;

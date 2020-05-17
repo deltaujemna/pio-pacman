@@ -74,6 +74,7 @@ public abstract class LivingEntity extends Entity {
                 //System.out.println("speed = " + this.speed+ "direction  "+direction + " "+this ); // ukazuje ze nie dziala duchy
 
                 // wszystkie kąty zostały sprawdzone, kolizji nie będzie
+
                 return true;
             } catch (ArrayIndexOutOfBoundsException e) {
                 return false;

@@ -1,7 +1,7 @@
 import java.util.Random;
 
 public class TrackPacman {
-    private Ghost ghost;
+    private final Ghost ghost;
 
     private boolean availableDirectoryUp;
     private boolean availableDirectoryDown;
@@ -69,10 +69,10 @@ public class TrackPacman {
     public void decideDirection2() {
         if (!samePath()) {
             if (!ghost.canMoveThisDirection(ghost.direction)) {
-                if (ghost.canMoveThisDirection(ghost.pacmanDirectory)) {
-                    ghost.direction = ghost.pacmanDirectory;
-                } else if (ghost.canMoveThisDirection(ghost.pacmanDirectoryFuture)) {
-                    ghost.direction = ghost.pacmanDirectoryFuture;
+                if (ghost.canMoveThisDirection(ghost.pacmanDirection)) {
+                    ghost.direction = ghost.pacmanDirection;
+                } else if (ghost.canMoveThisDirection(ghost.pacmanDirectionFuture)) {
+                    ghost.direction = ghost.pacmanDirectionFuture;
                 } else {
                     smartDicideDirection();
                 }
