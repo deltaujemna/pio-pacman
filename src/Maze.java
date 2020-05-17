@@ -340,58 +340,57 @@ public class Maze extends JPanel {
         g.fillRect(0, 0, screenWidth, screenHeight);
 
         g.setColor(Color.WHITE);
-        g.drawRect((int) ((19 + deltaX) * scale), (int) ((19 + deltaY) * scale), (int) (382 * scale), (int) (382 * scale));
+        g.drawRect((int) ((19 + deltaX) * scale), (int) Math.round((19 + deltaY) * scale), (int) (382 * scale), (int) (382 * scale));
 
         g.setColor(Color.BLUE);
-        g.fillRect((int) ((40 + deltaX) * scale), (int) ((40 + deltaY) * scale), (int) (60 * scale), (int) (20 * scale));
-        g.fillRect((int) ((120 + deltaX) * scale), (int) ((40 + deltaY) * scale), (int) (60 * scale), (int) (20 * scale));
-        g.fillRect((int) ((200 + deltaX) * scale), (int) ((20 + deltaY) * scale), (int) (20 * scale), (int) (40 * scale));
-        g.fillRect((int) ((240 + deltaX) * scale), (int) ((40 + deltaY) * scale), (int) (60 * scale), (int) (20 * scale));
-        g.fillRect((int) ((320 + deltaX) * scale), (int) ((40 + deltaY) * scale), (int) (60 * scale), (int) (20 * scale));
-        g.fillRect((int) ((40 + deltaX) * scale), (int) ((80 + deltaY) * scale), (int) (60 * scale), (int) (20 * scale));
-        g.fillRect((int) ((160 + deltaX) * scale), (int) ((80 + deltaY) * scale), (int) (100 * scale), (int) (20 * scale));
-        g.fillRect((int) ((200 + deltaX) * scale), (int) ((80 + deltaY) * scale), (int) (20 * scale), (int) (60 * scale));
-        g.fillRect((int) ((320 + deltaX) * scale), (int) ((80 + deltaY) * scale), (int) (60 * scale), (int) (20 * scale));
+        g.fillRect((int) ((40 + deltaX) * scale), (int) Math.round((40 + deltaY) * scale), (int) (60 * scale), (int) (20 * scale));
+        g.fillRect((int) ((120 + deltaX) * scale), (int) Math.round((40 + deltaY) * scale), (int) (60 * scale), (int) (20 * scale));
+        g.fillRect((int) ((200 + deltaX) * scale), (int) Math.round((20 + deltaY) * scale), (int) (20 * scale), (int) (40 * scale));
+        g.fillRect((int) ((240 + deltaX) * scale), (int) Math.round((40 + deltaY) * scale), (int) (60 * scale), (int) (20 * scale));
+        g.fillRect((int) ((320 + deltaX) * scale), (int) Math.round((40 + deltaY) * scale), (int) (60 * scale), (int) (20 * scale));
+        g.fillRect((int) ((40 + deltaX) * scale), (int) Math.round((80 + deltaY) * scale), (int) (60 * scale), (int) (20 * scale));
+        g.fillRect((int) ((160 + deltaX) * scale), (int) Math.round((80 + deltaY) * scale), (int) (100 * scale), (int) (20 * scale));
+        g.fillRect((int) ((200 + deltaX) * scale), (int) Math.round((80 + deltaY) * scale), (int) (20 * scale), (int) (60 * scale));
+        g.fillRect((int) ((320 + deltaX) * scale), (int) Math.round((80 + deltaY) * scale), (int) (60 * scale), (int) (20 * scale));
 
-        g.fillRect((int) ((20 + deltaX) * scale), (int) ((120 + deltaY) * scale), (int) (80 * scale), (int) (60 * scale));
-        g.fillRect((int) ((320 + deltaX) * scale), (int) ((120 + deltaY) * scale), (int) (80 * scale), (int) (60 * scale));
-        g.fillRect((int) ((20 + deltaX) * scale), (int) ((200 + deltaY) * scale), (int) (80 * scale), (int) (60 * scale));
-        g.fillRect((int) ((320 + deltaX) * scale), (int) ((200 + deltaY) * scale), (int) (80 * scale), (int) (60 * scale));
+        g.fillRect((int) ((20 + deltaX) * scale), (int) Math.round((120 + deltaY) * scale), (int) (80 * scale), (int) (60 * scale));
+        g.fillRect((int) ((320 + deltaX) * scale), (int) Math.round((120 + deltaY) * scale), (int) (80 * scale), (int) (60 * scale));
+        g.fillRect((int) ((20 + deltaX) * scale), (int) Math.round((200 + deltaY) * scale), (int) (80 * scale), (int) (60 * scale));
+        g.fillRect((int) ((320 + deltaX) * scale), (int) Math.round((200 + deltaY) * scale), (int) (80 * scale), (int) (60 * scale));
 
-        g.fillRect((int) ((160 + deltaX) * scale), (int) ((160 + deltaY) * scale), (int) (40 * scale), (int) (20 * scale));
-        g.fillRect((int) ((220 + deltaX) * scale), (int) ((160 + deltaY) * scale), (int) (40 * scale), (int) (20 * scale));
-        g.fillRect((int) ((160 + deltaX) * scale), (int) ((180 + deltaY) * scale), (int) (20 * scale), (int) (20 * scale));
-        g.fillRect((int) ((160 + deltaX) * scale), (int) ((200 + deltaY) * scale), (int) (100 * scale), (int) (20 * scale));
-        g.fillRect((int) ((240 + deltaX) * scale), (int) ((180 + deltaY) * scale), (int) (20 * scale), (int) (20 * scale));
+        g.fillRect((int) ((160 + deltaX) * scale), (int) Math.round((160 + deltaY) * scale), (int) (40 * scale), (int) (20 * scale));
+        g.fillRect((int) ((220 + deltaX) * scale), (int) Math.round((160 + deltaY) * scale), (int) (40 * scale), (int) (20 * scale));
+        g.fillRect((int) ((160 + deltaX) * scale), (int) Math.round((180 + deltaY) * scale), (int) (20 * scale), (int) (20 * scale));
+        g.fillRect((int) ((160 + deltaX) * scale), (int) Math.round((200 + deltaY) * scale), (int) (100 * scale), (int) (20 * scale));
+        g.fillRect((int) ((240 + deltaX) * scale), (int) Math.round((180 + deltaY) * scale), (int) (20 * scale), (int) (20 * scale));
 
-        g.setColor(Color.BLUE);
-        g.fillRect((int) ((120 + deltaX) * scale), (int) ((120 + deltaY) * scale), (int) (60 * scale), (int) (20 * scale));
-        g.fillRect((int) ((120 + deltaX) * scale), (int) ((80 + deltaY) * scale), (int) (20 * scale), (int) (100 * scale));
-        g.fillRect((int) ((280 + deltaX) * scale), (int) ((80 + deltaY) * scale), (int) (20 * scale), (int) (100 * scale));
-        g.fillRect((int) ((240 + deltaX) * scale), (int) ((120 + deltaY) * scale), (int) (60 * scale), (int) (20 * scale));
+        g.fillRect((int) ((120 + deltaX) * scale), (int) Math.round((120 + deltaY) * scale), (int) (60 * scale), (int) (20 * scale));
+        g.fillRect((int) ((120 + deltaX) * scale), (int) Math.round((80 + deltaY) * scale), (int) (20 * scale), (int) (100 * scale));
+        g.fillRect((int) ((280 + deltaX) * scale), (int) Math.round((80 + deltaY) * scale), (int) (20 * scale), (int) (100 * scale));
+        g.fillRect((int) ((240 + deltaX) * scale), (int) Math.round((120 + deltaY) * scale), (int) (60 * scale), (int) (20 * scale));
 
-        g.fillRect((int) ((280 + deltaX) * scale), (int) ((200 + deltaY) * scale), (int) (20 * scale), (int) (60 * scale));
-        g.fillRect((int) ((120 + deltaX) * scale), (int) ((200 + deltaY) * scale), (int) (20 * scale), (int) (60 * scale));
-        g.fillRect((int) ((160 + deltaX) * scale), (int) ((240 + deltaY) * scale), (int) (100 * scale), (int) (20 * scale));
-        g.fillRect((int) ((200 + deltaX) * scale), (int) ((260 + deltaY) * scale), (int) (20 * scale), (int) (40 * scale));
+        g.fillRect((int) ((280 + deltaX) * scale), (int) Math.round((200 + deltaY) * scale), (int) (20 * scale), (int) (60 * scale));
+        g.fillRect((int) ((120 + deltaX) * scale), (int) Math.round((200 + deltaY) * scale), (int) (20 * scale), (int) (60 * scale));
+        g.fillRect((int) ((160 + deltaX) * scale), (int) Math.round((240 + deltaY) * scale), (int) (100 * scale), (int) (20 * scale));
+        g.fillRect((int) ((200 + deltaX) * scale), (int) Math.round((260 + deltaY) * scale), (int) (20 * scale), (int) (40 * scale));
 
-        g.fillRect((int) ((120 + deltaX) * scale), (int) ((280 + deltaY) * scale), (int) (60 * scale), (int) (20 * scale));
-        g.fillRect((int) ((240 + deltaX) * scale), (int) ((280 + deltaY) * scale), (int) (60 * scale), (int) (20 * scale));
+        g.fillRect((int) ((120 + deltaX) * scale), (int) Math.round((280 + deltaY) * scale), (int) (60 * scale), (int) (20 * scale));
+        g.fillRect((int) ((240 + deltaX) * scale), (int) Math.round((280 + deltaY) * scale), (int) (60 * scale), (int) (20 * scale));
 
-        g.fillRect((int) ((40 + deltaX) * scale), (int) ((280 + deltaY) * scale), (int) (60 * scale), (int) (20 * scale));
-        g.fillRect((int) ((80 + deltaX) * scale), (int) ((280 + deltaY) * scale), (int) (20 * scale), (int) (60 * scale));
-        g.fillRect((int) ((320 + deltaX) * scale), (int) ((280 + deltaY) * scale), (int) (60 * scale), (int) (20 * scale));
-        g.fillRect((int) ((320 + deltaX) * scale), (int) ((280 + deltaY) * scale), (int) (20 * scale), (int) (60 * scale));
+        g.fillRect((int) ((40 + deltaX) * scale), (int) Math.round((280 + deltaY) * scale), (int) (60 * scale), (int) (20 * scale));
+        g.fillRect((int) ((80 + deltaX) * scale), (int) Math.round((280 + deltaY) * scale), (int) (20 * scale), (int) (60 * scale));
+        g.fillRect((int) ((320 + deltaX) * scale), (int) Math.round((280 + deltaY) * scale), (int) (60 * scale), (int) (20 * scale));
+        g.fillRect((int) ((320 + deltaX) * scale), (int) Math.round((280 + deltaY) * scale), (int) (20 * scale), (int) (60 * scale));
 
-        g.fillRect((int) ((20 + deltaX) * scale), (int) ((320 + deltaY) * scale), (int) (40 * scale), (int) (20 * scale));
-        g.fillRect((int) ((360 + deltaX) * scale), (int) ((320 + deltaY) * scale), (int) (40 * scale), (int) (20 * scale));
-        g.fillRect((int) ((160 + deltaX) * scale), (int) ((320 + deltaY) * scale), (int) (100 * scale), (int) (20 * scale));
-        g.fillRect((int) ((200 + deltaX) * scale), (int) ((320 + deltaY) * scale), (int) (20 * scale), (int) (60 * scale));
+        g.fillRect((int) ((20 + deltaX) * scale), (int) Math.round((320 + deltaY) * scale), (int) (40 * scale), (int) (20 * scale));
+        g.fillRect((int) ((360 + deltaX) * scale), (int) Math.round((320 + deltaY) * scale), (int) (40 * scale), (int) (20 * scale));
+        g.fillRect((int) ((160 + deltaX) * scale), (int) Math.round((320 + deltaY) * scale), (int) (100 * scale), (int) (20 * scale));
+        g.fillRect((int) ((200 + deltaX) * scale), (int) Math.round((320 + deltaY) * scale), (int) (20 * scale), (int) (60 * scale));
 
-        g.fillRect((int) ((40 + deltaX) * scale), (int) ((360 + deltaY) * scale), (int) (140 * scale), (int) (20 * scale));
-        g.fillRect((int) ((240 + deltaX) * scale), (int) ((360 + deltaY) * scale), (int) (140 * scale), (int) (20 * scale));
-        g.fillRect((int) ((280 + deltaX) * scale), (int) ((320 + deltaY) * scale), (int) (20 * scale), (int) (40 * scale));
-        g.fillRect((int) ((120 + deltaX) * scale), (int) ((320 + deltaY) * scale), (int) (20 * scale), (int) (60 * scale));
+        g.fillRect((int) ((40 + deltaX) * scale), (int) Math.round((360 + deltaY) * scale), (int) (140 * scale), (int) (20 * scale));
+        g.fillRect((int) ((240 + deltaX) * scale), (int) Math.round((360 + deltaY) * scale), (int) (140 * scale), (int) (20 * scale));
+        g.fillRect((int) ((280 + deltaX) * scale), (int) Math.round((320 + deltaY) * scale), (int) (20 * scale), (int) (40 * scale));
+        g.fillRect((int) ((120 + deltaX) * scale), (int) Math.round((320 + deltaY) * scale), (int) (20 * scale), (int) (60 * scale));
     }
 
     public void drawDots(Graphics g) {
