@@ -43,12 +43,9 @@ public class Maze extends JPanel {
     }
 
     //Rysuje jedną całą klatkę gry
-    //TODO - usunąć niepotrzebne drawBoard'y jak już skończymy prace nad fullscreenem
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        //drawBoard(g);
-        //drawBoardCenter(g);
         drawBoardCenterAndBigger(g);
 
         pacman.render(g);
@@ -108,8 +105,7 @@ public class Maze extends JPanel {
                 public void run() {
                     int randX = (int) (Math.random() * 18);
                     int randY = (int) (Math.random() * 18);
-                    if ((randX == 9 && randY == 7) || (randX == 8 && randY == 8) || (randX == 9 && randY == 8) || (randX == 10 && randY == 8)) {
-                    } else if (grid[randY][randX] && !yellowDots[randY][randX].renderable) {
+                    if (grid[randY][randX] && !yellowDots[randY][randX].renderable && !(randX >= 8 && randX <= 10 && (randY == 7 || randY == 8))) {
                         try {
                             fruits.add(new Fruit(randX, randY));
                         } catch (ConcurrentModificationException ignored) {
@@ -196,130 +192,11 @@ public class Maze extends JPanel {
         updateMap(120, 320, 20, 60);
     }
 
-    //Rysuje planszę na panelu
-    public void drawBoard(Graphics g) {
-        g.setColor(Color.BLACK);
-        g.fillRect(0, 0, 440, 460);
-
-        g.setColor(Color.WHITE);
-        g.drawRect(19, 19, 382, 382);
-
-        g.setColor(Color.BLUE);
-        g.fillRect(40, 40, 60, 20);
-        g.fillRect(120, 40, 60, 20);
-        g.fillRect(200, 20, 20, 40);
-        g.fillRect(240, 40, 60, 20);
-        g.fillRect(320, 40, 60, 20);
-        g.fillRect(40, 80, 60, 20);
-        g.fillRect(160, 80, 100, 20);
-        g.fillRect(200, 80, 20, 60);
-        g.fillRect(320, 80, 60, 20);
-
-        g.fillRect(20, 120, 80, 60);
-        g.fillRect(320, 120, 80, 60);
-        g.fillRect(20, 200, 80, 60);
-        g.fillRect(320, 200, 80, 60);
-
-        g.fillRect(160, 160, 40, 20);
-        g.fillRect(220, 160, 40, 20);
-        g.fillRect(160, 180, 20, 20);
-        g.fillRect(160, 200, 100, 20);
-        g.fillRect(240, 180, 20, 20);
-
-        g.setColor(Color.BLUE);
-        g.fillRect(120, 120, 60, 20);
-        g.fillRect(120, 80, 20, 100);
-        g.fillRect(280, 80, 20, 100);
-        g.fillRect(240, 120, 60, 20);
-
-        g.fillRect(280, 200, 20, 60);
-        g.fillRect(120, 200, 20, 60);
-        g.fillRect(160, 240, 100, 20);
-        g.fillRect(200, 260, 20, 40);
-
-        g.fillRect(120, 280, 60, 20);
-        g.fillRect(240, 280, 60, 20);
-
-        g.fillRect(40, 280, 60, 20);
-        g.fillRect(80, 280, 20, 60);
-        g.fillRect(320, 280, 60, 20);
-        g.fillRect(320, 280, 20, 60);
-
-        g.fillRect(20, 320, 40, 20);
-        g.fillRect(360, 320, 40, 20);
-        g.fillRect(160, 320, 100, 20);
-        g.fillRect(200, 320, 20, 60);
-
-        g.fillRect(40, 360, 140, 20);
-        g.fillRect(240, 360, 140, 20);
-        g.fillRect(280, 320, 20, 40);
-        g.fillRect(120, 320, 20, 60);
-    }
-
     public static double scale = 1.5;
 
     // przydałoby się wydobyć dla poszczególnego komputera jego full screen,
     public static int deltaX = 400; // tak akurat dla 1.5 wygląda dobrze, ale np. dla scale = 2 to 200 i 50
     public static int deltaY = 100;
-
-    public void drawBoardCenter(Graphics g) {
-        g.setColor(Color.BLACK);
-        g.fillRect(0 + deltaX, 0 + deltaY, 440, 460);
-
-        g.setColor(Color.WHITE);
-        g.drawRect(19 + deltaX, 19 + deltaY, 382, 382);
-
-        g.setColor(Color.BLUE);
-        g.fillRect(40 + deltaX, 40 + deltaY, 60, 20);
-        g.fillRect(120 + deltaX, 40 + deltaY, 60, 20);
-        g.fillRect(200 + deltaX, 20 + deltaY, 20, 40);
-        g.fillRect(240 + deltaX, 40 + deltaY, 60, 20);
-        g.fillRect(320 + deltaX, 40 + deltaY, 60, 20);
-        g.fillRect(40 + deltaX, 80 + deltaY, 60, 20);
-        g.fillRect(160 + deltaX, 80 + deltaY, 100, 20);
-        g.fillRect(200 + deltaX, 80 + deltaY, 20, 60);
-        g.fillRect(320 + deltaX, 80 + deltaY, 60, 20);
-
-        g.fillRect(20 + deltaX, 120 + deltaY, 80, 60);
-        g.fillRect(320 + deltaX, 120 + deltaY, 80, 60);
-        g.fillRect(20 + deltaX, 200 + deltaY, 80, 60);
-        g.fillRect(320 + deltaX, 200 + deltaY, 80, 60);
-
-        g.fillRect(160 + deltaX, 160 + deltaY, 40, 20);
-        g.fillRect(220 + deltaX, 160 + deltaY, 40, 20);
-        g.fillRect(160 + deltaX, 180 + deltaY, 20, 20);
-        g.fillRect(160 + deltaX, 200 + deltaY, 100, 20);
-        g.fillRect(240 + deltaX, 180 + deltaY, 20, 20);
-
-        g.setColor(Color.BLUE);
-        g.fillRect(120 + deltaX, 120 + deltaY, 60, 20);
-        g.fillRect(120 + deltaX, 80 + deltaY, 20, 100);
-        g.fillRect(280 + deltaX, 80 + deltaY, 20, 100);
-        g.fillRect(240 + deltaX, 120 + deltaY, 60, 20);
-
-        g.fillRect(280 + deltaX, 200 + deltaY, 20, 60);
-        g.fillRect(120 + deltaX, 200 + deltaY, 20, 60);
-        g.fillRect(160 + deltaX, 240 + deltaY, 100, 20);
-        g.fillRect(200 + deltaX, 260 + deltaY, 20, 40);
-
-        g.fillRect(120 + deltaX, 280 + deltaY, 60, 20);
-        g.fillRect(240 + deltaX, 280 + deltaY, 60, 20);
-
-        g.fillRect(40 + deltaX, 280 + deltaY, 60, 20);
-        g.fillRect(80 + deltaX, 280 + deltaY, 20, 60);
-        g.fillRect(320 + deltaX, 280 + deltaY, 60, 20);
-        g.fillRect(320 + deltaX, 280 + deltaY, 20, 60);
-
-        g.fillRect(20 + deltaX, 320 + deltaY, 40, 20);
-        g.fillRect(360 + deltaX, 320 + deltaY, 40, 20);
-        g.fillRect(160 + deltaX, 320 + deltaY, 100, 20);
-        g.fillRect(200 + deltaX, 320 + deltaY, 20, 60);
-
-        g.fillRect(40 + deltaX, 360 + deltaY, 140, 20);
-        g.fillRect(240 + deltaX, 360 + deltaY, 140, 20);
-        g.fillRect(280 + deltaX, 320 + deltaY, 20, 40);
-        g.fillRect(120 + deltaX, 320 + deltaY, 20, 60);
-    }
 
     public void drawBoardCenterAndBigger(Graphics g) {
         // UWAGA: zakładamy, że szerokość okna jest większa niż wysokość
