@@ -83,8 +83,8 @@ public class Pacman extends LivingEntity {
         killedGhostsStreak = 0;
         lives--;
         if (lives > 0) {
-            // TODO: jeśli pacman przed śmiercią szedł w lewo to zmiana kierunku jest ignorowana, warto naprawić
             direction = Direction.RIGHT;
+            directionFuture = Direction.RIGHT;
             teleport(startX, startY);
             for (Ghost ghost : ghosts) {
                 ghost.direction = Direction.RIGHT; // to chyba będzie można usunąć
