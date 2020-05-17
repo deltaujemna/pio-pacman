@@ -56,19 +56,19 @@ public abstract class LivingEntity extends Entity {
             // jeśli któryś z kątów Entity w następnej klatce znalazłby się w ścianie, to Entity nie może się poruszyć
             try {
                 if (direction == Direction.LEFT || direction == Direction.UP) {
-                    if (!grid[toCellsY(boundsNext.y)][toCellsX(boundsNext.x)])
+                    if (!grid[toCells(boundsNext.y)][toCells(boundsNext.x)])
                         return false;
                 }
                 if (direction == Direction.LEFT || direction == Direction.DOWN) {
-                    if (!grid[toCellsY(boundsNext.y + boundsNext.height - 1)][toCellsX(boundsNext.x)])
+                    if (!grid[toCells(boundsNext.y + boundsNext.height - 1)][toCells(boundsNext.x)])
                         return false;
                 }
                 if (direction == Direction.RIGHT || direction == Direction.UP) {
-                    if (!grid[toCellsY(boundsNext.y)][toCellsX(boundsNext.x + boundsNext.width - 1)])
+                    if (!grid[toCells(boundsNext.y)][toCells(boundsNext.x + boundsNext.width - 1)])
                         return false;
                 }
                 if (direction == Direction.RIGHT || direction == Direction.DOWN) {
-                    if (!grid[toCellsY(boundsNext.y + boundsNext.height - 1)][toCellsX(boundsNext.x + boundsNext.width - 1)])
+                    if (!grid[toCells(boundsNext.y + boundsNext.height - 1)][toCells(boundsNext.x + boundsNext.width - 1)])
                         return false;
                 }
                 //System.out.println("speed = " + this.speed+ "direction  "+direction + " "+this ); // ukazuje ze nie dziala duchy
@@ -100,11 +100,11 @@ public abstract class LivingEntity extends Entity {
     public boolean teleport() {
         if (this.y == 180) {
             if (this.x == 20) {
-                teleport(toPixelsX(18), toPixelsY(8));
+                teleport(toPixels(18), toPixels(8));
                 this.x--;
                 return true;
-            } else if (toCellsX(this.x) == 18) {
-                teleport(toPixelsX(0), toPixelsY(8));
+            } else if (toCells(this.x) == 18) {
+                teleport(toPixels(0), toPixels(8));
                 this.x++;
                 return true;
             }
