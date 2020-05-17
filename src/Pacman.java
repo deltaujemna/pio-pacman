@@ -109,7 +109,7 @@ public class Pacman extends LivingEntity {
             powerUpTimeLeft -= (double) 1 / 60;
         }
 
-        if (ghosts != null) {
+        if (ghosts != null && !Debug.disableGhostCollision) {
             for (Ghost g : ghosts) {
                 if (getBounds().intersects(g.getBounds())) {
                     collision(g);
