@@ -14,23 +14,14 @@ public abstract class Entity {
         return new Rectangle(x, y, width, height);
     }
 
-    // zamienia długość z pikseli na komórki dla X
-    int toCellsX(int value) {
+    // zamienia długość z pikseli na komórki
+    int toCells(int value) {
         return value / 20 - 1;
     }
 
-    // zamienia długość z pikseli na komórki dla Y
-    int toCellsY(int value) {
-        return value / 20 - 1;
-    }
-
-    // zamienia długość z komórki na piksele dla X
-    int toPixelsX(int value) {
+    // zamienia długość z komórki na piksele
+    int toPixels(int value) {
         return (value + 1) * 20;
     }
 
-    // zamienia długość z komórki na piksele dla Y
-    int toPixelsY(int value) {
-        return (value + 1) * 20;
-    }
 }

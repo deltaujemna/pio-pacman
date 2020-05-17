@@ -23,10 +23,10 @@ public class Ghost extends LivingEntity {
 
     public Ghost(int x, int y, int ghostNumber) {
         this.ghostNumber = ghostNumber;
-        this.startX = toPixelsX(x);
-        this.startY = toPixelsY(y);
-        this.x = toPixelsX(x);
-        this.y = toPixelsY(y);
+        this.startX = toPixels(x);
+        this.startY = toPixels(y);
+        this.x = toPixels(x);
+        this.y = toPixels(y);
         this.width = size;
         this.height = size;
         this.speed = 1;
@@ -86,7 +86,7 @@ public class Ghost extends LivingEntity {
     //TODO - co z tym komentarzem poniżej?
     public void tick() {
         if (deadTimeLeft > 0)
-            teleport(toPixelsX(8), toPixelsY(8));
+            teleport(toPixels(8), toPixels(8));
         if (!isBase()) {
             trackPacman.trackPacman();// dopracowania
             if (!teleport()) {

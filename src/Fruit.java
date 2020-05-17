@@ -29,8 +29,8 @@ public class Fruit extends CollectableEntity {
 
     public Fruit(int x, int y) {
         super(x, y);
-        super.x = toPixelsX(x);
-        super.y = toPixelsX(y);
+        super.x = toPixels(x);
+        super.y = toPixels(y);
         this.points = 200;
         this.renderable = true;
         width = 17;

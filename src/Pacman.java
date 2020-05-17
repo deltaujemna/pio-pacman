@@ -20,10 +20,10 @@ public class Pacman extends LivingEntity {
     MazeFrame mazeFrame;
 
     public Pacman(int x, int y, int size, double speed, MazeFrame mazeframe) {
-        this.startX = toPixelsX(x);
-        this.startY = toPixelsY(y);
-        this.x = toPixelsX(x);
-        this.y = toPixelsY(y);
+        this.startX = toPixels(x);
+        this.startY = toPixels(y);
+        this.x = toPixels(x);
+        this.y = toPixels(y);
         this.width = size;
         this.height = size;
         this.speed = speed;
@@ -118,9 +118,9 @@ public class Pacman extends LivingEntity {
         }
 
         if (dots != null) {
-            if (dots[toCellsY(y + Maze.cellSize / 2)][toCellsX(x + Maze.cellSize / 2)] != null &&
-                    dots[toCellsY(y + Maze.cellSize / 2)][toCellsX(x + Maze.cellSize / 2)].renderable) {
-                dots[toCellsY(y + Maze.cellSize / 2)][toCellsX(x + Maze.cellSize / 2)].pickup(this);
+            if (dots[toCells(y + Maze.cellSize / 2)][toCells(x + Maze.cellSize / 2)] != null &&
+                    dots[toCells(y + Maze.cellSize / 2)][toCells(x + Maze.cellSize / 2)].renderable) {
+                dots[toCells(y + Maze.cellSize / 2)][toCells(x + Maze.cellSize / 2)].pickup(this);
                 //System.out.println("pozostalo kulek: " + (dotsLeft - 1));
                 if (--dotsLeft == 0) {
                     //TODO - przydała by się chwila pauzy przed rozpoczęciem kolejnego poziomu
