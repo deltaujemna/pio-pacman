@@ -85,6 +85,8 @@ public class Ghost extends LivingEntity {
 
 
     public void tick() {
+        if (deadTimeLeft > 0)
+            teleport(toPixelsX(8), toPixelsY(8));
         if (!isBase()) {
             trackPacman.trackPacman();// dopracowania
             if (!teleport()) {

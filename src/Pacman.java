@@ -90,15 +90,13 @@ public class Pacman extends LivingEntity {
                 ghost.direction = Direction.RIGHT; // to chyba będzie można usunąć
                 ghost.teleport(ghost.startX, ghost.startY);
             }
-        } else {
-            // TODO: else koniec gry
+        } else if (lives == 0) {
             mazeFrame.running = false;
             mazeFrame.maze.timer.cancel();
-            JOptionPane.showMessageDialog(mazeFrame, "KONIEC GRY!\nZdobyte punkty: " + score,
-                    "Koniec gry", JOptionPane.INFORMATION_MESSAGE);
             mazeFrame.dispose();
             Game.menu.setVisible(true);
-            //TODO - problem: jeśli Pacman traci ostatnie życie przez kolizję z dwoma duchami naraz to komunikat wyskakuje dwa razy
+            JOptionPane.showMessageDialog(Game.menu, "KONIEC GRY!\nZdobyte punkty: " + score,
+                    "Koniec gry", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
