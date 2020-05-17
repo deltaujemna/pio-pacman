@@ -16,6 +16,7 @@ public class Maze extends JPanel {
     private CollectableEntity[][] yellowDots;
     private int level;
     Timer timer = new Timer();
+    private int pauseLeft; // ilość pozostałych klatek pauzy
 
     private final int[][] powerDotPos = {{2, 0}, {16, 0}, {2, 18}, {16, 18}};
 
@@ -32,14 +33,18 @@ public class Maze extends JPanel {
     }
 
     public void update() {
-        for (Ghost ghost : ghosts) {
-            ghost.pushPacmanX(pacman.x);
-            ghost.pushPacmanY(pacman.y);
-            ghost.pushPacmanDirection(pacman.direction);
-            ghost.pushPacmanDirectionFuture(pacman.directionFuture);
-            ghost.tick();
+        if(pauseLeft == 0) {
+            for (Ghost ghost : ghosts) {
+                ghost.pushPacmanX(pacman.x);
+                ghost.pushPacmanY(pacman.y);
+                ghost.pushPacmanDirection(pacman.direction);
+                ghost.pushPacmanDirectionFuture(pacman.directionFuture);
+                ghost.tick();
+            }
+            pacman.tick();
+        } else {
+            pauseLeft--;
         }
-        pacman.tick();
     }
 
     //Rysuje jedną całą klatkę gry
@@ -134,6 +139,8 @@ public class Maze extends JPanel {
         pacman.pushGhosts(ghosts);
         pacman.pushDots(yellowDots);
         pacman.pushFruits(fruits);
+
+        pauseLeft = 120;
     }
 
     /*Aktualizuje fragment mapy - dla prostokąta przekazanego w argumencie (x, y - współrzędne
