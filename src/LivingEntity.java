@@ -3,18 +3,16 @@ import java.awt.*;
 public abstract class LivingEntity extends Entity {
     boolean alive;
     double speed; // wyrażona w pikselach na klatkę
-
     int startX, startY;
 
     enum Direction {UP, DOWN, LEFT, RIGHT}
 
-    enum LivingObject {PACMAN, GHOST}
-
     Direction direction;
     Direction directionFuture;
     boolean[][] grid;
-    public void setSpeed(Direction direction){
-        if(direction != null) {
+
+    public void setSpeed(Direction direction) {
+        if (direction != null) {
             switch (direction) {
                 case UP:
                     this.y -= speed;
@@ -31,12 +29,10 @@ public abstract class LivingEntity extends Entity {
             }
         }
     }
+
     // zwraca, czy postać może się poruszyć
     public boolean canMoveThisDirection(Direction direction) {
         if (direction != null) {
-
-            final boolean GRID_WALL = false;
-
             if (grid == null)
                 throw new NullPointerException();
 
@@ -60,19 +56,19 @@ public abstract class LivingEntity extends Entity {
             // jeśli któryś z kątów Entity w następnej klatce znalazłby się w ścianie, to Entity nie może się poruszyć
             try {
                 if (direction == Direction.LEFT || direction == Direction.UP) {
-                    if (!grid[toCellsY(boundsNext.y)][toCellsX(boundsNext.x)])
+                    if (!grid[toCells(boundsNext.y)][toCells(boundsNext.x)])
                         return false;
                 }
                 if (direction == Direction.LEFT || direction == Direction.DOWN) {
-                    if (!grid[toCellsY(boundsNext.y + boundsNext.height - 1)][toCellsX(boundsNext.x)])
+                    if (!grid[toCells(boundsNext.y + boundsNext.height - 1)][toCells(boundsNext.x)])
                         return false;
                 }
                 if (direction == Direction.RIGHT || direction == Direction.UP) {
-                    if (!grid[toCellsY(boundsNext.y)][toCellsX(boundsNext.x + boundsNext.width - 1)])
+                    if (!grid[toCells(boundsNext.y)][toCells(boundsNext.x + boundsNext.width - 1)])
                         return false;
                 }
                 if (direction == Direction.RIGHT || direction == Direction.DOWN) {
-                    if (!grid[toCellsY(boundsNext.y + boundsNext.height - 1)][toCellsX(boundsNext.x + boundsNext.width - 1)])
+                    if (!grid[toCells(boundsNext.y + boundsNext.height - 1)][toCells(boundsNext.x + boundsNext.width - 1)])
                         return false;
                 }
 
@@ -86,15 +82,13 @@ public abstract class LivingEntity extends Entity {
         return false;
     }
 
-    public boolean canMoveDirectorFutureAndDirectory() {
+    public boolean canMoveDirectionFutureAndDirection() {
         if (canMoveThisDirection(this.directionFuture)) {
             this.direction = directionFuture;
             return true;
-        } else if (canMoveThisDirection(this.direction)) {
-            return true;
+        } else {
+            return canMoveThisDirection(this.direction);
         }
-        return false;
-
     }
 
     // teleportuje postać na wskazane x, y
@@ -106,21 +100,15 @@ public abstract class LivingEntity extends Entity {
     public boolean teleport() {
         if (this.y == 180) {
             if (this.x == 20) {
-                teleport(toPixelsX(18), toPixelsY(8));
+                teleport(toPixels(18), toPixels(8));
                 this.x--;
                 return true;
-            } else if (toCellsX(this.x) == 18) {
-                teleport(toPixelsX(0), toPixelsY(8));
+            } else if (toCells(this.x) == 18) {
+                teleport(toPixels(0), toPixels(8));
                 this.x++;
                 return true;
             }
         }
         return false;
-    }
-
-
-    @Override
-    public void render(Graphics g) {
-        // TODO: zrobić
     }
 }

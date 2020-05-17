@@ -1,5 +1,4 @@
 public abstract class CollectableEntity extends Entity {
-
     int points;
     boolean renderable;
 
@@ -11,5 +10,4 @@ public abstract class CollectableEntity extends Entity {
         this.x = x;
         this.y = y;
     }
-
 }

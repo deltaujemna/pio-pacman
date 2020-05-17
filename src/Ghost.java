@@ -7,8 +7,8 @@ public class Ghost extends LivingEntity {
     double fearTimeLeft;
     double deadTimeLeft;
 
-    int points = 200;     //tymczasowo
-    int ghostNumber;//jeżeli każdy duch ma inny kolor
+    int points = 200;
+    int ghostNumber; //potrzebne bo każdy duch ma inny kolor
 
     final int size = 20;
     long timeDecideDirection;
@@ -16,17 +16,17 @@ public class Ghost extends LivingEntity {
     int pacmanX; //aktualna pozycja Pacmana, żeby można było go śledzić
     int pacmanY;
 
-    Direction pacmanDirectory;
-    Direction pacmanDirectoryFuture;
+    Direction pacmanDirection;
+    Direction pacmanDirectionFuture;
 
-    private TrackPacman trackPacman;
+    private final TrackPacman trackPacman;
 
     public Ghost(int x, int y, int ghostNumber) {
         this.ghostNumber = ghostNumber;
-        this.startX = toPixelsX(x);
-        this.startY = toPixelsY(y);
-        this.x = toPixelsX(x);
-        this.y = toPixelsY(y);
+        this.startX = toPixels(x);
+        this.startY = toPixels(y);
+        this.x = toPixels(x);
+        this.y = toPixels(y);
         this.width = size;
         this.height = size;
         this.speed = 1;
@@ -46,11 +46,11 @@ public class Ghost extends LivingEntity {
     }
 
     public void pushPacmanDirection(Direction direction) {
-        pacmanDirectory = direction;
+        pacmanDirection = direction;
     }
 
-    public void pushPacmanDirectorFuture(Direction direction) {
-        pacmanDirectoryFuture = direction;
+    public void pushPacmanDirectionFuture(Direction direction) {
+        pacmanDirectionFuture = direction;
     }
 
     public boolean isBase() {
@@ -89,7 +89,7 @@ public class Ghost extends LivingEntity {
             trackPacman.escapeFromPacman();
             fearTimeLeft -= (double) 1 / 60;
         }else if (deadTimeLeft > 0) {
-            trackPacman.escapeFromPacman();
+            teleport(toPixels(8), toPixels(8));
             deadTimeLeft -= (double) 1 / 60;
             if (deadTimeLeft <= 0)
                 alive = true;
@@ -101,7 +101,19 @@ public class Ghost extends LivingEntity {
             }
 
         }
-        super.setSpeed(direction);
+
+
+        setSpeed(direction);
+
+        if (fearTimeLeft > 0) {
+            fearTimeLeft -= (double) 1 / 60;
+        }
+
+        if (deadTimeLeft > 0) {
+            deadTimeLeft -= (double) 1 / 60;
+            if (deadTimeLeft <= 0)
+                alive = true;
+        }
 
     }
     private boolean teleportGhost(){
