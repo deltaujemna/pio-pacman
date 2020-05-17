@@ -7,8 +7,8 @@ public class Ghost extends LivingEntity {
     double fearTimeLeft;
     double deadTimeLeft;
 
-    int points = 200;     //tymczasowo
-    int ghostNumber;//jeżeli każdy duch ma inny kolor
+    int points = 200;
+    int ghostNumber; //potrzebne bo każdy duch ma inny kolor
 
     final int size = 20;
     long timeDecideDirection;
@@ -16,17 +16,17 @@ public class Ghost extends LivingEntity {
     int pacmanX; //aktualna pozycja Pacmana, żeby można było go śledzić
     int pacmanY;
 
-    Direction pacmanDirectory;
-    Direction pacmanDirectoryFuture;
+    Direction pacmanDirection;
+    Direction pacmanDirectionFuture;
 
-    private TrackPacman trackPacman;
+    private final TrackPacman trackPacman;
 
     public Ghost(int x, int y, int ghostNumber) {
         this.ghostNumber = ghostNumber;
-        this.startX = toPixelsX(x);
-        this.startY = toPixelsY(y);
-        this.x = toPixelsX(x);
-        this.y = toPixelsY(y);
+        this.startX = toPixels(x);
+        this.startY = toPixels(y);
+        this.x = toPixels(x);
+        this.y = toPixels(y);
         this.width = size;
         this.height = size;
         this.speed = 1;
@@ -46,11 +46,11 @@ public class Ghost extends LivingEntity {
     }
 
     public void pushPacmanDirection(Direction direction) {
-        pacmanDirectory = direction;
+        pacmanDirection = direction;
     }
 
-    public void pushPacmanDirectorFuture(Direction direction) {
-        pacmanDirectoryFuture = direction;
+    public void pushPacmanDirectionFuture(Direction direction) {
+        pacmanDirectionFuture = direction;
     }
 
     public boolean isBase() {
@@ -83,60 +83,47 @@ public class Ghost extends LivingEntity {
         this.fearTimeLeft = 15; //jeżeli 15 sekund trwa power-up
     }
 
-
+    //TODO - co z tym komentarzem poniżej?
     public void tick() {
-        if (fearTimeLeft > 0) {
-            trackPacman.escapeFromPacman();
-            fearTimeLeft -= (double) 1 / 60;
-        }else if (deadTimeLeft > 0) {
-            trackPacman.escapeFromPacman();
-            deadTimeLeft -= (double) 1 / 60;
-            if (deadTimeLeft <= 0)
-                alive = true;
-        }else {
-            if (!isBase()) {
-                if (!teleportGhost()) {
-                    trackPacman.trackPacman();
+        if (deadTimeLeft > 0)
+            teleport(toPixels(8), toPixels(8));
+        if (!isBase()) {
+            trackPacman.trackPacman();// dopracowania
+            if (!teleport()) {
+               /* if (canMoveDirectionFutureAndDirection()) {
+                    direction = Direction.DOWN;
+                    directionFuture = Direction.RIGHT;
+                    if (canMoveDirectionFutureAndDirection()) {
+                        direction = Direction.UP;
+                        directionFuture = Direction.LEFT;
+                    }
                 }
+                */
             }
-
         }
-        if (!canMoveThisDirection(direction)) { // do testow
-            System.out.println("blad ghost num " + this.ghostNumber + "director " + direction);
-            System.out.println("trackPacman.availableDirectoryLeft " + trackPacman.availableDirectoryLeft);
-            System.out.println("trackPacman.availableDirectoryRi " + trackPacman.availableDirectoryRight);
-            System.out.println("trackPacman.availableDirectoryUp " + trackPacman.availableDirectoryUp);
-            System.out.println("trackPacman.availableDirectoryDown " + trackPacman.availableDirectoryDown);
+        if (!canMoveThisDirection(direction)) { //TODO - to jest raczej do usunięcia
+            System.out.println("blad ghost num " + this.ghostNumber + "direction " + direction);
+            System.out.println("trackPacman.availableDirectionLeft " + trackPacman.availableDirectionLeft);
+            System.out.println("trackPacman.availableDirectionRi " + trackPacman.availableDirectionRight);
+            System.out.println("trackPacman.availableDirectionUp " + trackPacman.availableDirectionUp);
+            System.out.println("trackPacman.availableDirectionDown " + trackPacman.availableDirectionDown);
             System.exit(1);
             this.direction = null;
         }
-        super.setSpeed(direction);
 
-    }
-    private boolean teleportGhost(){
-        if (this.y == 180) {
-            if (this.x < 80) {
-                if(direction != Direction.RIGHT) {
-                    direction = Direction.LEFT;
-                    if (this.x == 20) {
-                        teleport(toPixelsX(18), toPixelsY(8));
-                    }
-                    return true;
-                }
-            } else if (toCellsX(this.x) > 14) {
-                if(direction != Direction.LEFT) {
-                    direction = Direction.RIGHT;
-                    if (toCellsX((this.x)) == 18) {
-                        teleport(toPixelsX(0), toPixelsY(8));
-                    }
-                }
-                return true;
-            }
+        setSpeed(direction);
+
+        if (fearTimeLeft > 0) {
+            fearTimeLeft -= (double) 1 / 60;
         }
-        return false;
+
+        if (deadTimeLeft > 0) {
+            deadTimeLeft -= (double) 1 / 60;
+            if (deadTimeLeft <= 0)
+                alive = true;
+        }
+
     }
-
-
 
     public void render(Graphics g) {
         String imgPath;
@@ -160,7 +147,8 @@ public class Ghost extends LivingEntity {
         }
 
         try {
-            g.drawImage(ImageIO.read(new File(imgPath)), this.x + Maze.deltaX, this.y + Maze.deltaY, this.width, this.height, null);
+            g.drawImage(ImageIO.read(new File(imgPath)), (int) ((this.x + Maze.deltaX) * Maze.scale), (int) ((this.y + Maze.deltaY) * Maze.scale),
+                    (int) (this.width * Maze.scale), (int) (this.height * Maze.scale), null);
         } catch (Exception e) {
             e.printStackTrace();
         }

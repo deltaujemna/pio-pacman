@@ -5,12 +5,11 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class Pacman extends LivingEntity {
-
     private int lives = 3;
     private int score = 0;
     private double powerUpTimeLeft = 0;
     private int killedGhostsStreak = 0;
-    long timeRenderCircle;              //zmienna pomocnicza do animowania ruchu Pacmana
+    long timeRenderCircle; //zmienna pomocnicza do animowania ruchu Pacmana
     private final int POWERUP_TIME = 15;
     private int dotsLeft = 199;
 
@@ -21,20 +20,19 @@ public class Pacman extends LivingEntity {
     MazeFrame mazeFrame;
 
     public Pacman(int x, int y, int size, double speed, MazeFrame mazeframe) {
-        this.startX = toPixelsX(x);
-        this.startY = toPixelsY(y);
-        this.x = toPixelsX(x);
-        this.y = toPixelsY(y);
+        this.startX = toPixels(x);
+        this.startY = toPixels(y);
+        this.x = toPixels(x);
+        this.y = toPixels(y);
         this.width = size;
         this.height = size;
         this.speed = speed;
         this.direction = Direction.RIGHT;
         this.timeRenderCircle = System.nanoTime();
-
         this.mazeFrame = mazeframe;
     }
 
-    // przekazanie położenie ścian do tej klasy
+    //przekazanie informacji o duchach do tej klasy
     public void pushGhosts(Ghost[] ghosts) {
         this.ghosts = ghosts;
     }
@@ -49,20 +47,15 @@ public class Pacman extends LivingEntity {
         this.fruits = fruits;
     }
 
-    // dodaje punkty
     public void addScore(int value) {
         score += value;
     }
 
     // porusza w ustalonym kierunku
     private void move() {
-        if (teleport()) {
-
-        } else if (super.canMoveDirectorFutureAndDirectory()) {
-            setSpeed(direction);// petla switch case
-
+        if (!teleport() && super.canMoveDirectionFutureAndDirection()) {
+            setSpeed(direction);// pętla switch case
         }
-
     }
 
     // nastąpiła kolizja z duchem
@@ -77,32 +70,26 @@ public class Pacman extends LivingEntity {
         }
     }
 
-    // zmiana kierunku
     public void setDirection(Direction direction) {
         this.directionFuture = direction;
     }
 
-    // utrata życia
     private void loseLife() {
         killedGhostsStreak = 0;
         lives--;
         if (lives > 0) {
-            // TODO: jeśli pacman przed śmiercią szedł w lewo to zmiana kierunku jest ignorowana, warto naprawić
             direction = Direction.RIGHT;
+            directionFuture = Direction.RIGHT;
             teleport(startX, startY);
-            for (Ghost ghost : ghosts) {
-                ghost.direction = Direction.RIGHT; // to chyba będzie można usunąć
+            for (Ghost ghost : ghosts)
                 ghost.teleport(ghost.startX, ghost.startY);
-            }
-        } else {
-            // TODO: else koniec gry
+        } else if (lives == 0) {
             mazeFrame.running = false;
             mazeFrame.maze.timer.cancel();
-            JOptionPane.showMessageDialog(mazeFrame, "KONIEC GRY!\nZdobyte punkty: " + score,
-                    "Koniec gry", JOptionPane.INFORMATION_MESSAGE);
             mazeFrame.dispose();
             Game.menu.setVisible(true);
-            //TODO - problem: jeśli Pacman traci ostatnie życie przez kolizję z dwoma duchami naraz to komunikat wyskakuje dwa razy
+            JOptionPane.showMessageDialog(Game.menu, "KONIEC GRY!\nZdobyte punkty: " + score,
+                    "Koniec gry", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -122,7 +109,7 @@ public class Pacman extends LivingEntity {
             powerUpTimeLeft -= (double) 1 / 60;
         }
 
-        if (ghosts != null) {
+        if (ghosts != null && !Debug.disableGhostCollision) {
             for (Ghost g : ghosts) {
                 if (getBounds().intersects(g.getBounds())) {
                     collision(g);
@@ -131,13 +118,14 @@ public class Pacman extends LivingEntity {
         }
 
         if (dots != null) {
-            if (dots[toCellsY(y + Maze.cellSize / 2)][toCellsX(x + Maze.cellSize / 2)] != null &&
-                    dots[toCellsY(y + Maze.cellSize / 2)][toCellsX(x + Maze.cellSize / 2)].renderable) {
-                dots[toCellsY(y + Maze.cellSize / 2)][toCellsX(x + Maze.cellSize / 2)].pickup(this);
+            if (dots[toCells(y + Maze.cellSize / 2)][toCells(x + Maze.cellSize / 2)] != null &&
+                    dots[toCells(y + Maze.cellSize / 2)][toCells(x + Maze.cellSize / 2)].renderable) {
+                dots[toCells(y + Maze.cellSize / 2)][toCells(x + Maze.cellSize / 2)].pickup(this);
                 //System.out.println("pozostalo kulek: " + (dotsLeft - 1));
                 if (--dotsLeft == 0) {
-                    //TODO - przydała by się chwila pauzy przed rozpoczęciem kolejnego poziomu
                     mazeFrame.maze.levelUp();
+                    this.direction = Direction.RIGHT;
+                    this.directionFuture = Direction.RIGHT;
                     dotsLeft = 199;
                 }
             }
@@ -150,7 +138,6 @@ public class Pacman extends LivingEntity {
                 }
             }
         }
-
     }
 
     private String decidePacmanImageForRender() {
@@ -170,32 +157,38 @@ public class Pacman extends LivingEntity {
         return imgPath;
     }
 
+    private void renderLives(Graphics g) {
+        if (lives >= 1) {
+            g.setColor(Color.YELLOW);
+            g.fillOval((int) ((330 + Maze.deltaX) * Maze.scale), (int) ((2 + Maze.deltaY) * Maze.scale), (int) (13 * Maze.scale), (int) (13 * Maze.scale));
+        }
+        if (lives >= 2) {
+            g.setColor(Color.YELLOW);
+            g.fillOval((int) ((350 + Maze.deltaX) * Maze.scale), (int) ((2 + Maze.deltaY) * Maze.scale), (int) (13 * Maze.scale), (int) (13 * Maze.scale));
+        }
+        if (lives >= 3) {
+            g.setColor(Color.YELLOW);
+            g.fillOval((int) ((370 + Maze.deltaX) * Maze.scale), (int) ((2 + Maze.deltaY) * Maze.scale), (int) (13 * Maze.scale), (int) (13 * Maze.scale));
+        }
+    }
+
     @Override
     public void render(Graphics g) {
         g.setColor(Color.ORANGE);
         g.setFont(new Font("TimesRoman", Font.BOLD, 15));
-        g.drawString("Score: " + this.score, 14 + Maze.deltaX, 14 + Maze.deltaY);
-        g.drawString("Lives: ", 280 + Maze.deltaX, 14 + Maze.deltaY);
+        g.drawString("Score: " + this.score, (int) ((14 + Maze.deltaX) * Maze.scale), (int) ((14 + Maze.deltaY) * Maze.scale));
+        g.drawString("Lives: ", (int) ((280 + Maze.deltaX) * Maze.scale), (int) ((14 + Maze.deltaY) * Maze.scale));
+        g.drawString("Level: " + mazeFrame.maze.getLevel(), (int) ((170 + Maze.deltaX) * Maze.scale), (int) ((14 + Maze.deltaY) * Maze.scale));
 
-        if (lives >= 1) {
-            g.setColor(Color.YELLOW);
-            g.fillOval(330 + Maze.deltaX, 2 + Maze.deltaY, 13, 13);
-        }
-        if (lives >= 2) {
-            g.setColor(Color.YELLOW);
-            g.fillOval(350 + Maze.deltaX, 2 + Maze.deltaY, 13, 13);
-        }
-        if (lives >= 3) {
-            g.setColor(Color.YELLOW);
-            g.fillOval(370 + Maze.deltaX, 2 + Maze.deltaY, 13, 13);
-        }
+        renderLives(g);
 
-        String imgPath = "";
+        String imgPath;
         if (System.nanoTime() - timeRenderCircle >= 0.15e9) {
 
             imgPath = decidePacmanImageForRender();
             try {
-                g.drawImage(ImageIO.read(new File(imgPath)), this.x + Maze.deltaX, this.y + Maze.deltaY, this.width, this.height, null);
+                g.drawImage(ImageIO.read(new File(imgPath)), (int) ((this.x + Maze.deltaX) * Maze.scale), (int) ((this.y + Maze.deltaY) * Maze.scale),
+                        (int) (this.width * Maze.scale), (int) (this.height * Maze.scale), null);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -204,7 +197,7 @@ public class Pacman extends LivingEntity {
                 timeRenderCircle = System.nanoTime();
         } else {
             g.setColor(Color.YELLOW);
-            g.fillOval(x + Maze.deltaX, y + Maze.deltaY, width, height);
+            g.fillOval((int) ((x + Maze.deltaX) * Maze.scale), (int) ((y + Maze.deltaY) * Maze.scale), (int) (width * Maze.scale), (int) (height * Maze.scale));
         }
     }
 }

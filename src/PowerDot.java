@@ -8,7 +8,6 @@ public class PowerDot extends CollectableEntity {
 
     @Override
     public void tick() {
-
     }
 
     @Override
@@ -25,7 +24,8 @@ public class PowerDot extends CollectableEntity {
         final int size = 13;
         if (renderable) {
             g.setColor(Color.ORANGE);
-            g.fillOval(toPixelsX(x) + (Maze.cellSize - size) / 2 + Maze.deltaX, toPixelsY(y) + (Maze.cellSize - size) / 2 + Maze.deltaY, size, size);
+            g.fillOval((int) ((toPixels(x) + (Maze.cellSize - size) / 2 + Maze.deltaX) * Maze.scale),
+                    (int) ((toPixels(y) + (Maze.cellSize - size) / 2 + Maze.deltaY) * Maze.scale), (int) (size * Maze.scale), (int) (size * Maze.scale));
         }
     }
 
