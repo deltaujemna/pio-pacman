@@ -101,15 +101,6 @@ public class Ghost extends LivingEntity {
             }
 
         }
-        if (!canMoveThisDirection(direction)) { // do testow
-            System.out.println("blad ghost num " + this.ghostNumber + "director " + direction);
-            System.out.println("trackPacman.availableDirectoryLeft " + trackPacman.availableDirectoryLeft);
-            System.out.println("trackPacman.availableDirectoryRi " + trackPacman.availableDirectoryRight);
-            System.out.println("trackPacman.availableDirectoryUp " + trackPacman.availableDirectoryUp);
-            System.out.println("trackPacman.availableDirectoryDown " + trackPacman.availableDirectoryDown);
-            System.exit(1);
-            this.direction = null;
-        }
         super.setSpeed(direction);
 
     }
