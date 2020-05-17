@@ -91,11 +91,9 @@ public abstract class LivingEntity extends Entity {
         if (canMoveThisDirection(this.directionFuture)) {
             this.direction = directionFuture;
             return true;
-        } else if (canMoveThisDirection(this.direction)) {
-            return true;
+        } else {
+            return canMoveThisDirection(this.direction);
         }
-        return false;
-
     }
 
     // teleportuje postać na wskazane x, y

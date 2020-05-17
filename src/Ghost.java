@@ -19,7 +19,7 @@ public class Ghost extends LivingEntity {
     Direction pacmanDirectory;
     Direction pacmanDirectoryFuture;
 
-    private TrackPacman trackPacman;
+    private final TrackPacman trackPacman;
 
     public Ghost(int x, int y, int ghostNumber) {
         this.ghostNumber = ghostNumber;

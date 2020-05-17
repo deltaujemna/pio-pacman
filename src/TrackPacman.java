@@ -1,7 +1,7 @@
 import java.util.Random;
 
 public class TrackPacman {
-    private Ghost ghost;
+    private final Ghost ghost;
 
     boolean availableDirectoryUp;
     boolean availableDirectoryDown;
@@ -43,22 +43,16 @@ public class TrackPacman {
         if (System.nanoTime() - ghost.timeDecideDirection >= 0.75e9) {
             Random rand = new Random();
             if (!samePath()) {
-                if (!ghost.canMoveThisDirection(ghost.direction)) {
-                    while (true) {
-                        int tempDirection = rand.nextInt(4);
-                        if (tempDirection == 0)
-                            ghost.direction = LivingEntity.Direction.RIGHT;
-                        if (tempDirection == 1)
-                            ghost.direction = LivingEntity.Direction.UP;
-                        if (tempDirection == 2)
-                            ghost.direction = LivingEntity.Direction.DOWN;
-                        if (tempDirection == 3)
-                            ghost.direction = LivingEntity.Direction.LEFT;
-                        if (ghost.canMoveThisDirection(ghost.direction)) {
-                            break;
-                        }
-
-                    }
+                while(!ghost.canMoveThisDirection(ghost.direction)) {
+                    int tempDirection = rand.nextInt(4);
+                    if (tempDirection == 0)
+                        ghost.direction = LivingEntity.Direction.RIGHT;
+                    if (tempDirection == 1)
+                        ghost.direction = LivingEntity.Direction.UP;
+                    if (tempDirection == 2)
+                        ghost.direction = LivingEntity.Direction.DOWN;
+                    if (tempDirection == 3)
+                        ghost.direction = LivingEntity.Direction.LEFT;
                 }
             }
             //ghost.timeDecideDirection = System.nanoTime();
@@ -92,16 +86,8 @@ public class TrackPacman {
             boolean isUp;
             int xDistanceFromPacman = ghost.x - ghost.pacmanX;
             int yDistanceFromPacman = ghost.y - ghost.pacmanY;
-            if (xDistanceFromPacman > 0) {
-                isLeft = true;
-            } else {
-                isLeft = false;
-            }
-            if (yDistanceFromPacman > 0) {
-                isUp = true;
-            } else {
-                isUp = false;
-            }
+            isLeft = xDistanceFromPacman > 0;
+            isUp = yDistanceFromPacman > 0;
             if (donMoveToBase(xDistanceFromPacman)) {
 
             } else if ((xDistanceFromPacman * xDistanceFromPacman) > (yDistanceFromPacman * yDistanceFromPacman)) {
@@ -228,11 +214,7 @@ public class TrackPacman {
     }
 
     private boolean availableThisDirectory(LivingEntity.Direction direction) {
-        if (ghost.canMoveThisDirection(direction)) {
-            return true;
-        } else {
-            return false;
-        }
+        return ghost.canMoveThisDirection(direction);
     }
 
 }
