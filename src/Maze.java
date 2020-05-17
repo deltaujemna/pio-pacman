@@ -400,4 +400,8 @@ public class Maze extends JPanel {
             }
         }
     }
+
+    public int getLevel() {
+        return level;
+    }
 }
