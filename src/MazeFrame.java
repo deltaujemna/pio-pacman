@@ -17,7 +17,7 @@ public class MazeFrame extends JFrame {
 
     public MazeFrame(String title, boolean fullScreenMode) {
         super(title);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         if (fullScreenMode)
             setUndecorated(true);
         setContentPane(maze);
@@ -37,7 +37,16 @@ public class MazeFrame extends JFrame {
             fullScreen.makeFullScreen();
         }
 
-        addKeyListener(new Keys(maze.pacman));
+        addKeyListener(new Keys(maze.pacman, this));
+
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                maze.timer.cancel();
+                timer.cancel();
+                Game.menu.setVisible(true);
+            }
+        });
 
         // <=> scheduleWithFixedDelay - lokalne, animacja
         timer.schedule(new TimerTask() {

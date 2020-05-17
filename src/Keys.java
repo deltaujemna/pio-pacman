@@ -1,11 +1,14 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
 
 public class Keys implements KeyListener {
     private final Pacman pacman;
+    private final MazeFrame mazeFrame;
 
-    public Keys(Pacman pacman) {
+    public Keys(Pacman pacman, MazeFrame mazeFrame) {
         this.pacman = pacman;
+        this.mazeFrame = mazeFrame;
     }
 
     @Override
@@ -19,9 +22,7 @@ public class Keys implements KeyListener {
         final int keyDown = 40;
         final int keyLeft = 37;
         final int keyRight = 39;
-
         final int escape = 27;
-
 
         switch (key.getKeyCode()) {
             case keyUp:
@@ -37,7 +38,8 @@ public class Keys implements KeyListener {
                 pacman.setDirection(LivingEntity.Direction.RIGHT);
                 break;
             case escape:
-                System.exit(0);
+                mazeFrame.dispatchEvent(new WindowEvent(mazeFrame, WindowEvent.WINDOW_CLOSING));
+                Game.menu.setVisible(true);
                 break;
         }
     }
