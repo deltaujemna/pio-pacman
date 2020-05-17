@@ -210,14 +210,13 @@ public class Maze extends JPanel {
     }
 
     public void drawBoardCenterAndBigger(Graphics g) {
-        // UWAGA: zakładamy, że szerokość okna jest większa niż wysokość
-        final double boardScale = 0.75; // procent ekranu, jaki plansza ma zajmować (w pionie)
+        final double boardScale = 0.75; // procent ekranu, jaki plansza ma zajmować (w mniejszym rozmiarze okna)
         final int boardSize = 420; // rozmiar boku planszy bez skalowania w pikselach
 
         final int screenWidth = mazeFrame.getWidth();
         final int screenHeight = mazeFrame.getHeight();
 
-        scale = screenHeight * boardScale / boardSize;
+        scale = Math.min(screenWidth, screenHeight) * boardScale / boardSize;
 
         deltaX = (int) (((double) screenWidth / scale - boardSize) / 2);
         deltaY = (int) (((double) screenHeight / scale - boardSize) / 2);
