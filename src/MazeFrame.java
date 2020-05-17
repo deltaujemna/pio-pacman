@@ -26,10 +26,9 @@ public class MazeFrame extends JFrame {
 
         addKeyListener(new Keys(maze.pacman));
 
-        //TODO - można w .schedule zostawić repaint() i zrobić drugie: timer.scheduleAtFixedRate z samą metodą update()
-
         // <=> scheduleWithFixedDelay - lokalne, animacja
         timer.schedule(new TimerTask() {
+            //TODO - można rozbić na dwa wątki: repaint() tu gdzie jest, a update() do nowego timer.scheduleAtFixedRate
             public void run() { //jeden wątek do wszystkiego
                 if (running) {
                     getContentPane().repaint();
