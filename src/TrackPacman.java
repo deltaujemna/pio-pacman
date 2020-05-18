@@ -600,7 +600,11 @@ public class TrackPacman {
         else if(ghost.toCells(ghost.x)==10 && ghost.toCells(ghost.y)==8) {
             if(availableDirectionLeft)
                 ghost.direction = LivingEntity.Direction.LEFT;
+        }else{
+            dontTurnBack(ghost.direction);
+            decideDirection1();
         }
+
     }
 
 }
