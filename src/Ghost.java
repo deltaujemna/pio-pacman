@@ -89,19 +89,15 @@ public class Ghost extends LivingEntity {
 
         if (deadTimeLeft > 0) {
             direction = null;
-        }else if (fearTimeLeft > 0) {
-                if (!isBase()) {
-                    if (!teleportGhost()) {
-                        trackPacman.escapeFromPacman();
-                    }
-                }
-
-        }else {
-            if (!isBase()) {
-                if (!teleportGhost()) {
+        } else if (!isBase()) {
+            if (!teleportGhost()) {
+                if (fearTimeLeft > 0) {
+                    trackPacman.escapeFromPacman();
+                }else {
                     trackPacman.trackPacman();
                 }
             }
+
 
         }
 

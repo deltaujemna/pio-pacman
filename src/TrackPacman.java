@@ -258,9 +258,8 @@ public class TrackPacman {
         int xDistanceFromPacman = ghost.x - ghost.pacmanX;
         int yDistanceFromPacman = ghost.y - ghost.pacmanY;
         findAvailableDirectory();
-        dontTurnBack(ghost.direction);
-        if (ghost.x == ghost.pacmanX || ghost.y == ghost.pacmanY) {
-            decideDirection1();
+        if (ghost.x != ghost.pacmanX && ghost.y != ghost.pacmanY) {
+            dontTurnBack(ghost.direction);
         }
         if ((xDistanceFromPacman * xDistanceFromPacman) > (yDistanceFromPacman * yDistanceFromPacman)) {
             if (xDistanceFromPacman > 0 && availableDirectoryRight) {
