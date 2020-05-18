@@ -113,6 +113,7 @@ public class Ghost extends LivingEntity {
         }
 
         if (deadTimeLeft > 0) {
+            trackPacman.goToCage();
             deadTimeLeft -= (double) 1 / 60;
             if (deadTimeLeft <= 0)
                 alive = true;
