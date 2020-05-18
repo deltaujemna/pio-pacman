@@ -14,8 +14,18 @@ public class TrackPacman {
     }
 
     public void trackPacman() {
-        int ghostNumber = ghost.ghostNumber;
+        findAvailableDirectory();
+        if (!samePath()) {
+            int ghostNumber = ghost.ghostNumber;
+            if (countAvailableDirection() > 2) {
+                decideDirectionGhostNum(ghostNumber);
+            } else if (!ghost.canMoveThisDirection(ghost.direction)) {
+                decideDirectionGhostNum(ghostNumber);
+            }
+        }
+    }
 
+    private void decideDirectionGhostNum(int ghostNumber) {
         if (ghostNumber == 1) {
             decideDirection1();
         } else if (ghostNumber == 2) {
@@ -25,7 +35,6 @@ public class TrackPacman {
         } else if (ghostNumber == 4) {
             decideDirection4();
         }
-
     }
 
     private boolean samePath() {
@@ -39,56 +48,46 @@ public class TrackPacman {
 
     // red ghost
     private void decideDirection1() {
-        if (!samePath()) {
-            if (!ghost.canMoveThisDirection(ghost.direction)) {
-                Random rand = new Random();
-                int timesRandomDirector = 0;
-                while (timesRandomDirector < 10) {
-                    int tempDirection = rand.nextInt(4);
-                    if (tempDirection == 0)
-                        ghost.direction = LivingEntity.Direction.RIGHT;
-                    if (tempDirection == 1)
-                        ghost.direction = LivingEntity.Direction.UP;
-                    if (tempDirection == 2)
-                        ghost.direction = LivingEntity.Direction.DOWN;
-                    if (tempDirection == 3)
-                        ghost.direction = LivingEntity.Direction.LEFT;
-                    if (ghost.canMoveThisDirection(ghost.direction)) {
-                        return;
-                    }
-                    timesRandomDirector++;
-                }
-                smartDicideDirection();
-
+        Random rand = new Random();
+        int timesRandomDirector = 0;
+        while (timesRandomDirector < 10) {
+            int tempDirection = rand.nextInt(4);
+            if (tempDirection == 0  )
+                ghost.direction = LivingEntity.Direction.RIGHT;
+            if (tempDirection == 1)
+                ghost.direction = LivingEntity.Direction.UP;
+            if (tempDirection == 2)
+                ghost.direction = LivingEntity.Direction.DOWN;
+            if (tempDirection == 3)
+                ghost.direction = LivingEntity.Direction.LEFT;
+            if (ghost.canMoveThisDirection(ghost.direction)) {
+                return;
             }
+            timesRandomDirector++;
         }
+        smartDicideDirection();
 
     }
 
     // pink ghost
     public void decideDirection2() {
-        if (!samePath()) {
-            if (!ghost.canMoveThisDirection(ghost.direction)) {
-                if (ghost.canMoveThisDirection(ghost.pacmanDirection)) {
-                    ghost.direction = ghost.pacmanDirection;
-                } else if (ghost.canMoveThisDirection(ghost.pacmanDirectionFuture)) {
-                    ghost.direction = ghost.pacmanDirectionFuture;
-                } else {
-                    smartDicideDirection();
-                }
-            }
+        if (ghost.canMoveThisDirection(ghost.pacmanDirection)) {
+            ghost.direction = ghost.pacmanDirection;
+        } else if (ghost.canMoveThisDirection(ghost.pacmanDirectionFuture)) {
+            ghost.direction = ghost.pacmanDirectionFuture;
+        } else {
+            smartDicideDirection();
         }
     }
 
     // orange ghost
     public void decideDirection3() {
-        if(!ghost.canMoveThisDirection(ghost.direction)){
+        if (!ghost.canMoveThisDirection(ghost.direction)) {
             smartDicideDirection();
         }
     }
 
     private void smartDicideDirection() {
-        findAvailableDirectory();
         boolean isLeft;
         boolean isUp;
         int xDistanceFromPacman = ghost.x - ghost.pacmanX;
@@ -155,39 +154,34 @@ public class TrackPacman {
         int yDistanceFromPacman = ghost.y - ghost.pacmanY;
 
         if (!donMoveToBase(xDistanceFromPacman)) {
-            if (!samePath()) {
-                findAvailableDirectory();
-                if (!ghost.canMoveThisDirection(ghost.direction)) {
-                    if ((xDistanceFromPacman * xDistanceFromPacman) > (yDistanceFromPacman * yDistanceFromPacman)) {
-                        if (xDistanceFromPacman > 0 && availableDirectoryLeft) {
-                            ghost.direction = LivingEntity.Direction.LEFT;
-                        } else if (availableDirectoryRight) {
-                            ghost.direction = LivingEntity.Direction.RIGHT;
-                        } else if (yDistanceFromPacman > 0 && availableDirectoryUp) {
-                            ghost.direction = LivingEntity.Direction.UP;
-                        } else if (availableDirectoryDown) {
-                            ghost.direction = LivingEntity.Direction.DOWN;
-                        } else if (availableDirectoryLeft) {
-                            ghost.direction = LivingEntity.Direction.LEFT;
-                        } else if (availableDirectoryUp) {
-                            ghost.direction = LivingEntity.Direction.UP;
-                        }
-                    } else {
-                        if (yDistanceFromPacman > 0 && availableDirectoryUp) {
-                            ghost.direction = LivingEntity.Direction.UP;
-                        } else if (availableDirectoryDown) {
-                            ghost.direction = LivingEntity.Direction.DOWN;
-                        } else if (xDistanceFromPacman > 0 && availableDirectoryLeft) {
-                            ghost.direction = LivingEntity.Direction.LEFT;
-                        } else if (availableDirectoryRight) {
-                            ghost.direction = LivingEntity.Direction.RIGHT;
-                        } else if (availableDirectoryUp) {
-                            ghost.direction = LivingEntity.Direction.UP;
-                        } else if (availableDirectoryLeft) {
-                            ghost.direction = LivingEntity.Direction.LEFT;
+            if ((xDistanceFromPacman * xDistanceFromPacman) > (yDistanceFromPacman * yDistanceFromPacman)) {
+                if (xDistanceFromPacman > 0 && availableDirectoryLeft) {
+                    ghost.direction = LivingEntity.Direction.LEFT;
+                } else if (availableDirectoryRight) {
+                    ghost.direction = LivingEntity.Direction.RIGHT;
+                } else if (yDistanceFromPacman > 0 && availableDirectoryUp) {
+                    ghost.direction = LivingEntity.Direction.UP;
+                } else if (availableDirectoryDown) {
+                    ghost.direction = LivingEntity.Direction.DOWN;
+                } else if (availableDirectoryLeft) {
+                    ghost.direction = LivingEntity.Direction.LEFT;
+                } else if (availableDirectoryUp) {
+                    ghost.direction = LivingEntity.Direction.UP;
+                }
+            } else {
+                if (yDistanceFromPacman > 0 && availableDirectoryUp) {
+                    ghost.direction = LivingEntity.Direction.UP;
+                } else if (availableDirectoryDown) {
+                    ghost.direction = LivingEntity.Direction.DOWN;
+                } else if (xDistanceFromPacman > 0 && availableDirectoryLeft) {
+                    ghost.direction = LivingEntity.Direction.LEFT;
+                } else if (availableDirectoryRight) {
+                    ghost.direction = LivingEntity.Direction.RIGHT;
+                } else if (availableDirectoryUp) {
+                    ghost.direction = LivingEntity.Direction.UP;
+                } else if (availableDirectoryLeft) {
+                    ghost.direction = LivingEntity.Direction.LEFT;
 
-                        }
-                    }
                 }
             }
         }
@@ -214,6 +208,19 @@ public class TrackPacman {
         availableDirectoryRight = availableThisDirectory(LivingEntity.Direction.RIGHT);
         availableDirectoryUp = availableThisDirectory(LivingEntity.Direction.UP);
 
+    }
+
+    private int countAvailableDirection() {
+        int tmp = 0;
+        if (availableDirectoryUp) tmp++;
+
+        if (availableDirectoryDown) tmp++;
+
+        if (availableDirectoryLeft) tmp++;
+
+        if (availableDirectoryRight) tmp++;
+
+        return tmp;
     }
 
     private boolean availableThisDirectory(LivingEntity.Direction direction) {

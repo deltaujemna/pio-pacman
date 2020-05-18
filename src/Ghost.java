@@ -102,6 +102,10 @@ public class Ghost extends LivingEntity {
 
         }
 
+        if(!canMoveThisDirection(direction)) {
+            System.out.println("blad ruchu ducha" + ghostNumber);
+            System.exit(1);
+        }
 
         setSpeed(direction);
 
