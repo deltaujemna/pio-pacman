@@ -4,13 +4,13 @@ import java.io.File;
 
 public class Ghost extends LivingEntity {
 
-    double fearTimeLeft;
-    double deadTimeLeft;
+    private double fearTimeLeft;
+    private double deadTimeLeft;
 
-    int points = 200;     //tymczasowo
+    public int points = 200;     //tymczasowo
     int ghostNumber;//jeżeli każdy duch ma inny kolor
 
-    final int size = 20;
+    private final int size = 20;
     long timeDecideDirection;
 
     int pacmanX; //aktualna pozycja Pacmana, żeby można było go śledzić
@@ -53,7 +53,7 @@ public class Ghost extends LivingEntity {
         pacmanDirectionFuture = direction;
     }
 
-    public boolean isBase() {
+    private boolean isBase() {
         if (this.y <= 180 && this.y > 140) {
             if ((180 <= this.x) && (200 > this.x)) {
                 direction = Direction.RIGHT;
@@ -78,6 +78,7 @@ public class Ghost extends LivingEntity {
         this.alive = false;
         this.deadTimeLeft = 10;
         teleport(toPixels(8), toPixels(8));
+        direction = null;
     }
 
     public void setFearTimeLeft() {
@@ -86,23 +87,22 @@ public class Ghost extends LivingEntity {
 
 
     public void tick() {
-
-        if (deadTimeLeft > 0) {
-            direction = null;
-        } else if (!isBase()) {
-            if (!teleportGhost()) {
-                if (fearTimeLeft > 0) {
-                    trackPacman.escapeFromPacman();
-                }else {
-                    trackPacman.trackPacman();
+        if (alive) {
+            if (!isBase()) {
+                if (!teleportGhost()) {
+                    if (fearTimeLeft > 0) {
+                        trackPacman.escapeFromPacman();
+                    } else {
+                        trackPacman.trackPacman();
+                    }
                 }
+
+
             }
-
-
         }
 
-        if(!canMoveThisDirection(direction) && direction != null) {
-            System.out.println("blad ruchu ducha" + ghostNumber + alive );
+        if (!canMoveThisDirection(direction) && direction != null) {
+            System.out.println("blad ruchu ducha" + ghostNumber + alive);
             System.exit(1);
         }
 
@@ -119,21 +119,22 @@ public class Ghost extends LivingEntity {
         }
 
     }
-    private boolean teleportGhost(){
+
+    private boolean teleportGhost() {
         if (this.y == 180) {
             if (this.x < 80) {
-                if(direction != Direction.RIGHT) {
+                if (direction != Direction.RIGHT) {
                     direction = Direction.LEFT;
                     if (this.x == 20) {
-                        teleport(380, 180);//18 8
+                        teleport(380, 180);
                     }
                     return true;
                 }
-            } else if(this.x > 300) {
-                if(direction != Direction.LEFT) {
+            } else if (this.x > 300) {
+                if (direction != Direction.LEFT) {
                     direction = Direction.RIGHT;
                     if (this.x == 380) {
-                        teleport(20, 180);//18 8
+                        teleport(20, 180);
                     }
                 }
                 return true;
@@ -141,7 +142,6 @@ public class Ghost extends LivingEntity {
         }
         return false;
     }
-
 
 
     public void render(Graphics g) {
