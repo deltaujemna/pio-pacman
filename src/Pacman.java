@@ -18,6 +18,7 @@ public class Pacman extends LivingEntity {
     ArrayList<Fruit> fruits = new ArrayList<>();
 
     MazeFrame mazeFrame;
+    private final MovePacman movePacman;
 
     public Pacman(int x, int y, int size, double speed, MazeFrame mazeframe) {
         this.startX = toPixels(x);
@@ -30,6 +31,7 @@ public class Pacman extends LivingEntity {
         this.direction = Direction.RIGHT;
         this.timeRenderCircle = System.nanoTime();
         this.mazeFrame = mazeframe;
+        movePacman = new MovePacman(this);
     }
 
     //przekazanie informacji o duchach do tej klasy
@@ -49,13 +51,6 @@ public class Pacman extends LivingEntity {
 
     public void addScore(int value) {
         score += value;
-    }
-
-    // porusza w ustalonym kierunku
-    private void move() {
-        if (!teleport() && canMoveDirectionFutureAndDirection()) {
-            setSpeed(direction);// pętla switch case
-        }
     }
 
     // nastąpiła kolizja z duchem
@@ -103,7 +98,7 @@ public class Pacman extends LivingEntity {
 
     @Override
     public void tick() {
-        move();
+        movePacman.move();
         if (powerUpTimeLeft > 0) {
             powerUpTimeLeft -= (double) 1 / 60;
         }
@@ -139,43 +134,7 @@ public class Pacman extends LivingEntity {
         }
     }
 
-    private boolean teleport() {
-        if (this.y == 180) {
-            if (this.x < 80) {
-                turboInTeleport();
-                if (this.x <= 20) {
-                    teleport(380, 180);
-                }
-                return true;
-            } else if (this.x > 300) {
-                turboInTeleport();
-                if (this.x >= 380) {
-                    teleport(20, 180);
-                }
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void turboInTeleport() {
-        int turbo = 2;
-        if (direction == Direction.LEFT) {
-            x -= turbo;
-        } else if (direction == Direction.RIGHT) {
-            x += turbo;
-        }
-    }
-
-    private boolean canMoveDirectionFutureAndDirection() {
-        if (canMoveThisDirection(this.directionFuture)) {
-            this.direction = directionFuture;
-            return true;
-        } else {
-            return canMoveThisDirection(this.direction);
-        }
-    }
-
+    
     private String decidePacmanImageForRender() {
         String imgPath = "";
         if (direction == Direction.UP) {
