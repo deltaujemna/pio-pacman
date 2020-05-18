@@ -77,7 +77,6 @@ public class Ghost extends LivingEntity {
     public void die() {
         this.alive = false;
         this.deadTimeLeft = 10;
-        teleport(toPixels(8), toPixels(8));
         direction = null;
     }
 
@@ -88,6 +87,7 @@ public class Ghost extends LivingEntity {
 
     public void tick() {
         if (alive) {
+            this.speed=1;
             if (!isBase()) {
                 if (!teleportGhost()) {
                     if (fearTimeLeft > 0) {
