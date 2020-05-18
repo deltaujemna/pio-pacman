@@ -294,313 +294,244 @@ public class TrackPacman {
 
 
     }
-    public void goToCage(){
+    public void goToCage() {
         findAvailableDirectory();
-        if(availableDirectionUp && !pointReached) {
+        if (availableDirectionUp && !pointReached) {
             ghost.direction = LivingEntity.Direction.UP;
-            pointReached=true;
+            pointReached = true;
         }
-        if(availableDirectionDown && !pointReached) {
+        if (availableDirectionDown && !pointReached) {
             ghost.direction = LivingEntity.Direction.DOWN;
-            pointReached=true;
+            pointReached = true;
         }
-        if(availableDirectionRight && !pointReached) {
+        if (availableDirectionRight && !pointReached) {
             ghost.direction = LivingEntity.Direction.RIGHT;
-            pointReached=true;
+            pointReached = true;
         }
-        if(availableDirectionLeft && !pointReached) {
+        if (availableDirectionLeft && !pointReached) {
             ghost.direction = LivingEntity.Direction.LEFT;
-            pointReached=true;
+            pointReached = true;
         }
+        try {
+            if (ghost.toCells(ghost.x) == 18 && ghost.toCells(ghost.y) == 16) {
+                if (availableDirectionLeft)
+                    ghost.direction = LivingEntity.Direction.LEFT;
 
-        if(ghost.toCells(ghost.x)==18 && ghost.toCells(ghost.y)==16) {
-            if(availableDirectionLeft)
-                ghost.direction = LivingEntity.Direction.LEFT;
-
-        }
-        else if(ghost.toCells(ghost.x)==14 && ghost.toCells(ghost.y)==16) {
-            if(availableDirectionUp)
-                ghost.direction = LivingEntity.Direction.UP;
-        }
-        else if(ghost.toCells(ghost.x)==14 && ghost.toCells(ghost.y)==8) {
-            if(availableDirectionLeft)
-                ghost.direction = LivingEntity.Direction.LEFT;
-        }
-        else if(ghost.toCells(ghost.x)==14 && ghost.toCells(ghost.y)==12) {
-            if(availableDirectionUp)
-                ghost.direction = LivingEntity.Direction.UP;
-        }
-        else if(ghost.toCells(ghost.x)==12 && ghost.toCells(ghost.y)==8) {
-            if(availableDirectionUp)
-                ghost.direction = LivingEntity.Direction.UP;
-        }
-        else if(ghost.toCells(ghost.x)==12 && ghost.toCells(ghost.y)==6) {
-            if(availableDirectionLeft)
-                ghost.direction = LivingEntity.Direction.LEFT;
-        }
-        else if(ghost.toCells(ghost.x)==9 && ghost.toCells(ghost.y)==6) {
-            if(availableDirectionDown)
-                ghost.direction = LivingEntity.Direction.DOWN;
-        }
-        else if(ghost.toCells(ghost.x)==18 && ghost.toCells(ghost.y)==18) {
-            if(availableDirectionUp)
-                ghost.direction = LivingEntity.Direction.UP;
-        }
-        else if(ghost.toCells(ghost.x)==18 && ghost.toCells(ghost.y)==14) {
-            if(availableDirectionUp)
-                ghost.direction = LivingEntity.Direction.UP;
-        }
-        else if(ghost.toCells(ghost.x)==18 && ghost.toCells(ghost.y)==12) {
-            if(availableDirectionLeft)
-                ghost.direction = LivingEntity.Direction.LEFT;
-        }
-        else if(ghost.toCells(ghost.x)==14 && ghost.toCells(ghost.y)==16) {
-            if(availableDirectionUp)
-                ghost.direction = LivingEntity.Direction.UP;
-        }
-        else if(ghost.toCells(ghost.x)==14 && ghost.toCells(ghost.y)==18) {
-            if(availableDirectionUp)
-                ghost.direction = LivingEntity.Direction.UP;
-        }
-        else if(ghost.toCells(ghost.x)==12 && ghost.toCells(ghost.y)==18) {
-            if(availableDirectionLeft)
-                ghost.direction = LivingEntity.Direction.LEFT;
-        }
-        else if(ghost.toCells(ghost.x)==14 && ghost.toCells(ghost.y)==8) {
-            if(availableDirectionLeft)
-                ghost.direction = LivingEntity.Direction.LEFT;
-        }
-        else if(ghost.toCells(ghost.x)==14 && ghost.toCells(ghost.y)==4) {
-            if(availableDirectionDown)
-                ghost.direction = LivingEntity.Direction.DOWN;
-        }
-        else if(ghost.toCells(ghost.x)==14 && ghost.toCells(ghost.y)==0) {
-            if(availableDirectionDown)
-                ghost.direction = LivingEntity.Direction.DOWN;
-        }
-        else if(ghost.toCells(ghost.x)==14 && ghost.toCells(ghost.y)==2) {
-            if(availableDirectionLeft)
-                ghost.direction = LivingEntity.Direction.LEFT;
-        }
-        else if(ghost.toCells(ghost.x)==18 && ghost.toCells(ghost.y)==0) {
-            if(availableDirectionLeft)
-                ghost.direction = LivingEntity.Direction.LEFT;
-        }
-        else if(ghost.toCells(ghost.x)==18 && ghost.toCells(ghost.y)==2) {
-            if(availableDirectionLeft)
-                ghost.direction = LivingEntity.Direction.LEFT;
-        }
-        else if(ghost.toCells(ghost.x)==18 && ghost.toCells(ghost.y)==4) {
-            if(availableDirectionLeft)
-                ghost.direction = LivingEntity.Direction.LEFT;
-        }
-        else if(ghost.toCells(ghost.x)==10 && ghost.toCells(ghost.y)==0) {
-            if(availableDirectionDown)
-                ghost.direction = LivingEntity.Direction.DOWN;
-        }
-        else if(ghost.toCells(ghost.x)==10 && ghost.toCells(ghost.y)==2) {
-            if(availableDirectionRight)
-                ghost.direction = LivingEntity.Direction.RIGHT;
-        }
-        else if(ghost.toCells(ghost.x)==12 && ghost.toCells(ghost.y)==2) {
-            if(availableDirectionDown)
-                ghost.direction = LivingEntity.Direction.DOWN;
-        }
-        else if(ghost.toCells(ghost.x)==12 && ghost.toCells(ghost.y)==4) {
-            if(availableDirectionLeft)
-                ghost.direction = LivingEntity.Direction.LEFT;
-        }
-        else if(ghost.toCells(ghost.x)==10 && ghost.toCells(ghost.y)==4) {
-            if(availableDirectionDown)
-                ghost.direction = LivingEntity.Direction.DOWN;
-        }
-        else if(ghost.toCells(ghost.x)==10 && ghost.toCells(ghost.y)==6) {
-            if(availableDirectionLeft)
-                ghost.direction = LivingEntity.Direction.LEFT;
-        }
-        else if(ghost.toCells(ghost.x)==12 && ghost.toCells(ghost.y)==10) {
-            if(availableDirectionUp)
-                ghost.direction = LivingEntity.Direction.UP;
-        }
-        else if(ghost.toCells(ghost.x)==12 && ghost.toCells(ghost.y)==12) {
-            if(availableDirectionUp)
-                ghost.direction = LivingEntity.Direction.UP;
-        }
-        else if(ghost.toCells(ghost.x)==12 && ghost.toCells(ghost.y)==4) {
-            if(availableDirectionLeft)
-                ghost.direction = LivingEntity.Direction.LEFT;
-        }
-        else if(ghost.toCells(ghost.x)==10 && ghost.toCells(ghost.y)==14) {
-            if(availableDirectionUp)
-                ghost.direction = LivingEntity.Direction.UP;
-        }
-        else if(ghost.toCells(ghost.x)==10 && ghost.toCells(ghost.y)==12) {
-            if(availableDirectionRight)
-                ghost.direction = LivingEntity.Direction.RIGHT;
-        }
-        else if(ghost.toCells(ghost.x)==12 && ghost.toCells(ghost.y)==16) {
-            if(availableDirectionUp)
-                ghost.direction = LivingEntity.Direction.UP;
-        }
-        else if(ghost.toCells(ghost.x)==10 && ghost.toCells(ghost.y)==18) {
-            if(availableDirectionUp)
-                ghost.direction = LivingEntity.Direction.UP;
-        }
-        else if(ghost.toCells(ghost.x)==10 && ghost.toCells(ghost.y)==16) {
-            if(availableDirectionRight)
-                ghost.direction = LivingEntity.Direction.RIGHT;
-        }
-        else if(ghost.toCells(ghost.x)==8 && ghost.toCells(ghost.y)==18) {
-            if(availableDirectionUp)
-                ghost.direction = LivingEntity.Direction.UP;
-        }
-        else if(ghost.toCells(ghost.x)==8 && ghost.toCells(ghost.y)==16) {
-            if(availableDirectionLeft)
-                ghost.direction = LivingEntity.Direction.LEFT;
-        }
-        else if(ghost.toCells(ghost.x)==2 && ghost.toCells(ghost.y)==14) {
-            if(availableDirectionLeft)
-                ghost.direction = LivingEntity.Direction.LEFT;
-        }
-        else if(ghost.toCells(ghost.x)==8 && ghost.toCells(ghost.y)==2) {
-            if(availableDirectionLeft)
-                ghost.direction = LivingEntity.Direction.LEFT;
-        }
-        else if(ghost.toCells(ghost.x)==0 && ghost.toCells(ghost.y)==0) {
-            if(availableDirectionDown)
-                ghost.direction = LivingEntity.Direction.DOWN;
-        }
-        else if(ghost.toCells(ghost.x)==4 && ghost.toCells(ghost.y)==0) {
-            if(availableDirectionDown)
-                ghost.direction = LivingEntity.Direction.DOWN;
-        }
-        else if(ghost.toCells(ghost.x)==4 && ghost.toCells(ghost.y)==4) {
-            if(availableDirectionDown)
-                ghost.direction = LivingEntity.Direction.DOWN;
-        }
-        else if(ghost.toCells(ghost.x)==0 && ghost.toCells(ghost.y)==2) {
-            if(availableDirectionDown)
-                ghost.direction = LivingEntity.Direction.DOWN;
-        }
-        else if(ghost.toCells(ghost.x)==4 && ghost.toCells(ghost.y)==2) {
-            if(availableDirectionRight)
-                ghost.direction = LivingEntity.Direction.RIGHT;
-        }
-        else if(ghost.toCells(ghost.x)==6 && ghost.toCells(ghost.y)==2) {
-            if(availableDirectionDown)
-                ghost.direction = LivingEntity.Direction.DOWN;
-        }
-        else if(ghost.toCells(ghost.x)==8 && ghost.toCells(ghost.y)==4) {
-            if(availableDirectionDown)
-                ghost.direction = LivingEntity.Direction.DOWN;
-        }
-        else if(ghost.toCells(ghost.x)==0 && ghost.toCells(ghost.y)==4) {
-            if(availableDirectionRight)
-                ghost.direction = LivingEntity.Direction.RIGHT;
-        }
-        else if(ghost.toCells(ghost.x)==4 && ghost.toCells(ghost.y)==8) {
-            if(availableDirectionRight)
-                ghost.direction = LivingEntity.Direction.RIGHT;
-        }
-        else if(ghost.toCells(ghost.x)==6 && ghost.toCells(ghost.y)==6) {
-            if(availableDirectionRight)
-                ghost.direction = LivingEntity.Direction.RIGHT;
-        }
-        else if(ghost.toCells(ghost.x)==6 && ghost.toCells(ghost.y)==4) {
-            if(availableDirectionRight)
-                ghost.direction = LivingEntity.Direction.RIGHT;
-        }
-        else if(ghost.toCells(ghost.x)==0 && ghost.toCells(ghost.y)==12) {
-            if(availableDirectionRight)
-                ghost.direction = LivingEntity.Direction.RIGHT;
-        }
-        else if(ghost.toCells(ghost.x)==0 && ghost.toCells(ghost.y)==16) {
-            if(availableDirectionRight)
-                ghost.direction = LivingEntity.Direction.RIGHT;
-        }
-        else if(ghost.toCells(ghost.x)==4 && ghost.toCells(ghost.y)==12) {
-            if(availableDirectionRight)
-                ghost.direction = LivingEntity.Direction.RIGHT;
-        }
-        else if(ghost.toCells(ghost.x)==10 && ghost.toCells(ghost.y)==18) {
-            if(availableDirectionUp)
-                ghost.direction = LivingEntity.Direction.UP;
-        }
-        else if(ghost.toCells(ghost.x)==6 && ghost.toCells(ghost.y)==12) {
-            if(availableDirectionUp)
-                ghost.direction = LivingEntity.Direction.UP;
-        }
-        else if(ghost.toCells(ghost.x)==6 && ghost.toCells(ghost.y)==8) {
-            if(availableDirectionUp)
-                ghost.direction = LivingEntity.Direction.UP;
-        }
-        else if(ghost.toCells(ghost.x)==4 && ghost.toCells(ghost.y)==16) {
-            if(availableDirectionUp)
-                ghost.direction = LivingEntity.Direction.UP;
-        }
-        else if(ghost.toCells(ghost.x)==0 && ghost.toCells(ghost.y)==18) {
-            if(availableDirectionUp)
-                ghost.direction = LivingEntity.Direction.UP;
-        }
-        else if(ghost.toCells(ghost.x)==2 && ghost.toCells(ghost.y)==16) {
-            if(availableDirectionRight)
-                ghost.direction = LivingEntity.Direction.RIGHT;
-        }
-        else if(ghost.toCells(ghost.x)==0 && ghost.toCells(ghost.y)==14) {
-            if(availableDirectionUp)
-                ghost.direction = LivingEntity.Direction.UP;
-        }
-        else if(ghost.toCells(ghost.x)==6 && ghost.toCells(ghost.y)==16) {
-            if(availableDirectionUp)
-                ghost.direction = LivingEntity.Direction.UP;
-        }
-        else if(ghost.toCells(ghost.x)==4 && ghost.toCells(ghost.y)==14) {
-            if(availableDirectionUp)
-                ghost.direction = LivingEntity.Direction.UP;
-        }
-        else if(ghost.toCells(ghost.x)==8 && ghost.toCells(ghost.y)==14) {
-            if(availableDirectionUp)
-                ghost.direction = LivingEntity.Direction.UP;
-        }
-        else if(ghost.toCells(ghost.x)==8 && ghost.toCells(ghost.y)==12) {
-            if(availableDirectionLeft)
-                ghost.direction = LivingEntity.Direction.LEFT;
-        }
-        else if(ghost.toCells(ghost.x)==14 && ghost.toCells(ghost.y)==14) {
-            if(availableDirectionUp)
-                ghost.direction = LivingEntity.Direction.UP;
-        }
-        else if(ghost.toCells(ghost.x)==16 && ghost.toCells(ghost.y)==14) {
-            if(availableDirectionRight)
-                ghost.direction = LivingEntity.Direction.RIGHT;
-        }
-        else if(ghost.toCells(ghost.x)==6 && ghost.toCells(ghost.y)==14) {
-            if(availableDirectionLeft)
-                ghost.direction = LivingEntity.Direction.LEFT;
-        }
-        else if(ghost.toCells(ghost.x)==6 && ghost.toCells(ghost.y)==10) {
-            if(availableDirectionUp)
-                ghost.direction = LivingEntity.Direction.UP;
-        }
-        else if(ghost.toCells(ghost.x)==8 && ghost.toCells(ghost.y)==6) {
-            if(availableDirectionRight)
-                ghost.direction = LivingEntity.Direction.RIGHT;
-        }
-        else if(ghost.toCells(ghost.x)==8 && ghost.toCells(ghost.y)==0) {
-            if(availableDirectionDown)
-                ghost.direction = LivingEntity.Direction.DOWN;
-        }
-        else if(ghost.toCells(ghost.x)==12 && ghost.toCells(ghost.y)==14) {
-            if(availableDirectionLeft)
-                ghost.direction = LivingEntity.Direction.LEFT;
-        }
-        else if(ghost.toCells(ghost.x)==9 && ghost.toCells(ghost.y)==8) {
-            ghost.speed=0;
-        }
-        else if(ghost.toCells(ghost.x)==10 && ghost.toCells(ghost.y)==8) {
-            if(availableDirectionLeft)
-                ghost.direction = LivingEntity.Direction.LEFT;
+            } else if (ghost.toCells(ghost.x) == 14 && ghost.toCells(ghost.y) == 16) {
+                if (availableDirectionUp)
+                    ghost.direction = LivingEntity.Direction.UP;
+            } else if (ghost.toCells(ghost.x) == 14 && ghost.toCells(ghost.y) == 8) {
+                if (availableDirectionLeft)
+                    ghost.direction = LivingEntity.Direction.LEFT;
+            } else if (ghost.toCells(ghost.x) == 14 && ghost.toCells(ghost.y) == 12) {
+                if (availableDirectionUp)
+                    ghost.direction = LivingEntity.Direction.UP;
+            } else if (ghost.toCells(ghost.x) == 12 && ghost.toCells(ghost.y) == 8) {
+                if (availableDirectionUp)
+                    ghost.direction = LivingEntity.Direction.UP;
+            } else if (ghost.toCells(ghost.x) == 12 && ghost.toCells(ghost.y) == 6) {
+                if (availableDirectionLeft)
+                    ghost.direction = LivingEntity.Direction.LEFT;
+            } else if (ghost.toCells(ghost.x) == 9 && ghost.toCells(ghost.y) == 6) {
+                if (availableDirectionDown)
+                    ghost.direction = LivingEntity.Direction.DOWN;
+            } else if (ghost.toCells(ghost.x) == 18 && ghost.toCells(ghost.y) == 18) {
+                if (availableDirectionUp)
+                    ghost.direction = LivingEntity.Direction.UP;
+            } else if (ghost.toCells(ghost.x) == 18 && ghost.toCells(ghost.y) == 14) {
+                if (availableDirectionUp)
+                    ghost.direction = LivingEntity.Direction.UP;
+            } else if (ghost.toCells(ghost.x) == 18 && ghost.toCells(ghost.y) == 12) {
+                if (availableDirectionLeft)
+                    ghost.direction = LivingEntity.Direction.LEFT;
+            } else if (ghost.toCells(ghost.x) == 14 && ghost.toCells(ghost.y) == 16) {
+                if (availableDirectionUp)
+                    ghost.direction = LivingEntity.Direction.UP;
+            } else if (ghost.toCells(ghost.x) == 14 && ghost.toCells(ghost.y) == 18) {
+                if (availableDirectionUp)
+                    ghost.direction = LivingEntity.Direction.UP;
+            } else if (ghost.toCells(ghost.x) == 12 && ghost.toCells(ghost.y) == 18) {
+                if (availableDirectionLeft)
+                    ghost.direction = LivingEntity.Direction.LEFT;
+            } else if (ghost.toCells(ghost.x) == 14 && ghost.toCells(ghost.y) == 8) {
+                if (availableDirectionLeft)
+                    ghost.direction = LivingEntity.Direction.LEFT;
+            } else if (ghost.toCells(ghost.x) == 14 && ghost.toCells(ghost.y) == 4) {
+                if (availableDirectionDown)
+                    ghost.direction = LivingEntity.Direction.DOWN;
+            } else if (ghost.toCells(ghost.x) == 14 && ghost.toCells(ghost.y) == 0) {
+                if (availableDirectionDown)
+                    ghost.direction = LivingEntity.Direction.DOWN;
+            } else if (ghost.toCells(ghost.x) == 14 && ghost.toCells(ghost.y) == 2) {
+                if (availableDirectionLeft)
+                    ghost.direction = LivingEntity.Direction.LEFT;
+            } else if (ghost.toCells(ghost.x) == 18 && ghost.toCells(ghost.y) == 0) {
+                if (availableDirectionLeft)
+                    ghost.direction = LivingEntity.Direction.LEFT;
+            } else if (ghost.toCells(ghost.x) == 18 && ghost.toCells(ghost.y) == 2) {
+                if (availableDirectionLeft)
+                    ghost.direction = LivingEntity.Direction.LEFT;
+            } else if (ghost.toCells(ghost.x) == 18 && ghost.toCells(ghost.y) == 4) {
+                if (availableDirectionLeft)
+                    ghost.direction = LivingEntity.Direction.LEFT;
+            } else if (ghost.toCells(ghost.x) == 10 && ghost.toCells(ghost.y) == 0) {
+                if (availableDirectionDown)
+                    ghost.direction = LivingEntity.Direction.DOWN;
+            } else if (ghost.toCells(ghost.x) == 10 && ghost.toCells(ghost.y) == 2) {
+                if (availableDirectionRight)
+                    ghost.direction = LivingEntity.Direction.RIGHT;
+            } else if (ghost.toCells(ghost.x) == 12 && ghost.toCells(ghost.y) == 2) {
+                if (availableDirectionDown)
+                    ghost.direction = LivingEntity.Direction.DOWN;
+            } else if (ghost.toCells(ghost.x) == 12 && ghost.toCells(ghost.y) == 4) {
+                if (availableDirectionLeft)
+                    ghost.direction = LivingEntity.Direction.LEFT;
+            } else if (ghost.toCells(ghost.x) == 10 && ghost.toCells(ghost.y) == 4) {
+                if (availableDirectionDown)
+                    ghost.direction = LivingEntity.Direction.DOWN;
+            } else if (ghost.toCells(ghost.x) == 10 && ghost.toCells(ghost.y) == 6) {
+                if (availableDirectionLeft)
+                    ghost.direction = LivingEntity.Direction.LEFT;
+            } else if (ghost.toCells(ghost.x) == 12 && ghost.toCells(ghost.y) == 10) {
+                if (availableDirectionUp)
+                    ghost.direction = LivingEntity.Direction.UP;
+            } else if (ghost.toCells(ghost.x) == 12 && ghost.toCells(ghost.y) == 12) {
+                if (availableDirectionUp)
+                    ghost.direction = LivingEntity.Direction.UP;
+            } else if (ghost.toCells(ghost.x) == 12 && ghost.toCells(ghost.y) == 4) {
+                if (availableDirectionLeft)
+                    ghost.direction = LivingEntity.Direction.LEFT;
+            } else if (ghost.toCells(ghost.x) == 10 && ghost.toCells(ghost.y) == 14) {
+                if (availableDirectionUp)
+                    ghost.direction = LivingEntity.Direction.UP;
+            } else if (ghost.toCells(ghost.x) == 10 && ghost.toCells(ghost.y) == 12) {
+                if (availableDirectionRight)
+                    ghost.direction = LivingEntity.Direction.RIGHT;
+            } else if (ghost.toCells(ghost.x) == 12 && ghost.toCells(ghost.y) == 16) {
+                if (availableDirectionUp)
+                    ghost.direction = LivingEntity.Direction.UP;
+            } else if (ghost.toCells(ghost.x) == 10 && ghost.toCells(ghost.y) == 18) {
+                if (availableDirectionUp)
+                    ghost.direction = LivingEntity.Direction.UP;
+            } else if (ghost.toCells(ghost.x) == 10 && ghost.toCells(ghost.y) == 16) {
+                if (availableDirectionRight)
+                    ghost.direction = LivingEntity.Direction.RIGHT;
+            } else if (ghost.toCells(ghost.x) == 8 && ghost.toCells(ghost.y) == 18) {
+                if (availableDirectionUp)
+                    ghost.direction = LivingEntity.Direction.UP;
+            } else if (ghost.toCells(ghost.x) == 8 && ghost.toCells(ghost.y) == 16) {
+                if (availableDirectionLeft)
+                    ghost.direction = LivingEntity.Direction.LEFT;
+            } else if (ghost.toCells(ghost.x) == 2 && ghost.toCells(ghost.y) == 14) {
+                if (availableDirectionLeft)
+                    ghost.direction = LivingEntity.Direction.LEFT;
+            } else if (ghost.toCells(ghost.x) == 8 && ghost.toCells(ghost.y) == 2) {
+                if (availableDirectionLeft)
+                    ghost.direction = LivingEntity.Direction.LEFT;
+            } else if (ghost.toCells(ghost.x) == 0 && ghost.toCells(ghost.y) == 0) {
+                if (availableDirectionDown)
+                    ghost.direction = LivingEntity.Direction.DOWN;
+            } else if (ghost.toCells(ghost.x) == 4 && ghost.toCells(ghost.y) == 0) {
+                if (availableDirectionDown)
+                    ghost.direction = LivingEntity.Direction.DOWN;
+            } else if (ghost.toCells(ghost.x) == 4 && ghost.toCells(ghost.y) == 4) {
+                if (availableDirectionDown)
+                    ghost.direction = LivingEntity.Direction.DOWN;
+            } else if (ghost.toCells(ghost.x) == 0 && ghost.toCells(ghost.y) == 2) {
+                if (availableDirectionDown)
+                    ghost.direction = LivingEntity.Direction.DOWN;
+            } else if (ghost.toCells(ghost.x) == 4 && ghost.toCells(ghost.y) == 2) {
+                if (availableDirectionRight)
+                    ghost.direction = LivingEntity.Direction.RIGHT;
+            } else if (ghost.toCells(ghost.x) == 6 && ghost.toCells(ghost.y) == 2) {
+                if (availableDirectionDown)
+                    ghost.direction = LivingEntity.Direction.DOWN;
+            } else if (ghost.toCells(ghost.x) == 8 && ghost.toCells(ghost.y) == 4) {
+                if (availableDirectionDown)
+                    ghost.direction = LivingEntity.Direction.DOWN;
+            } else if (ghost.toCells(ghost.x) == 0 && ghost.toCells(ghost.y) == 4) {
+                if (availableDirectionRight)
+                    ghost.direction = LivingEntity.Direction.RIGHT;
+            } else if (ghost.toCells(ghost.x) == 4 && ghost.toCells(ghost.y) == 8) {
+                if (availableDirectionRight)
+                    ghost.direction = LivingEntity.Direction.RIGHT;
+            } else if (ghost.toCells(ghost.x) == 6 && ghost.toCells(ghost.y) == 6) {
+                if (availableDirectionRight)
+                    ghost.direction = LivingEntity.Direction.RIGHT;
+            } else if (ghost.toCells(ghost.x) == 6 && ghost.toCells(ghost.y) == 4) {
+                if (availableDirectionRight)
+                    ghost.direction = LivingEntity.Direction.RIGHT;
+            } else if (ghost.toCells(ghost.x) == 0 && ghost.toCells(ghost.y) == 12) {
+                if (availableDirectionRight)
+                    ghost.direction = LivingEntity.Direction.RIGHT;
+            } else if (ghost.toCells(ghost.x) == 0 && ghost.toCells(ghost.y) == 16) {
+                if (availableDirectionRight)
+                    ghost.direction = LivingEntity.Direction.RIGHT;
+            } else if (ghost.toCells(ghost.x) == 4 && ghost.toCells(ghost.y) == 12) {
+                if (availableDirectionRight)
+                    ghost.direction = LivingEntity.Direction.RIGHT;
+            } else if (ghost.toCells(ghost.x) == 10 && ghost.toCells(ghost.y) == 18) {
+                if (availableDirectionUp)
+                    ghost.direction = LivingEntity.Direction.UP;
+            } else if (ghost.toCells(ghost.x) == 6 && ghost.toCells(ghost.y) == 12) {
+                if (availableDirectionUp)
+                    ghost.direction = LivingEntity.Direction.UP;
+            } else if (ghost.toCells(ghost.x) == 6 && ghost.toCells(ghost.y) == 8) {
+                if (availableDirectionUp)
+                    ghost.direction = LivingEntity.Direction.UP;
+            } else if (ghost.toCells(ghost.x) == 4 && ghost.toCells(ghost.y) == 16) {
+                if (availableDirectionUp)
+                    ghost.direction = LivingEntity.Direction.UP;
+            } else if (ghost.toCells(ghost.x) == 0 && ghost.toCells(ghost.y) == 18) {
+                if (availableDirectionUp)
+                    ghost.direction = LivingEntity.Direction.UP;
+            } else if (ghost.toCells(ghost.x) == 2 && ghost.toCells(ghost.y) == 16) {
+                if (availableDirectionRight)
+                    ghost.direction = LivingEntity.Direction.RIGHT;
+            } else if (ghost.toCells(ghost.x) == 0 && ghost.toCells(ghost.y) == 14) {
+                if (availableDirectionUp)
+                    ghost.direction = LivingEntity.Direction.UP;
+            } else if (ghost.toCells(ghost.x) == 6 && ghost.toCells(ghost.y) == 16) {
+                if (availableDirectionUp)
+                    ghost.direction = LivingEntity.Direction.UP;
+            } else if (ghost.toCells(ghost.x) == 4 && ghost.toCells(ghost.y) == 14) {
+                if (availableDirectionUp)
+                    ghost.direction = LivingEntity.Direction.UP;
+            } else if (ghost.toCells(ghost.x) == 8 && ghost.toCells(ghost.y) == 14) {
+                if (availableDirectionUp)
+                    ghost.direction = LivingEntity.Direction.UP;
+            } else if (ghost.toCells(ghost.x) == 8 && ghost.toCells(ghost.y) == 12) {
+                if (availableDirectionLeft)
+                    ghost.direction = LivingEntity.Direction.LEFT;
+            } else if (ghost.toCells(ghost.x) == 14 && ghost.toCells(ghost.y) == 14) {
+                if (availableDirectionUp)
+                    ghost.direction = LivingEntity.Direction.UP;
+            } else if (ghost.toCells(ghost.x) == 16 && ghost.toCells(ghost.y) == 14) {
+                if (availableDirectionRight)
+                    ghost.direction = LivingEntity.Direction.RIGHT;
+            } else if (ghost.toCells(ghost.x) == 6 && ghost.toCells(ghost.y) == 14) {
+                if (availableDirectionLeft)
+                    ghost.direction = LivingEntity.Direction.LEFT;
+            } else if (ghost.toCells(ghost.x) == 6 && ghost.toCells(ghost.y) == 10) {
+                if (availableDirectionUp)
+                    ghost.direction = LivingEntity.Direction.UP;
+            } else if (ghost.toCells(ghost.x) == 8 && ghost.toCells(ghost.y) == 6) {
+                if (availableDirectionRight)
+                    ghost.direction = LivingEntity.Direction.RIGHT;
+            } else if (ghost.toCells(ghost.x) == 8 && ghost.toCells(ghost.y) == 0) {
+                if (availableDirectionDown)
+                    ghost.direction = LivingEntity.Direction.DOWN;
+            } else if (ghost.toCells(ghost.x) == 12 && ghost.toCells(ghost.y) == 14) {
+                if (availableDirectionLeft)
+                    ghost.direction = LivingEntity.Direction.LEFT;
+            } else if (ghost.toCells(ghost.x) == 9 && ghost.toCells(ghost.y) == 8) {
+                ghost.speed = 0;
+            } else if (ghost.toCells(ghost.x) == 10 && ghost.toCells(ghost.y) == 8) {
+                if (availableDirectionLeft)
+                    ghost.direction = LivingEntity.Direction.LEFT;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-
 }
