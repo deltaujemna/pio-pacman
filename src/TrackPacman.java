@@ -16,12 +16,25 @@ public class TrackPacman {
     public void trackPacman() {
         findAvailableDirectory();
         if (!samePath()) {
+            dontTurnBack(ghost.direction);
             int ghostNumber = ghost.ghostNumber;
             if (countAvailableDirection() > 2) {
                 decideDirectionGhostNum(ghostNumber);
             } else if (!ghost.canMoveThisDirection(ghost.direction)) {
                 decideDirectionGhostNum(ghostNumber);
             }
+        }
+    }
+
+    private void dontTurnBack(LivingEntity.Direction direction) {
+        if (direction == LivingEntity.Direction.LEFT) {
+            availableDirectoryRight = false;
+        } else if (direction == LivingEntity.Direction.RIGHT) {
+            availableDirectoryLeft = false;
+        } else if (direction == LivingEntity.Direction.UP) {
+            availableDirectoryDown = false;
+        } else if (direction == LivingEntity.Direction.DOWN) {
+            availableDirectoryUp = false;
         }
     }
 
@@ -50,17 +63,19 @@ public class TrackPacman {
     private void decideDirection1() {
         Random rand = new Random();
         int timesRandomDirector = 0;
-        while (timesRandomDirector < 10) {
+        while (timesRandomDirector < 3) {
             int tempDirection = rand.nextInt(4);
-            if (tempDirection == 0  )
+            if (tempDirection == 0 && availableDirectoryRight) {
                 ghost.direction = LivingEntity.Direction.RIGHT;
-            if (tempDirection == 1)
+                return;
+            } else if (tempDirection == 1 && availableDirectoryUp) {
                 ghost.direction = LivingEntity.Direction.UP;
-            if (tempDirection == 2)
+                return;
+            } else if (tempDirection == 2 && availableDirectoryDown) {
                 ghost.direction = LivingEntity.Direction.DOWN;
-            if (tempDirection == 3)
+                return;
+            } else if (tempDirection == 3 && availableDirectoryLeft) {
                 ghost.direction = LivingEntity.Direction.LEFT;
-            if (ghost.canMoveThisDirection(ghost.direction)) {
                 return;
             }
             timesRandomDirector++;
@@ -82,9 +97,7 @@ public class TrackPacman {
 
     // orange ghost
     public void decideDirection3() {
-        if (!ghost.canMoveThisDirection(ghost.direction)) {
-            smartDicideDirection();
-        }
+        decideDirection1();
     }
 
     private void smartDicideDirection() {
@@ -99,28 +112,36 @@ public class TrackPacman {
                 if (isLeft) {
                     if (availableDirectoryLeft) {
                         ghost.direction = LivingEntity.Direction.LEFT;
-                    } else {
-                        moveDownorUp(isUp);
+                    } else if (! moveDownorUp(isUp)) {
+                        if (availableDirectoryRight) {
+                            ghost.direction = LivingEntity.Direction.RIGHT;
+                        }
                     }
                 } else {
                     if (availableDirectoryRight) {
                         ghost.direction = LivingEntity.Direction.RIGHT;
-                    } else {
-                        moveDownorUp(isUp);
+                    } else if (!moveDownorUp(isUp)) {
+                        if (availableDirectoryLeft) {
+                            ghost.direction = LivingEntity.Direction.LEFT;
+                        }
                     }
                 }
             } else {
                 if (isUp) {
                     if (availableDirectoryUp) {
                         ghost.direction = LivingEntity.Direction.UP;
-                    } else {
-                        moveLeftorRight(isLeft);
+                    } else if (!moveLeftorRight(isLeft)) {
+                        if (availableDirectoryDown) {
+                            ghost.direction = LivingEntity.Direction.DOWN;
+                        }
                     }
                 } else {
                     if (availableDirectoryDown) {
                         ghost.direction = LivingEntity.Direction.DOWN;
-                    } else {
-                        moveLeftorRight(isLeft);
+                    } else if (!moveLeftorRight(isLeft)) {
+                        if (availableDirectoryUp) {
+                            ghost.direction = LivingEntity.Direction.UP;
+                        }
                     }
                 }
 
@@ -128,24 +149,30 @@ public class TrackPacman {
         }
     }
 
-    private void moveLeftorRight(boolean isLeft) {
+    private boolean moveLeftorRight(boolean isLeft) {
         if (isLeft && availableDirectoryLeft) {
             ghost.direction = LivingEntity.Direction.LEFT;
         } else if (availableDirectoryRight) {
             ghost.direction = LivingEntity.Direction.RIGHT;
         } else if (availableDirectoryLeft) {
             ghost.direction = LivingEntity.Direction.LEFT;
+        } else {
+            return false;
         }
+        return true;
     }
 
-    private void moveDownorUp(boolean isUp) {
+    private boolean moveDownorUp(boolean isUp) {
         if (isUp && availableDirectoryUp) {
             ghost.direction = LivingEntity.Direction.UP;
         } else if (availableDirectoryDown) {
             ghost.direction = LivingEntity.Direction.DOWN;
         } else if (availableDirectoryUp) {
             ghost.direction = LivingEntity.Direction.UP;
+        } else {
+            return false;
         }
+        return true;
     }
 
     // yellow ghost
@@ -230,40 +257,40 @@ public class TrackPacman {
     public void escapeFromPacman() {
         int xDistanceFromPacman = ghost.x - ghost.pacmanX;
         int yDistanceFromPacman = ghost.y - ghost.pacmanY;
+        findAvailableDirectory();
+        dontTurnBack(ghost.direction);
         if (ghost.x == ghost.pacmanX || ghost.y == ghost.pacmanY) {
-            findAvailableDirectory();
-            if ((xDistanceFromPacman * xDistanceFromPacman) > (yDistanceFromPacman * yDistanceFromPacman)) {
-                if (xDistanceFromPacman > 0 && availableDirectoryRight) {
-                    ghost.direction = LivingEntity.Direction.RIGHT;
-                } else if (yDistanceFromPacman > 0 && availableDirectoryDown) {
-                    ghost.direction = LivingEntity.Direction.DOWN;
-                } else if (availableDirectoryUp) {
-                    ghost.direction = LivingEntity.Direction.UP;
-                } else if (availableDirectoryDown) {
-                    ghost.direction = LivingEntity.Direction.DOWN;
-                } else if (availableDirectoryLeft) {
-                    ghost.direction = LivingEntity.Direction.LEFT;
-                } else if (availableDirectoryRight) {
-                    ghost.direction = LivingEntity.Direction.RIGHT;
+            decideDirection1();
+        }
+        if ((xDistanceFromPacman * xDistanceFromPacman) > (yDistanceFromPacman * yDistanceFromPacman)) {
+            if (xDistanceFromPacman > 0 && availableDirectoryRight) {
+                ghost.direction = LivingEntity.Direction.RIGHT;
+            } else if (yDistanceFromPacman > 0 && availableDirectoryDown) {
+                ghost.direction = LivingEntity.Direction.DOWN;
+            } else if (availableDirectoryUp) {
+                ghost.direction = LivingEntity.Direction.UP;
+            } else if (availableDirectoryDown) {
+                ghost.direction = LivingEntity.Direction.DOWN;
+            } else if (availableDirectoryLeft) {
+                ghost.direction = LivingEntity.Direction.LEFT;
+            } else if (availableDirectoryRight) {
+                ghost.direction = LivingEntity.Direction.RIGHT;
 
-                }
-            } else {
-                if (yDistanceFromPacman > 0 && availableDirectoryDown) {
-                    ghost.direction = LivingEntity.Direction.DOWN;
-                } else if (xDistanceFromPacman > 0 && availableDirectoryRight) {
-                    ghost.direction = LivingEntity.Direction.RIGHT;
-                } else if (availableDirectoryLeft) {
-                    ghost.direction = LivingEntity.Direction.LEFT;
-                } else if (availableDirectoryRight) {
-                    ghost.direction = LivingEntity.Direction.RIGHT;
-                } else if (availableDirectoryDown) {
-                    ghost.direction = LivingEntity.Direction.DOWN;
-                } else if (availableDirectoryUp) {
-                    ghost.direction = LivingEntity.Direction.UP;
-                }
             }
         } else {
-            decideDirection1();
+            if (yDistanceFromPacman > 0 && availableDirectoryDown) {
+                ghost.direction = LivingEntity.Direction.DOWN;
+            } else if (xDistanceFromPacman > 0 && availableDirectoryRight) {
+                ghost.direction = LivingEntity.Direction.RIGHT;
+            } else if (availableDirectoryLeft) {
+                ghost.direction = LivingEntity.Direction.LEFT;
+            } else if (availableDirectoryRight) {
+                ghost.direction = LivingEntity.Direction.RIGHT;
+            } else if (availableDirectoryDown) {
+                ghost.direction = LivingEntity.Direction.DOWN;
+            } else if (availableDirectoryUp) {
+                ghost.direction = LivingEntity.Direction.UP;
+            }
         }
 
 

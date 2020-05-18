@@ -77,6 +77,7 @@ public class Ghost extends LivingEntity {
     public void die() {
         this.alive = false;
         this.deadTimeLeft = 10;
+        teleport(toPixels(8), toPixels(8));
     }
 
     public void setFearTimeLeft() {
@@ -85,14 +86,16 @@ public class Ghost extends LivingEntity {
 
 
     public void tick() {
-        if (fearTimeLeft > 0) {
-            trackPacman.escapeFromPacman();
-            fearTimeLeft -= (double) 1 / 60;
-        }else if (deadTimeLeft > 0) {
-            teleport(toPixels(8), toPixels(8));
-            deadTimeLeft -= (double) 1 / 60;
-            if (deadTimeLeft <= 0)
-                alive = true;
+
+        if (deadTimeLeft > 0) {
+            direction = null;
+        }else if (fearTimeLeft > 0) {
+                if (!isBase()) {
+                    if (!teleportGhost()) {
+                        trackPacman.escapeFromPacman();
+                    }
+                }
+
         }else {
             if (!isBase()) {
                 if (!teleportGhost()) {
@@ -102,8 +105,8 @@ public class Ghost extends LivingEntity {
 
         }
 
-        if(!canMoveThisDirection(direction)) {
-            System.out.println("blad ruchu ducha" + ghostNumber);
+        if(!canMoveThisDirection(direction) && direction != null) {
+            System.out.println("blad ruchu ducha" + ghostNumber + alive );
             System.exit(1);
         }
 
