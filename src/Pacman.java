@@ -53,7 +53,7 @@ public class Pacman extends LivingEntity {
 
     // porusza w ustalonym kierunku
     private void move() {
-        if (!teleport() && super.canMoveDirectionFutureAndDirection()) {
+        if (!teleport() && canMoveDirectionFutureAndDirection()) {
             setSpeed(direction);// pętla switch case
         }
     }
@@ -104,7 +104,6 @@ public class Pacman extends LivingEntity {
     @Override
     public void tick() {
         move();
-
         if (powerUpTimeLeft > 0) {
             powerUpTimeLeft -= (double) 1 / 60;
         }
@@ -137,6 +136,43 @@ public class Pacman extends LivingEntity {
                     f.pickup(this);
                 }
             }
+        }
+    }
+
+    private boolean teleport() {
+        if (this.y == 180) {
+            if (this.x < 80) {
+                turboInTeleport();
+                if (this.x <= 20) {
+                    teleport(380, 180);
+                }
+                return true;
+            } else if (this.x > 300) {
+                turboInTeleport();
+                if (this.x >= 380) {
+                    teleport(20, 180);
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void turboInTeleport() {
+        int turbo = 2;
+        if (direction == Direction.LEFT) {
+            x -= turbo;
+        } else if (direction == Direction.RIGHT) {
+            x += turbo;
+        }
+    }
+
+    private boolean canMoveDirectionFutureAndDirection() {
+        if (canMoveThisDirection(this.directionFuture)) {
+            this.direction = directionFuture;
+            return true;
+        } else {
+            return canMoveThisDirection(this.direction);
         }
     }
 

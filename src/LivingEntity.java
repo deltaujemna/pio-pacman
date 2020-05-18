@@ -83,33 +83,10 @@ public abstract class LivingEntity extends Entity {
         return false;
     }
 
-    public boolean canMoveDirectionFutureAndDirection() {
-        if (canMoveThisDirection(this.directionFuture)) {
-            this.direction = directionFuture;
-            return true;
-        } else {
-            return canMoveThisDirection(this.direction);
-        }
-    }
-
     // teleportuje postać na wskazane x, y
     public void teleport(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    public boolean teleport() {
-        if (this.y == 180) {
-            if (this.x == 20) {
-                teleport(toPixels(18), toPixels(8));
-                this.x--;
-                return true;
-            } else if (toCells(this.x) == 18) {
-                teleport(toPixels(0), toPixels(8));
-                this.x++;
-                return true;
-            }
-        }
-        return false;
-    }
 }
