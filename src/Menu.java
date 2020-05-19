@@ -1,6 +1,9 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 public class Menu extends JFrame {
     private MazeFrame mazeFrame;
@@ -15,6 +18,10 @@ public class Menu extends JFrame {
         fullScreenComboBoxItems[1] = "Okno";
         JComboBox fullScreenComboBox = new JComboBox(fullScreenComboBoxItems);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        try {
+            setIconImage(ImageIO.read(new File("Images/pacman_right.png")));
+        } catch (IOException e) {
+        }
         setLayout(null);
         menuPanel.setLayout(null);
         menuPanel.setSize(420, 400);
