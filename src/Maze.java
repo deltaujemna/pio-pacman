@@ -113,7 +113,7 @@ public class Maze extends JPanel {
                     if (grid[randY][randX] && !yellowDots[randY][randX].renderable && !(randX >= 8 && randX <= 10 && (randY == 7 || randY == 8))) {
                         try {
                             fruits.add(new Fruit(randX, randY));
-                        } catch (ConcurrentModificationException ignored) {
+                        } catch (ConcurrentModificationException | NullPointerException ignored) {
                         }
                     }
                 }
