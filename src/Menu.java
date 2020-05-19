@@ -16,11 +16,12 @@ public class Menu extends JFrame {
         String[] fullScreenComboBoxItems = new String[2];
         fullScreenComboBoxItems[0] = "Pełny ekran";
         fullScreenComboBoxItems[1] = "Okno";
-        JComboBox fullScreenComboBox = new JComboBox(fullScreenComboBoxItems);
+        JComboBox<String> fullScreenComboBox = new JComboBox<>(fullScreenComboBoxItems);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         try {
             setIconImage(ImageIO.read(new File("Images/pacman_right.png")));
         } catch (IOException e) {
+            //ignore
         }
         setLayout(null);
         menuPanel.setLayout(null);

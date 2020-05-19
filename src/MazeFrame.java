@@ -27,6 +27,7 @@ public class MazeFrame extends JFrame {
         try {
             setIconImage(ImageIO.read(new File("Images/pacman_right.png")));
         } catch (IOException e) {
+            //ignore
         }
         setResizable(true);
         setMinimumSize(new Dimension(440, 480));
