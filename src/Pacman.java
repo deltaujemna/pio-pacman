@@ -78,6 +78,7 @@ public class Pacman extends LivingEntity {
             teleport(startX, startY);
             for (Ghost ghost : ghosts)
                 ghost.teleport(ghost.startX, ghost.startY);
+            mazeFrame.maze.pause();
         } else if (lives == 0) {
             mazeFrame.running = false;
             mazeFrame.maze.timer.cancel();

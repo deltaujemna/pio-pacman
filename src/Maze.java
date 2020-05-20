@@ -77,6 +77,10 @@ public class Maze extends JPanel {
         resetBoard();
     }
 
+    public void pause() {
+        pauseLeft = 120;
+    }
+
     public void resetBoard() {
         for (int i = 0; i < 19; i++) {
             for (int j = 0; j < 19; j++) {
@@ -140,7 +144,7 @@ public class Maze extends JPanel {
         pacman.pushDots(yellowDots);
         pacman.pushFruits(fruits);
 
-        pauseLeft = 120;
+        pause();
     }
 
     /*Aktualizuje fragment mapy - dla prostokąta przekazanego w argumencie (x, y - współrzędne
