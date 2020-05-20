@@ -153,17 +153,9 @@ public class Pacman extends LivingEntity {
     }
 
     private void renderLives(Graphics g) {
-        if (lives >= 1) {
-            g.setColor(Color.YELLOW);
-            g.fillOval((int) ((330 + Maze.deltaX) * Maze.scale), (int) ((2 + Maze.deltaY) * Maze.scale), (int) (13 * Maze.scale), (int) (13 * Maze.scale));
-        }
-        if (lives >= 2) {
-            g.setColor(Color.YELLOW);
-            g.fillOval((int) ((350 + Maze.deltaX) * Maze.scale), (int) ((2 + Maze.deltaY) * Maze.scale), (int) (13 * Maze.scale), (int) (13 * Maze.scale));
-        }
-        if (lives >= 3) {
-            g.setColor(Color.YELLOW);
-            g.fillOval((int) ((370 + Maze.deltaX) * Maze.scale), (int) ((2 + Maze.deltaY) * Maze.scale), (int) (13 * Maze.scale), (int) (13 * Maze.scale));
+        g.setColor(Color.YELLOW);
+        for (int i = 0; i < lives; i++) {
+            g.fillOval((int) ((340 + i * 20 + Maze.deltaX) * Maze.scale), (int) ((2 + Maze.deltaY) * Maze.scale), (int) (13 * Maze.scale), (int) (13 * Maze.scale));
         }
     }
 
@@ -172,7 +164,7 @@ public class Pacman extends LivingEntity {
         g.setColor(Color.ORANGE);
         g.setFont(new Font("TimesRoman", Font.BOLD, 15));
         g.drawString("Score: " + this.score, (int) ((14 + Maze.deltaX) * Maze.scale), (int) ((14 + Maze.deltaY) * Maze.scale));
-        g.drawString("Lives: ", (int) ((280 + Maze.deltaX) * Maze.scale), (int) ((14 + Maze.deltaY) * Maze.scale));
+        g.drawString("Lives: ", (int) ((340 + Maze.deltaX) * Maze.scale - g.getFontMetrics().getStringBounds("Lives: ", g).getWidth()), (int) ((14 + Maze.deltaY) * Maze.scale));
         g.drawString("Level: " + mazeFrame.maze.getLevel(), (int) ((170 + Maze.deltaX) * Maze.scale), (int) ((14 + Maze.deltaY) * Maze.scale));
 
         renderLives(g);
