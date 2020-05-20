@@ -110,11 +110,11 @@ public class Maze extends JPanel {
                 public void run() {
                     int randX = (int) (Math.random() * 18);
                     int randY = (int) (Math.random() * 18);
-                    if (grid[randY][randX] && !yellowDots[randY][randX].renderable && !(randX >= 8 && randX <= 10 && (randY == 7 || randY == 8))) {
-                        try {
+                    try {
+                        if (grid[randY][randX] && !yellowDots[randY][randX].renderable && !(randX >= 8 && randX <= 10 && (randY == 7 || randY == 8))) {
                             fruits.add(new Fruit(randX, randY));
-                        } catch (ConcurrentModificationException | NullPointerException ignored) {
                         }
+                    } catch(ConcurrentModificationException | NullPointerException ignored) {
                     }
                 }
             }, 5000, 5000);
@@ -211,7 +211,7 @@ public class Maze extends JPanel {
         b *= scale;
         return (int)(Math.round(a + b) - (Math.round(a) + Math.round(b)));
     }
-    
+
     public void drawWall(Graphics g, int x, int y, int w, int h) {
         g.fillRect((int) ((x + deltaX) * scale), (int) Math.round((y + deltaY) * scale), (int) (w * scale), (int) Math.round(h * scale) + flexTape(y + deltaY, h));
     }
