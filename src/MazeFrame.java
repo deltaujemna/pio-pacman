@@ -49,12 +49,19 @@ public class MazeFrame extends JFrame {
             }
         });
 
-        // <=> scheduleWithFixedDelay - lokalne, animacja
+        //scheduleWithFixedDelay - lokalne, animacja
         timer.schedule(new TimerTask() {
-            //TODO - można rozbić na dwa wątki: repaint() tu gdzie jest, a update() do nowego timer.scheduleAtFixedRate
-            public void run() { //jeden wątek do wszystkiego
+            public void run() {
                 if (running) {
                     getContentPane().repaint();
+                }
+            }
+        }, 0, 1000 / 60);
+
+        //scheduleAtFixedRate - globalne, długoczasowe operacje, stała częstotliwość
+        timer.scheduleAtFixedRate(new TimerTask() {
+            public void run() {
+                if (running) {
                     maze.update();
                 }
             }
