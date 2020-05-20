@@ -71,7 +71,6 @@ public abstract class LivingEntity extends Entity {
                     if (!grid[toCells(boundsNext.y + boundsNext.height - 1)][toCells(boundsNext.x + boundsNext.width - 1)])
                         return false;
                 }
-                //System.out.println("speed = " + this.speed+ "direction  "+direction + " "+this ); // ukazuje ze nie dziala duchy
 
                 // wszystkie kąty zostały sprawdzone, kolizji nie będzie
 

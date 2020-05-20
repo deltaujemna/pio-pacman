@@ -33,7 +33,7 @@ public class Maze extends JPanel {
     }
 
     public void update() {
-        if(pauseLeft == 0) {
+        if (pauseLeft == 0) {
             for (Ghost ghost : ghosts) {
                 ghost.pushPacmanX(pacman.x);
                 ghost.pushPacmanY(pacman.y);
@@ -118,7 +118,7 @@ public class Maze extends JPanel {
                         if (grid[randY][randX] && !yellowDots[randY][randX].renderable && !(randX >= 8 && randX <= 10 && (randY == 7 || randY == 8))) {
                             fruits.add(new Fruit(randX, randY));
                         }
-                    } catch(ConcurrentModificationException | NullPointerException ignored) {
+                    } catch (ConcurrentModificationException | NullPointerException ignored) {
                     }
                 }
             }, 5000, 5000);
@@ -205,15 +205,14 @@ public class Maze extends JPanel {
 
     public static double scale = 1.5;
 
-    // przydałoby się wydobyć dla poszczególnego komputera jego full screen,
-    public static int deltaX = 400; // tak akurat dla 1.5 wygląda dobrze, ale np. dla scale = 2 to 200 i 50
-    public static int deltaY = 100;
+    public static int deltaX;
+    public static int deltaY;
 
     // skleja dwie ściany tak, aby nie było między nimi odstępu
     public int flexTape(double a, double b) {
         a *= scale;
         b *= scale;
-        return (int)(Math.round(a + b) - (Math.round(a) + Math.round(b)));
+        return (int) (Math.round(a + b) - (Math.round(a) + Math.round(b)));
     }
 
     public void drawWall(Graphics g, int x, int y, int w, int h) {
@@ -221,7 +220,7 @@ public class Maze extends JPanel {
     }
 
     public void drawBoardCenterAndBigger(Graphics g) {
-        final double boardScale = 0.75; // procent ekranu, jaki plansza ma zajmować (w mniejszym rozmiarze okna)
+        final double boardScale = 0.9; // procent ekranu, jaki plansza ma zajmować (w mniejszym rozmiarze okna)
         final int boardSize = 420; // rozmiar boku planszy bez skalowania w pikselach
 
         final int screenWidth = mazeFrame.getWidth();

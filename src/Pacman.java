@@ -135,7 +135,7 @@ public class Pacman extends LivingEntity {
         }
     }
 
-    
+
     private String decidePacmanImageForRender() {
         String imgPath = "";
         if (direction == Direction.UP) {

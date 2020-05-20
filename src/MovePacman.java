@@ -1,14 +1,17 @@
 public class MovePacman {
     private final Pacman pacman;
-    public MovePacman(Pacman pacman){
+
+    public MovePacman(Pacman pacman) {
         this.pacman = pacman;
     }
+
     // porusza w ustalonym kierunku
     public void move() {
         if (!teleport() && canMoveDirectionFutureAndDirection()) {
             pacman.setSpeed(pacman.direction);// pętla switch case
         }
     }
+
     private boolean teleport() {
         if (pacman.y == 180) {
             if (pacman.x < 60) {
@@ -27,6 +30,7 @@ public class MovePacman {
         }
         return false;
     }
+
     private void turboInTeleport() {
         int turbo = 2;
         if (pacman.direction == LivingEntity.Direction.LEFT) {

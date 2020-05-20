@@ -8,7 +8,7 @@ import java.util.TimerTask;
 
 public class MazeFrame extends JFrame {
     public final Maze maze = new Maze(this);
-    Timer timer = new Timer(); // to chyba można jako daemon (true w argumencie)
+    Timer timer = new Timer(true);
 
     public boolean running = true;
 

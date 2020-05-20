@@ -7,7 +7,7 @@ public class TrackPacman {
     private boolean availableDirectionDown;
     private boolean availableDirectionRight;
     private boolean availableDirectionLeft;
-    boolean pointReached=false;
+    boolean pointReached = false;
 
     public TrackPacman(Ghost ghost) {
         this.ghost = ghost;
@@ -294,6 +294,7 @@ public class TrackPacman {
 
 
     }
+
     public void goToCage() {
         findAvailableDirectory();
         if (availableDirectionUp && !pointReached) {
@@ -529,7 +530,7 @@ public class TrackPacman {
             } else if (ghost.toCells(ghost.x) == 10 && ghost.toCells(ghost.y) == 8) {
                 if (availableDirectionLeft)
                     ghost.direction = LivingEntity.Direction.LEFT;
-            }else {
+            } else {
                 dontTurnBack(ghost.direction);
                 decideDirection1();
             }
