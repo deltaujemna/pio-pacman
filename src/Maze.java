@@ -208,15 +208,15 @@ public class Maze extends JPanel {
     public static int deltaX;
     public static int deltaY;
 
-    // skleja dwie ściany tak, aby nie było między nimi odstępu
-    public int flexTape(double a, double b) {
+    // zwraca 1, jeśli po ścianie po początku w a i długości b powstaje szczelina
+    public int fixWalls(double a, double b) {
         a *= scale;
         b *= scale;
         return (int) (Math.round(a + b) - (Math.round(a) + Math.round(b)));
     }
 
     public void drawWall(Graphics g, int x, int y, int w, int h) {
-        g.fillRect((int) ((x + deltaX) * scale), (int) Math.round((y + deltaY) * scale), (int) (w * scale), (int) Math.round(h * scale) + flexTape(y + deltaY, h));
+        g.fillRect((int) ((x + deltaX) * scale), (int) Math.round((y + deltaY) * scale), (int) (w * scale), (int) Math.round(h * scale) + fixWalls(y + deltaY, h));
     }
 
     public void drawBoardCenterAndBigger(Graphics g) {
