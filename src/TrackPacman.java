@@ -14,7 +14,7 @@ public class TrackPacman {
     }
 
     public void trackPacman() {
-        findAvailableDirectory();
+        findAvailableDirection();
         if (!samePath()) {
             dontTurnBack(ghost.direction);
             int ghostNumber = ghost.ghostNumber;
@@ -229,11 +229,11 @@ public class TrackPacman {
         return false;
     }
 
-    private void findAvailableDirectory() {
-        availableDirectionDown = availableThisDirectory(LivingEntity.Direction.DOWN);
-        availableDirectionLeft = availableThisDirectory(LivingEntity.Direction.LEFT);
-        availableDirectionRight = availableThisDirectory(LivingEntity.Direction.RIGHT);
-        availableDirectionUp = availableThisDirectory(LivingEntity.Direction.UP);
+    private void findAvailableDirection() {
+        availableDirectionDown = availableThisDirection(LivingEntity.Direction.DOWN);
+        availableDirectionLeft = availableThisDirection(LivingEntity.Direction.LEFT);
+        availableDirectionRight = availableThisDirection(LivingEntity.Direction.RIGHT);
+        availableDirectionUp = availableThisDirection(LivingEntity.Direction.UP);
 
     }
 
@@ -250,14 +250,14 @@ public class TrackPacman {
         return tmp;
     }
 
-    private boolean availableThisDirectory(LivingEntity.Direction direction) {
+    private boolean availableThisDirection(LivingEntity.Direction direction) {
         return ghost.canMoveThisDirection(direction);
     }
 
     public void escapeFromPacman() {
         int xDistanceFromPacman = ghost.x - ghost.pacmanX;
         int yDistanceFromPacman = ghost.y - ghost.pacmanY;
-        findAvailableDirectory();
+        findAvailableDirection();
         if (ghost.x != ghost.pacmanX && ghost.y != ghost.pacmanY) {
             dontTurnBack(ghost.direction);
         }
@@ -296,7 +296,7 @@ public class TrackPacman {
     }
 
     public void goToCage() {
-        findAvailableDirectory();
+        findAvailableDirection();
         if (availableDirectionUp && !pointReached) {
             ghost.direction = LivingEntity.Direction.UP;
             pointReached = true;

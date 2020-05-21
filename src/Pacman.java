@@ -116,7 +116,6 @@ public class Pacman extends LivingEntity {
             if (dots[toCells(y + Maze.cellSize / 2)][toCells(x + Maze.cellSize / 2)] != null &&
                     dots[toCells(y + Maze.cellSize / 2)][toCells(x + Maze.cellSize / 2)].renderable) {
                 dots[toCells(y + Maze.cellSize / 2)][toCells(x + Maze.cellSize / 2)].pickup(this);
-                //System.out.println("pozostalo kulek: " + (dotsLeft - 1));
                 if (--dotsLeft == 0) {
                     mazeFrame.maze.levelUp();
                     this.direction = Direction.RIGHT;

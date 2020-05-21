@@ -8,7 +8,7 @@ public class MovePacman {
     // porusza w ustalonym kierunku
     public void move() {
         if (!teleport() && canMoveDirectionFutureAndDirection()) {
-            pacman.setSpeed(pacman.direction);// pętla switch case
+            pacman.setSpeed(pacman.direction);
         }
     }
 

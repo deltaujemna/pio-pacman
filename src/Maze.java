@@ -203,7 +203,7 @@ public class Maze extends JPanel {
         updateMap(120, 320, 20, 60);
     }
 
-    public static double scale = 1.5;
+    public static double scale;
 
     public static int deltaX;
     public static int deltaY;
