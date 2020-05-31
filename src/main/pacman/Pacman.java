@@ -34,6 +34,7 @@ public class Pacman extends LivingEntity {
         this.direction = Direction.RIGHT;
         this.timeRenderCircle = System.nanoTime();
         this.mazeFrame = mazeframe;
+        alive = true;
         movePacman = new MovePacman(this);
     }
 
@@ -196,5 +197,9 @@ public class Pacman extends LivingEntity {
             g.setColor(Color.YELLOW);
             g.fillOval((int) ((x + Maze.deltaX) * Maze.scale), (int) ((y + Maze.deltaY) * Maze.scale), (int) (width * Maze.scale), (int) (height * Maze.scale));
         }
+    }
+
+    public int getScore() {
+        return score;
     }
 }
