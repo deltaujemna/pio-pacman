@@ -1,3 +1,5 @@
+package pacman;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +14,7 @@ public class Pacman extends LivingEntity {
     long timeRenderCircle; //zmienna pomocnicza do animowania ruchu Pacmana
     private final int POWERUP_TIME = 15;
     private int dotsLeft = 199;
+    protected boolean automaticTest = false;
 
     Ghost[] ghosts;
     CollectableEntity[][] dots;
@@ -80,8 +83,15 @@ public class Pacman extends LivingEntity {
                 ghost.teleport(ghost.startX, ghost.startY);
             mazeFrame.maze.pause();
         } else if (lives == 0) {
-            mazeFrame.running = false;
-            mazeFrame.maze.timer.cancel();
+            alive = false;
+            endGame();
+        }
+    }
+
+    public void endGame() {
+        mazeFrame.running = false;
+        mazeFrame.maze.timer.cancel();
+        if (!automaticTest) {
             mazeFrame.dispose();
             Game.menu.setVisible(true);
             JOptionPane.showMessageDialog(Game.menu, "KONIEC GRY!\nZdobyte punkty: " + score,

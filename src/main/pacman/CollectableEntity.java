@@ -1,3 +1,5 @@
+package pacman;
+
 public abstract class CollectableEntity extends Entity {
     int points;
     boolean renderable;

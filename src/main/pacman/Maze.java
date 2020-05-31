@@ -1,3 +1,5 @@
+package pacman;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ public class Maze extends JPanel {
     private CollectableEntity[][] yellowDots;
     private int level;
     Timer timer = new Timer();
-    private int pauseLeft; // ilość pozostałych klatek pauzy
+    protected int pauseLeft; // ilość pozostałych klatek pauzy
 
     private final int[][] powerDotPos = {{2, 0}, {16, 0}, {2, 18}, {16, 18}};
 

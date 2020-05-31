@@ -1,3 +1,5 @@
+package pacman;
+
 import java.awt.*;
 
 public class Dot extends CollectableEntity {

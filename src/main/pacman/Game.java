@@ -1,3 +1,5 @@
+package pacman;
+
 public class Game {
     public static Menu menu;
 

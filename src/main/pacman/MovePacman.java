@@ -1,3 +1,5 @@
+package pacman;
+
 public class MovePacman {
     private final Pacman pacman;
 
