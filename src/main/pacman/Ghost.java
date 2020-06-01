@@ -86,6 +86,9 @@ public class Ghost extends LivingEntity {
         this.fearTimeLeft = 15; //jeżeli 15 sekund trwa power-up
     }
 
+    public double getFearTimeLeft(){
+        return this.fearTimeLeft;
+    }
 
     public void tick() {
         if (alive) {
@@ -123,7 +126,7 @@ public class Ghost extends LivingEntity {
 
     }
 
-    private boolean teleportGhost() {
+    public boolean teleportGhost() {
         if (this.y == 180) {
             if (this.x < 80) {
                 if (direction != Direction.RIGHT) {
