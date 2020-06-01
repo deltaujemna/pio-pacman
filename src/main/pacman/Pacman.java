@@ -170,6 +170,14 @@ public class Pacman extends LivingEntity {
         }
     }
 
+    public double getPowerUpTimeLeft(){
+        return powerUpTimeLeft;
+    }
+
+    public int getPOWERUP_TIME(){
+        return POWERUP_TIME;
+    }
+
     @Override
     public void render(Graphics g) {
         g.setColor(Color.ORANGE);
