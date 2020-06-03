@@ -18,10 +18,6 @@ class LivingEntityTest {
         maze.pacman.automaticTest = true;
     }
 
-    @AfterEach
-    void tearDown() {
-    }
-
     @Test
     void setSpeed_null_direction() {
         int x = maze.pacman.x;
@@ -91,7 +87,7 @@ class LivingEntityTest {
 
     private void update_once(){
         try {
-            Thread.sleep(1010/60); //czekamy na update(), tu następuje wywołanie setSpeed
+            Thread.sleep(1000/60); //czekamy na update(), tu następuje wywołanie setSpeed
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
