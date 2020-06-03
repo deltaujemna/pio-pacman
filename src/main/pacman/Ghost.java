@@ -57,7 +57,7 @@ public class Ghost extends LivingEntity {
         pacmanDirectionFuture = direction;
     }
 
-    private boolean isBase() {
+    protected boolean isBase() {
         if (this.y <= 180 && this.y > 140) {
             if ((180 <= this.x) && (200 > this.x)) {
                 direction = Direction.RIGHT;
