@@ -64,9 +64,9 @@ class PacmanTest {
     }
 
     @Test
-    public void activatePowerupPacmanPowerUpTimeLeft(){
+    public void activatePowerup_pacmanEatsPowerDot_powerupShouldBeActivated() {
         maze.pacman.activatePowerup();
-        assertEquals(maze.pacman.getPowerUpTimeLeft(), maze.pacman.getPOWERUP_TIME());
+        assertEquals(maze.pacman.getPOWERUP_TIME(), maze.pacman.getPowerUpTimeLeft());
     }
 
     @Test
@@ -83,8 +83,8 @@ class PacmanTest {
         int finalScore = maze.pacman.getScore();
 
         assertTrue(maze.pacman.alive);
-        //Pacman nie rusza się z miejsca, więc zjadł tylko 1 kulkę, zatem >100 pkt musi być
-        //za zjedzenie ducha
+        //Pacman nie rusza się z miejsca, więc zjadł tylko 1 kulkę, zatem >100 pkt musi
+        //być za zjedzenie ducha
         assertTrue(finalScore > 100);
         assertFalse(maze.ghosts[0].alive);
     }
@@ -105,7 +105,7 @@ class PacmanTest {
     public void collision_pacmanPowerupNotActiveAndHasOneLife_pacmanDies() {
         int livesBefore = maze.pacman.getLives();
 
-        for(int i = 0; i < livesBefore; i++) {
+        for (int i = 0; i < livesBefore; i++) {
             maze.pacman.collision(maze.ghosts[0]);
         }
 
@@ -114,6 +114,4 @@ class PacmanTest {
         assertTrue(maze.ghosts[0].alive);
         assertFalse(maze.pacman.alive);
     }
-
-
 }

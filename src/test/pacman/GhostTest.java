@@ -3,10 +3,7 @@ package pacman;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GhostTest {
     MazeFrame mazeFrame;
@@ -21,7 +18,7 @@ public class GhostTest {
     }
 
     @Test
-    public void isFrightened_pacmanHasPowerup_ghostsShouldBeFrightened() {
+    public void isFrightened_pacmanHasPowerupActive_ghostsShouldBeFrightened() {
         // given
         maze.pacman.activatePowerup();
 
@@ -32,13 +29,13 @@ public class GhostTest {
     }
 
     @Test
-    public void getFearTimeLeft_pacmanHasPowerup_fearTimeShouldBeSet() {
+    public void getFearTimeLeft_pacmanHasPowerupActive_fearTimeShouldBeSet() {
         // given
         maze.pacman.activatePowerup();
 
         for (Ghost ghost : maze.ghosts) {
             // then
-            assertEquals((int)ghost.getFearTimeLeft(), 15);
+            assertEquals(15, (int) ghost.getFearTimeLeft());
         }
     }
 
@@ -52,7 +49,7 @@ public class GhostTest {
             ghost.tick();
 
             // then
-            assertEquals(ghost.direction, LivingEntity.Direction.RIGHT);
+            assertEquals(LivingEntity.Direction.RIGHT, ghost.direction);
         }
     }
 
@@ -66,7 +63,7 @@ public class GhostTest {
             ghost.tick();
 
             // then
-            assertEquals(ghost.direction, LivingEntity.Direction.LEFT);
+            assertEquals(LivingEntity.Direction.LEFT, ghost.direction);
         }
     }
 
@@ -80,7 +77,7 @@ public class GhostTest {
             ghost.tick();
 
             // then
-            assertEquals(ghost.direction, LivingEntity.Direction.UP);
+            assertEquals(LivingEntity.Direction.UP, ghost.direction);
         }
     }
 
@@ -130,8 +127,6 @@ public class GhostTest {
     public void render_ghostsAreAliveAndFrightened_imgPathShouldLeadToFrightenedGhostsImages() {
         for (Ghost ghost : maze.ghosts) {
             // given
-
-            //ghost.alive = true;
             assertTrue(ghost.alive);
             ghost.setFearTimeLeft();
 
@@ -147,7 +142,6 @@ public class GhostTest {
     public void render_ghostsAreAliveAndNotFrightened_imgPathShouldNotLeadToFrightenedGhostsImages() {
         for (Ghost ghost : maze.ghosts) {
             // given
-            //ghost.alive = true;
             assertTrue(ghost.alive);
 
             // when
@@ -162,7 +156,6 @@ public class GhostTest {
     public void render_ghostsAreAlive_imgPathShouldNotLeadToDeadGhostsImages() {
         for (Ghost ghost : maze.ghosts) {
             // given
-            //ghost.alive = true;
             assertTrue(ghost.alive);
 
             // when
@@ -197,13 +190,11 @@ public class GhostTest {
 
             // when
             ghost.teleportGhost();
-        }
 
-        for (Ghost ghost : maze.ghosts) {
             // then
-            assertEquals(ghost.x, 380);
-            assertEquals(ghost.y, 180);
-            assertEquals(ghost.direction, LivingEntity.Direction.LEFT);
+            assertEquals(380, ghost.x);
+            assertEquals(180, ghost.y);
+            assertEquals(LivingEntity.Direction.LEFT, ghost.direction);
         }
     }
 
@@ -217,13 +208,11 @@ public class GhostTest {
 
             // when
             ghost.teleportGhost();
-        }
 
-        for (Ghost ghost : maze.ghosts) {
             // then
-            assertEquals(ghost.x, 20);
-            assertEquals(ghost.y, 180);
-            assertEquals(ghost.direction, LivingEntity.Direction.RIGHT);
+            assertEquals(20, ghost.x);
+            assertEquals(180, ghost.y);
+            assertEquals(LivingEntity.Direction.RIGHT, ghost.direction);
         }
     }
 }

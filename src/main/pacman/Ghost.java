@@ -12,7 +12,6 @@ public class Ghost extends LivingEntity {
     public int points = 200;     //tymczasowo
     int ghostNumber;//jeżeli każdy duch ma inny kolor
 
-    private final int size = 20;
     long timeDecideDirection;
 
     int pacmanX; //aktualna pozycja Pacmana, żeby można było go śledzić
@@ -31,6 +30,7 @@ public class Ghost extends LivingEntity {
         this.startY = toPixels(y);
         this.x = toPixels(x);
         this.y = toPixels(y);
+        int size = 20;
         this.width = size;
         this.height = size;
         this.speed = 1;
@@ -88,13 +88,13 @@ public class Ghost extends LivingEntity {
         this.fearTimeLeft = 15; //jeżeli 15 sekund trwa power-up
     }
 
-    public double getFearTimeLeft(){
+    public double getFearTimeLeft() {
         return this.fearTimeLeft;
     }
 
     public void tick() {
         if (alive) {
-            this.speed=1;
+            this.speed = 1;
             if (!isBase()) {
                 if (!teleportGhost()) {
                     if (fearTimeLeft > 0) {
@@ -106,11 +106,6 @@ public class Ghost extends LivingEntity {
 
 
             }
-        }
-
-        if (!canMoveThisDirection(direction) && direction != null) {
-            System.out.println("blad ruchu ducha" + ghostNumber + alive);
-            System.exit(1);
         }
 
         setSpeed(direction);
@@ -153,7 +148,6 @@ public class Ghost extends LivingEntity {
 
 
     public void render(Graphics g) {
-
         if (alive) {
             if (isFrightened()) {
                 imgPath = "Images/ghost_frightened.png";

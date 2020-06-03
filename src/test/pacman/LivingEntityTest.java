@@ -3,7 +3,8 @@ package pacman;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class LivingEntityTest {
     MazeFrame mazeFrame;
@@ -72,51 +73,44 @@ class LivingEntityTest {
     }
 
     @Test
-    void canMoveThisDirection_test_Right_direction() {
+    void canMoveThisDirection_directionIsRight_shouldReturnProperValue() {
         int speed = (int) maze.pacman.speed;
-        canMoveThisDirection_test_this_direction(LivingEntity.Direction.UP,speed,0);
-
+        testIfCanMoveThisDirection(LivingEntity.Direction.UP, speed, 0);
     }
 
     @Test
-    void canMoveThisDirection_test_Left_direction() {
+    void canMoveThisDirection_directionIsLeft_shouldReturnProperValue() {
         int speed = -(int) maze.pacman.speed;
-        canMoveThisDirection_test_this_direction(LivingEntity.Direction.UP,speed,0);
-
+        testIfCanMoveThisDirection(LivingEntity.Direction.UP, speed, 0);
     }
 
 
     @Test
-    void canMoveThisDirection_test_Up_direction() {
+    void canMoveThisDirection_directionIsUp_shouldReturnProperValue() {
         int speed = -(int) maze.pacman.speed;
-        canMoveThisDirection_test_this_direction(LivingEntity.Direction.UP,0,speed);
-
+        testIfCanMoveThisDirection(LivingEntity.Direction.UP, 0, speed);
     }
 
     @Test
-    void canMoveThisDirection_test_Down_direction() {
+    void canMoveThisDirection_directionIsDown_shouldReturnProperValue() {
         int speed = (int) maze.pacman.speed;
-        canMoveThisDirection_test_this_direction(LivingEntity.Direction.DOWN,0,speed);
-
+        testIfCanMoveThisDirection(LivingEntity.Direction.DOWN, 0, speed);
     }
-    private void canMoveThisDirection_test_this_direction(LivingEntity.Direction direction,int speedX,int speedY) {
-        int length = maze.pacman.toPixels(maze.grid.length );
-        for(int x =21;x < length;x += 10) {
-            for(int y = 21;y < length ;y+=10) {
 
-                if (maze.grid[maze.pacman.toCells(y +  speedY)][maze.pacman.toCells(x + speedX)]) {
+    @Test
+    void canMoveThisDirection_directionIsNull_shouldIgnore() {
+        testIfCanMoveThisDirection(null, 0, 0);
+    }
+
+    private void testIfCanMoveThisDirection(LivingEntity.Direction direction, int speedX, int speedY) {
+        int length = maze.pacman.toPixels(maze.grid.length);
+        for (int x = 21; x < length; x += 10) {
+            for (int y = 21; y < length; y += 10) {
+
+                if (maze.grid[maze.pacman.toCells(y + speedY)][maze.pacman.toCells(x + speedX)]) {
                     assertFalse(maze.pacman.canMoveThisDirection(direction));
                 }
-
             }
         }
-
     }
-
-    @Test
-    void canMoveThisDirection_test_null_direction() {
-        canMoveThisDirection_test_this_direction(null,0,0);
-
-    }
-
 }
