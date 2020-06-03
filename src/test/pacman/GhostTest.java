@@ -113,7 +113,7 @@ public class GhostTest {
     }
 
     @Test
-    public void isBase_yMoreThan180_shouldeBeOutside() {
+    public void isBase_yMoreThan180_shouldBeOutside() {
         for (Ghost ghost : maze.ghosts) {
             // given
             ghost.y = 181;
