@@ -30,7 +30,7 @@ public class GhostTest {
     }
 
     @Test
-    public void activatePowerup(){
+    public void activatePowerupGhostShouldBeFrightened(){
         maze.pacman.activatePowerup();
         for (Ghost ghost : maze.ghosts) {
             assertTrue(ghost.isFrightened());
@@ -102,7 +102,7 @@ public class GhostTest {
     }
 
     @Test
-    public void teleportGhosts(){
+    public void teleportGhostsWhenNearTeleport(){
         for( Ghost ghost : maze.ghosts){
             ghost.y = 180;
             ghost.x = 20;

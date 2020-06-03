@@ -64,7 +64,7 @@ class PacmanTest {
     }
 
     @Test
-    public void activatePowerup(){
+    public void activatePowerupPacmanPowerUpTimeLeft(){
         maze.pacman.activatePowerup();
         assertEquals(maze.pacman.getPowerUpTimeLeft(), maze.pacman.getPOWERUP_TIME());
     }
