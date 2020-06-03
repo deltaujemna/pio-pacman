@@ -23,6 +23,18 @@ class PacmanTest {
         assertEquals(maze.pacman.getPOWERUP_TIME(), maze.pacman.getPowerUpTimeLeft());
     }
 
+
+    @Test
+    public void activatePowerup_pacmanHasPowerupActive_ghostsShouldBeFrightened() {
+        // given
+        maze.pacman.activatePowerup();
+
+        for (Ghost ghost : maze.ghosts) {
+            // then
+            assertTrue(ghost.isFrightened());
+        }
+    }
+
     @Test
     public void collision_pacmanPowerupActive_ghostDies() {
         maze.pacman.activatePowerup();

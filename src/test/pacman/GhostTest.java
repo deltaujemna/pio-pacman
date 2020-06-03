@@ -18,17 +18,6 @@ public class GhostTest {
     }
 
     @Test
-    public void isFrightened_pacmanHasPowerupActive_ghostsShouldBeFrightened() {
-        // given
-        maze.pacman.activatePowerup();
-
-        for (Ghost ghost : maze.ghosts) {
-            // then
-            assertTrue(ghost.isFrightened());
-        }
-    }
-
-    @Test
     public void getFearTimeLeft_pacmanHasPowerupActive_fearTimeShouldBeSet() {
         // given
         maze.pacman.activatePowerup();
