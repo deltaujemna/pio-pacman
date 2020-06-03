@@ -210,4 +210,8 @@ public class Pacman extends LivingEntity {
     public int getScore() {
         return score;
     }
+
+    public int getLives() {
+        return lives;
+    }
 }
