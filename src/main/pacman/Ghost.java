@@ -21,6 +21,8 @@ public class Ghost extends LivingEntity {
     Direction pacmanDirection;
     Direction pacmanDirectionFuture;
 
+    public String imgPath;
+
     private final TrackPacman trackPacman;
 
     public Ghost(int x, int y, int ghostNumber) {
@@ -151,7 +153,6 @@ public class Ghost extends LivingEntity {
 
 
     public void render(Graphics g) {
-        String imgPath;
 
         if (alive) {
             if (isFrightened()) {
