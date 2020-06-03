@@ -93,4 +93,27 @@ class PacmanTest {
         assertTrue(maze.ghosts[0].alive);
         assertFalse(maze.pacman.alive);
     }
+
+    @Test
+    public void tick_pacmanHasPowerup_DecreasePowerupTimeLeft() {
+        maze.pacman.activatePowerup();
+        double timeLeftBefore = maze.pacman.getPowerUpTimeLeft();
+
+        maze.pacman.tick();
+
+        assertTrue(maze.pacman.getPowerUpTimeLeft() < timeLeftBefore);
+    }
+
+    @Test
+    public void tick_pacmanIntersectsWithDot_increaseScore() {
+        // w momencie rozpoczęcia na każdym polu znajduje się punkt
+        // w celu zebrania dokładnie jednego punktu kierujemy pacmana w ścianę, aby nie mógł się poruszyć
+        maze.pacman.direction = LivingEntity.Direction.DOWN;
+
+        maze.pacman.tick();
+
+        Dot testDot = new Dot(-10, -10); // w celu pobrania punktów za zebranie tworzymy punkt poza planszą
+        assertEquals(testDot.points, maze.pacman.getScore());
+    }
+
 }
