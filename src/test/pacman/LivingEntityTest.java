@@ -114,28 +114,24 @@ class LivingEntityTest {
 
     @Test
     void canMoveThisDirection_test_Up_direction() {
-        int x = maze.pacman.x;
-        int y = maze.pacman.y;
-        maze.pacman.direction = LivingEntity.Direction.UP;
-
-        update_once();
-
-        assertEquals(x, maze.pacman.x);
-        assertEquals(y, maze.pacman.y);
+        int speed = -(int) maze.pacman.speed;
+        canMoveThisDirection_test_this_direction(LivingEntity.Direction.UP,0,speed);
 
     }
 
     @Test
     void canMoveThisDirection_test_Down_direction() {
+        int speed = (int) maze.pacman.speed;
+        canMoveThisDirection_test_this_direction(LivingEntity.Direction.DOWN,0,speed);
+
+    }
+    private void canMoveThisDirection_test_this_direction(LivingEntity.Direction direction,int speedX,int speedY) {
         int length = maze.pacman.toPixels(maze.grid.length );
         for(int x =21;x < length;x += 10) {
             for(int y = 21;y < length ;y+=10) {
 
-                int pacmanSpeed = (int) maze.pacman.speed;
-
-
-                if (maze.grid[maze.pacman.toCells(y-pacmanSpeed)][maze.pacman.toCells(x)]) {
-                    assertFalse(maze.pacman.canMoveThisDirection(LivingEntity.Direction.DOWN));
+                if (maze.grid[maze.pacman.toCells(y +  speedY)][maze.pacman.toCells(x + speedX)]) {
+                    assertFalse(maze.pacman.canMoveThisDirection(direction));
                 }
 
             }
