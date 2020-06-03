@@ -97,20 +97,53 @@ class LivingEntityTest {
         }
     }
 
-    @Test
-    void canMoveThisDirection() {
-        System.out.println(maze.grid[1].length);
-        for(int i = 0;i < maze.grid.length;i++){
-            for(int z = 0;z < maze.grid[i].length;z++){
-                System.out.println(maze.grid[i][z]);
-            }
-        }
-
-
-    }
+//    @Test
+//    void canMoveThisDirection() {
+//        System.out.println(maze.getWidth());
+//        System.out.println(maze.getHeight());
+//        for(int x = 21;x < (maze.pacman.toPixels(maze.grid.length) - 1) ;x++) {
+//            for (int y = 21; y < (maze.pacman.toPixels(maze.grid.length) - 1); y++) {
+//                maze.pacman.x = x;
+//                maze.pacman.y = y;
+//                maze.pacman.direction = null;
+//
+//                boolean tmp = maze.grid[maze.pacman.toCells(x)][maze.pacman.toCells(y)];
+//
+//                update_once();
+//
+//                if (!tmp) {
+//                    assertEquals(x,maze.pacman.x);
+//                    assertEquals(y,maze.pacman.y);
+//                }
+//            }
+//
+//
+//        }
+//    }
+//    @Test
+//    void canMoveThisDirection_1() {
+//        int x = 100;
+//        int y = 200;
+//        maze.pacman.x = x;
+//        maze.pacman.y = y;
+//        maze.pacman.direction = LivingEntity.Direction.RIGHT;
+//
+//        boolean tmp = maze.grid[maze.pacman.toCells((int) (x + maze.pacman.speed))][maze.pacman.toCells(y)];
+//
+//        update_once();
+//
+//        if (tmp) {
+//            assertEquals(x, maze.pacman.x);
+//            assertEquals(y, maze.pacman.y);
+//        }else {
+//            assertEquals(x +maze.pacman.speed,maze.pacman.x);
+//        }
+//    }
 
     @Test
     void teleport() {
+
+
     }
 
 }
