@@ -13,8 +13,7 @@ class LivingEntityTest {
     void setUp() {
         mazeFrame = new MazeFrame("Test", false);
         maze = mazeFrame.maze;
-        maze.pauseLeft = 0;
-        maze.pacman.automaticTest = true;
+        maze.pauseLeft = 1000;
     }
 
     @Test
@@ -73,41 +72,16 @@ class LivingEntityTest {
     }
 
     @Test
-    void canMoveThisDirection_test_null_direction() {
-        int x = maze.pacman.x;
-        int y = maze.pacman.y;
-        maze.pacman.direction = null;
-
-        update_once();
-
-        assertEquals(x, maze.pacman.x);
-        assertEquals(y, maze.pacman.y);
-
-    }
-
-    @Test
     void canMoveThisDirection_test_Right_direction() {
-        int x = maze.pacman.x;
-        int y = maze.pacman.y;
-        maze.pacman.direction = LivingEntity.Direction.RIGHT;
-
-        update_once();
-
-        assertEquals(x + maze.pacman.speed, maze.pacman.x);
-        assertEquals(y, maze.pacman.y);
+        int speed = (int) maze.pacman.speed;
+        canMoveThisDirection_test_this_direction(LivingEntity.Direction.UP,speed,0);
 
     }
 
     @Test
     void canMoveThisDirection_test_Left_direction() {
-        int x = maze.pacman.x;
-        int y = maze.pacman.y;
-        maze.pacman.direction = LivingEntity.Direction.LEFT;
-
-        update_once();
-
-        assertEquals(x - maze.pacman.speed, maze.pacman.x);
-        assertEquals(y, maze.pacman.y);
+        int speed = -(int) maze.pacman.speed;
+        canMoveThisDirection_test_this_direction(LivingEntity.Direction.UP,speed,0);
 
     }
 
@@ -139,12 +113,10 @@ class LivingEntityTest {
 
     }
 
-    private void update_once() {
-        try {
-            Thread.sleep(1500 / 60); //czekamy na update(), tu następuje wywołanie canMoveThisDirection_test
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    @Test
+    void canMoveThisDirection_test_null_direction() {
+        canMoveThisDirection_test_this_direction(null,0,0);
+
     }
 
 }
