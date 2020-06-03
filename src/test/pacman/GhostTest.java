@@ -21,7 +21,7 @@ public class GhostTest {
     }
 
     @Test
-    public void isFrightened_activatePowerup_GhostsShouldBeFrightened() {
+    public void isFrightened_pacmanHasPowerup_ghostsShouldBeFrightened() {
         // given
         maze.pacman.activatePowerup();
 
@@ -32,7 +32,7 @@ public class GhostTest {
     }
 
     @Test
-    public void getFearTimeLeft_activatePowerup_FearTimeShouldBe15() {
+    public void getFearTimeLeft_pacmanHasPowerup_fearTimeShouldBeSet() {
         // given
         maze.pacman.activatePowerup();
 
@@ -85,7 +85,7 @@ public class GhostTest {
     }
 
     @Test
-    public void isBase_xLessThan180_shouldeBeOutside() {
+    public void isBase_xLessThan180_shouldBeOutside() {
         for (Ghost ghost : maze.ghosts) {
             // given
             ghost.x = 179;
@@ -99,7 +99,7 @@ public class GhostTest {
     }
 
     @Test
-    public void isBase_yLessThan141_shouldeBeOutside() {
+    public void isBase_yLessThan141_shouldBeOutside() {
         for (Ghost ghost : maze.ghosts) {
             // given
             ghost.y = 140;
@@ -130,7 +130,9 @@ public class GhostTest {
     public void render_ghostsAreAliveAndFrightened_imgPathShouldLeadToFrightenedGhostsImages() {
         for (Ghost ghost : maze.ghosts) {
             // given
-            ghost.alive = true;
+
+            //ghost.alive = true;
+            assertTrue(ghost.alive);
             ghost.setFearTimeLeft();
 
             // when
@@ -145,7 +147,8 @@ public class GhostTest {
     public void render_ghostsAreAliveAndNotFrightened_imgPathShouldNotLeadToFrightenedGhostsImages() {
         for (Ghost ghost : maze.ghosts) {
             // given
-            ghost.alive = true;
+            //ghost.alive = true;
+            assertTrue(ghost.alive);
 
             // when
             ghost.render(mazeFrame.getGraphics());
@@ -159,7 +162,8 @@ public class GhostTest {
     public void render_ghostsAreAlive_imgPathShouldNotLeadToDeadGhostsImages() {
         for (Ghost ghost : maze.ghosts) {
             // given
-            ghost.alive = true;
+            //ghost.alive = true;
+            assertTrue(ghost.alive);
 
             // when
             ghost.render(mazeFrame.getGraphics());
@@ -184,7 +188,7 @@ public class GhostTest {
     }
 
     @Test
-    public void teleportGhost_WhenNearTeleport_SameY_XLargerBy360_SameDirection() {
+    public void teleportGhost_ghostNearTeleport_shouldMoveToRightSideOfMapAndNotChangeDirection() {
         for (Ghost ghost : maze.ghosts) {
             // given
             ghost.x = 20;
@@ -204,7 +208,7 @@ public class GhostTest {
     }
 
     @Test
-    public void teleportGhost_WhenNearTeleport_SameY_XSmallerBy360_SameDirection() {
+    public void teleportGhost_ghostNearTeleport_shouldMoveToLeftSideOfMapAndNotChangeDirection() {
         for (Ghost ghost : maze.ghosts) {
             // given
             ghost.x = 380;
