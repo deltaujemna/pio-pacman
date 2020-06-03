@@ -89,5 +89,31 @@ class PacmanTest {
         assertFalse(maze.ghosts[0].alive);
     }
 
+    @Test
+    public void collision_pacmanPowerupNotActive_ghostIsAliveAndPacmanLosesLife() {
+        int livesBefore = maze.pacman.getLives();
+
+        maze.pacman.collision(maze.pacman.ghosts[0]);
+
+        assertEquals(livesBefore - 1, maze.pacman.getLives());
+        assertEquals(0, maze.pacman.getScore());
+        assertTrue(maze.ghosts[0].alive);
+        assertTrue(maze.pacman.alive); // pacman wciąż ma życia
+    }
+
+    @Test
+    public void collision_pacmanPowerupNotActiveAndHasOneLife_pacmanDies() {
+        int livesBefore = maze.pacman.getLives();
+
+        for(int i = 0; i < livesBefore; i++) {
+            maze.pacman.collision(maze.ghosts[0]);
+        }
+
+        assertEquals(0, maze.pacman.getLives());
+        assertEquals(0, maze.pacman.getScore());
+        assertTrue(maze.ghosts[0].alive);
+        assertFalse(maze.pacman.alive);
+    }
+
 
 }
