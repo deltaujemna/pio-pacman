@@ -20,7 +20,7 @@ class PacmanTest {
     @Test
     public void activatePowerup_pacmanEatsPowerDot_powerupShouldBeActivated() {
         maze.pacman.activatePowerup();
-        assertEquals(maze.pacman.getPOWERUP_TIME(), maze.pacman.getPowerUpTimeLeft());
+        assertTrue(maze.pacman.getPowerUpTimeLeft() > 0);
     }
 
 
