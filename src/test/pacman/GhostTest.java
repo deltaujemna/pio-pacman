@@ -30,6 +30,15 @@ public class GhostTest {
     }
 
     @Test
+    public void activatePowerup(){
+        maze.pacman.activatePowerup();
+        for (Ghost ghost : maze.ghosts) {
+            assertTrue(ghost.isFrightened());
+            assertEquals(ghost.getFearTimeLeft(), 15);
+        }
+
+    }
+    @Test
     public void isBase_directionShouldBeLEFT() {
         for (Ghost ghost : maze.ghosts) {
             ghost.x = 220;
@@ -91,5 +100,35 @@ public class GhostTest {
             assertTrue(ghost.imgPath.startsWith("Images/ghost_dead"));
         }
     }
+
+    @Test
+    public void teleportGhosts(){
+        for( Ghost ghost : maze.ghosts){
+            ghost.y = 180;
+            ghost.x = 20;
+            ghost.direction = LivingEntity.Direction.LEFT;
+            ghost.teleportGhost();
+        }
+
+        for( Ghost ghost : maze.ghosts){
+            assertEquals(ghost.x, 380);
+            assertEquals(ghost.y, 180);
+            assertEquals(ghost.direction, LivingEntity.Direction.LEFT);
+        }
+
+        for( Ghost ghost : maze.ghosts){
+            ghost.y = 180;
+            ghost.x = 380;
+            ghost.direction = LivingEntity.Direction.RIGHT;
+            ghost.teleportGhost();
+        }
+
+        for( Ghost ghost : maze.ghosts){
+            assertEquals(ghost.x, 20);
+            assertEquals(ghost.y, 180);
+            assertEquals(ghost.direction, LivingEntity.Direction.RIGHT);
+        }
+    }
+
 
 }
