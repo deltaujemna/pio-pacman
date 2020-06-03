@@ -127,20 +127,16 @@ class LivingEntityTest {
 
     @Test
     void canMoveThisDirection_test_Down_direction() {
-        int length = maze.pacman.toPixels(maze.grid.length - 2);
-        for(int i =0;i < length;i += 10) {
-            int x = 21;
-            int y = maze.pacman.y;
-            int pacmanSpeed = (int) maze.pacman.speed;
+        int length = maze.pacman.toPixels(maze.grid.length );
+        for(int x =21;x < length;x += 10) {
+            for(int y = 21;y < length ;y+=10) {
 
-            update_once();
+                int pacmanSpeed = (int) maze.pacman.speed;
 
-            if (maze.grid[maze.pacman.toCells(y)][maze.pacman.toCells(x - pacmanSpeed)]) {
-                assertFalse(maze.pacman.canMoveThisDirection(LivingEntity.Direction.DOWN));
-                System.out.println("trala");
-            } else {
-                System.out.println("tsk");
-                assertTrue(maze.pacman.canMoveThisDirection(LivingEntity.Direction.DOWN));
+
+                if (maze.grid[maze.pacman.toCells(y-pacmanSpeed)][maze.pacman.toCells(x)]) {
+                    assertFalse(maze.pacman.canMoveThisDirection(LivingEntity.Direction.DOWN));
+                }
 
             }
         }
